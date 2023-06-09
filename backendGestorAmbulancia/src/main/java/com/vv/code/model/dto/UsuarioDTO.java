@@ -1,17 +1,9 @@
-package com.vv.code.model.entity;
+package com.vv.code.model.dto;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class UsuarioDTO {
 
-@Entity
-@Table
-public class Secretaria {
-
-	@Id
-	private Long id;
 	private String cedula;
 	private String nombres;
 	private String apellidos;
@@ -22,14 +14,6 @@ public class Secretaria {
 
 	private String nombreUsuario;
 	private String contrasena;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
 
 	public String getCedula() {
 		return cedula;
@@ -102,5 +86,4 @@ public class Secretaria {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-
 }

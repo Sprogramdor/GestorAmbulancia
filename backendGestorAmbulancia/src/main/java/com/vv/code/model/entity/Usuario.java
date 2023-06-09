@@ -1,9 +1,29 @@
-package com.vv.code.model.dto;
+package com.vv.code.model.entity;
 
 import java.util.Date;
 
-public class SecretariaDTO {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
+@Entity
+@Table
+/**
+ * @author Natanael Muñoz
+ * @version 1.0 Date: 09/06/2023
+ */
+public class Usuario {
+
+	@Id
+	@SequenceGenerator(name = "usuario_id_seq", sequenceName = "usuario_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_id_seq")
+	private Long id;
 	private String cedula;
 	private String nombres;
 	private String apellidos;
@@ -14,6 +34,18 @@ public class SecretariaDTO {
 
 	private String nombreUsuario;
 	private String contrasena;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "rol", referencedColumnName = "id")
+	private Roles rol;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getCedula() {
 		return cedula;
@@ -86,4 +118,17 @@ public class SecretariaDTO {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
+
+	public Roles getRol() {
+		return rol;
+	}
+
+	public void setRol(Roles rol) {
+		this.rol = rol;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }
