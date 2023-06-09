@@ -1,4 +1,4 @@
-package com.vv.prueba;
+package com.vv.code;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,4 @@ public class BackendGestorAmbulanciaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendGestorAmbulanciaApplication.class, args);
 	}
-
 }
