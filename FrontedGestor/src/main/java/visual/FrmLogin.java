@@ -66,7 +66,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton3.setDefaultCapable(false);
 
-        jButton4.setBackground(java.awt.SystemColor.controlText);
+        jButton4.setBackground(new java.awt.Color(62, 62, 62));
         jButton4.setForeground(java.awt.SystemColor.activeCaptionBorder);
         jButton4.setText("Acceder");
 
