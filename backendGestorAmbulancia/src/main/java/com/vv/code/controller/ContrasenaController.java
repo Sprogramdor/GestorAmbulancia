@@ -11,6 +11,10 @@ import com.vv.code.exceptions.BadRequestException;
 import com.vv.code.service.ContrasenaService;
 
 @RestController
+/**
+ * @author Natanael Muñoz
+ * @version 1.0 Date: 09/06/2023
+ */
 public class ContrasenaController {
 
 	@Autowired

@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.vv.code.utils.Utils;
 
 @Service
+/**
+ * @author Natanael Muñoz
+ * @version 1.0 Date: 09/06/2023
+ */
 public class ContrasenaService {
 
 	private final Utils util = new Utils();
