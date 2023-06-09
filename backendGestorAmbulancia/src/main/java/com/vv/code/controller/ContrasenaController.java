@@ -22,13 +22,16 @@ public class ContrasenaController {
 
 	@PostMapping
 	@RequestMapping(path = "/recuperarContrasena")
-	public ResponseEntity<String> recuperarContrasena(@RequestParam String contrasena) {
+	/**
+	 * @param correoElectronico - correo a recuperar contraseña
+	 * @return - EXITOSO O FALLIDO
+	 */
+	public ResponseEntity<String> recuperarContrasena(@RequestParam String correoElectronico) {
 
-		if (contrasena.isEmpty()) {
+		if (correoElectronico.isEmpty()) {
 			throw new BadRequestException("SGAR-1", "El campo no puede ser vacio");
 		}
 
-		return contrasenaService.recuperarContrasena(contrasena);
+		return contrasenaService.recuperarContrasena(correoElectronico);
 	}
-
 }

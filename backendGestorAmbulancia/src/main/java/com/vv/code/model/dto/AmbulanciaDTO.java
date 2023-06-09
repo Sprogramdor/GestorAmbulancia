@@ -1,7 +1,5 @@
 package com.vv.code.model.dto;
 
-import java.util.List;
-
 /**
  * @author Natanael Muñoz
  * @version 1.0 Date: 09/06/2023
@@ -12,7 +10,16 @@ public class AmbulanciaDTO {
 	private String modelo;
 	private String tipo;
 	private boolean estado;
-	private List<String> observaciones;
+	private String observaciones;
+
+	public AmbulanciaDTO(String numeroPlaca, String modelo, String tipo, boolean estado, String observaciones) {
+		super();
+		this.numeroPlaca = numeroPlaca;
+		this.modelo = modelo;
+		this.tipo = tipo;
+		this.estado = estado;
+		this.observaciones = observaciones;
+	}
 
 	public String getNumeroPlaca() {
 		return numeroPlaca;
@@ -46,11 +53,11 @@ public class AmbulanciaDTO {
 		this.estado = estado;
 	}
 
-	public List<String> getObservaciones() {
+	public String getObservaciones() {
 		return observaciones;
 	}
 
-	public void setObservaciones(List<String> observaciones) {
+	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
 }

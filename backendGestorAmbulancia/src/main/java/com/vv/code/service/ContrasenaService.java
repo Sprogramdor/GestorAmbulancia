@@ -1,10 +1,15 @@
 package com.vv.code.service;
 
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.vv.code.model.entity.Correos;
+import com.vv.code.model.entity.Usuario;
+import com.vv.code.repository.CorreoRespository;
+import com.vv.code.repository.UsuarioRepository;
 import com.vv.code.utils.Utils;
 
 @Service
@@ -14,18 +19,36 @@ import com.vv.code.utils.Utils;
  */
 public class ContrasenaService {
 
-	private final Utils util = new Utils();
+	private final UsuarioRepository usuarioRepository;
+	private final CorreoRespository correoRespository;
+	private final Utils util;
 
-	public ResponseEntity<String> recuperarContrasena(@RequestParam String contrasena) {
+	public ContrasenaService(UsuarioRepository usuarioRepository, CorreoRespository correoRespository, Utils util) {
+		super();
+		this.usuarioRepository = usuarioRepository;
+		this.correoRespository = correoRespository;
+		this.util = util;
+	}
 
-		// TODO: FALTA IMPLEMENTAR LA LLAMADA A LA DB
+	public ResponseEntity<String> recuperarContrasena(String correoElectronico) {
 
-		// boolean bandera = util.enviarCorreo(contrasena, contrasena);
-		boolean bandera = true;
+		Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByEmail(correoElectronico));
+		Optional<Correos> correos = correoRespository.findById(1L);
+
+		if (!usuario.isPresent()) {
+			return new ResponseEntity<String>("NO SE HA ENCONTRADO EL RECURSO", HttpStatus.NOT_FOUND);
+		}
+
+		String subject = "RECUPERACION DE CONTRASEÑA DEL SGAR";
+		String message = String.format(
+				"Estimado: %s %s \n\t Hemos revisado su petición de recuperación de clave del SGAR y esta ha sido procesada, su contraseña es: %s",
+				usuario.get().getNombres(), usuario.get().getApellidos(), usuario.get().getContrasena());
+
+		boolean bandera = util.enviarCorreo(correos.get().getCorreo(), correos.get().getContrasena(),
+				usuario.get().getCorreo(), subject, message);
 
 		return (bandera) ? new ResponseEntity<>("Exitoso", HttpStatus.ACCEPTED)
 				: new ResponseEntity<>("Fallido", HttpStatus.INTERNAL_SERVER_ERROR);
 
 	}
-
 }

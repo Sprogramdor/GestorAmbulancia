@@ -61,4 +61,12 @@ public class Utils {
 		return bandera;
 	}
 
+	private void generarReportePDF() {
+
+	}
+
+	private void imprimirReportePDF() {
+
+	}
+
 }

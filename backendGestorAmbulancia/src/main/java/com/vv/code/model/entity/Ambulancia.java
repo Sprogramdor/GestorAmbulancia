@@ -3,7 +3,10 @@ package com.vv.code.model.entity;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -15,12 +18,14 @@ import javax.persistence.Table;
 public class Ambulancia {
 
 	@Id
+	@SequenceGenerator(name = "ambulancia_id_seq", sequenceName = "ambulancia_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ambulancia_id_seq")
 	private Long id;
 	private String numeroPlaca;
 	private String modelo;
 	private String tipo;
 	private boolean estado;
-	private List<String> observaciones;
+	private String observaciones;
 
 	public Long getId() {
 		return id;
@@ -62,11 +67,11 @@ public class Ambulancia {
 		this.estado = estado;
 	}
 
-	public List<String> getObservaciones() {
+	public String getObservaciones() {
 		return observaciones;
 	}
 
-	public void setObservaciones(List<String> observaciones) {
+	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
 
