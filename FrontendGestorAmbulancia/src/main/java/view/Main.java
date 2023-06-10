@@ -1,7 +1,5 @@
 package view;
 
-import ui.component.DefaultForm;
-import ui.component.HomeForm;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,59 +38,58 @@ public class Main extends javax.swing.JFrame {
 
             // Actualizar la etiqueta lblFecha con la fecha actual
             lblFecha.setText(fechaActual);
+            showForm(new Home());
         }
     });
     // Inicia el Timer
     timer.start();
         
-        menu1.setEvent(new MenuEvent() {
-            @Override
-            public void selected(int index, int subIndex) {
-                /*if (index == 0) {
-                    showForm(new HomeForm());
-                } else {
-                    showForm(new DefaultForm("Form : " + index + " " + subIndex));
-                }*/
-                
-                switch(index){
-                    case 0: showForm(new HomeForm());
-                            break;
-                    case 1:
-                            if( subIndex == 1){
-                                 showForm(new ClienteRegistrar());
-                            }if(subIndex == 2){
-                               showForm(new ClienteConsultar());
-                            }if(subIndex == 3){
-                               showForm(new ClienteActualizar());
-                            }       
-                    break;
-                        
-                    case 2:
-                         if( subIndex == 1){
-                                 showForm(new AmbulanciaRegistrar());
-                            }if(subIndex == 2){
-                               showForm(new AmbulanciaConsultar());
-                            }if(subIndex == 3){
-                               showForm(new AmbulanciaModificar());
-                            }       
+    menu1.setEvent(new MenuEvent() {
+        @Override
+        public void selected(int index, int subIndex) {
+            /*if (index == 0) {
+                showForm(new HomeForm());
+            } else {
+                showForm(new DefaultForm("Form : " + index + " " + subIndex));
+            }*/
+
+            switch(index){
+                case 0: showForm(new Home());
                         break;
-                    case 3:
+                case 1:
                         if( subIndex == 1){
-                                 showForm(new ConductorRegistrar());
-                            }if(subIndex == 2){
-                               showForm(new ConductorConsultar());
-                            }if(subIndex == 3){
-                               showForm(new ConductorModificar());
-                            }       
-                        break;
-                        
-                        
-                }                
-                
-                
-                
-            }
-        });
+                             showForm(new ClienteRegistrar());
+                        }if(subIndex == 2){
+                           showForm(new ClienteConsultar());
+                        }if(subIndex == 3){
+                           showForm(new ClienteActualizar());
+                        }       
+                break;
+
+                case 2:
+                     if( subIndex == 1){
+                             showForm(new AmbulanciaRegistrar());
+                        }if(subIndex == 2){
+                           showForm(new AmbulanciaConsultar());
+                        }if(subIndex == 3){
+                           showForm(new AmbulanciaModificar());
+                        }       
+                    break;
+                case 3:
+                    if( subIndex == 1){
+                             showForm(new ConductorRegistrar());
+                        }if(subIndex == 2){
+                           showForm(new ConductorConsultar());
+                        }if(subIndex == 3){
+                           showForm(new ConductorModificar());
+                        }       
+                    break;
+                default:
+                    showForm(new Home());
+                    break;
+            }                
+        }
+    });
     }
 
     private void showForm(Component com) {
@@ -120,12 +117,13 @@ public class Main extends javax.swing.JFrame {
         lblFecha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 163, 163)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        body.setBackground(new java.awt.Color(0, 0, 0));
+        body.setBackground(new java.awt.Color(31, 50, 100));
         body.setLayout(new java.awt.BorderLayout());
         jPanel1.add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, -5, 810, 490));
 
@@ -169,23 +167,24 @@ public class Main extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(31, 30, 68));
 
-        jButton1.setText("Salir");
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Cerrar Sesión");
+        jButton1.setContentAreaFilled(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jButton1)
-                .addContainerGap(64, Short.MAX_VALUE))
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 483, 172, 52));
