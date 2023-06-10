@@ -27,7 +27,7 @@ public class Menu extends JComponent {
     private MenuEvent event;
     private MigLayout layout;
     private String[][] menuItems = new String[][]{
-        {"Home"},
+        {"Inicio"},
         {"Cliente","Registrar", "Consultar", "Modificar"},
         {"Ambulancia", "Registrar", "Consultar", "Modificar"},
         {"Conductor", "Registrar", "Consultar", "Modificar"},
