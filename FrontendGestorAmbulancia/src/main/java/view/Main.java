@@ -36,7 +36,7 @@ public class Main extends javax.swing.JFrame {
                             }if(subIndex == 2){
                                showForm(new ClienteConsultar());
                             }if(subIndex == 3){
-                               showForm(new ClienteModificar());
+                               showForm(new ClienteActualizar());
                             }       
                     break;
                         
