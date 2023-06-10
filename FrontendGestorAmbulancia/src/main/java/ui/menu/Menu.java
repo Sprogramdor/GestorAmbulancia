@@ -31,7 +31,7 @@ public class Menu extends JComponent {
         {"Cliente","Registrar", "Consultar", "Modificar"},
         {"Ambulancia", "Registrar", "Consultar", "Modificar"},
         {"Conductor", "Registrar", "Consultar", "Modificar"},
-        {"Peticiones", "Registrar", "Consultar", "Modificar"}
+        {"Peticiones", "Asignar", "Consultar"}
     };
 
     public Menu() {
