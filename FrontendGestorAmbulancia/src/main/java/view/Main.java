@@ -3,6 +3,7 @@ package view;
 import ui.component.DefaultForm;
 import ui.component.HomeForm;
 import java.awt.Component;
+import ui.component.*;
 import ui.menu.MenuEvent;
 
 /**
@@ -16,14 +17,53 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        
         menu1.setEvent(new MenuEvent() {
             @Override
             public void selected(int index, int subIndex) {
-                if (index == 0) {
+                /*if (index == 0) {
                     showForm(new HomeForm());
                 } else {
                     showForm(new DefaultForm("Form : " + index + " " + subIndex));
-                }
+                }*/
+                
+                switch(index){
+                    case 0: showForm(new HomeForm());
+                            break;
+                    case 1:
+                            if( subIndex == 1){
+                                 showForm(new ClienteRegistrar());
+                            }if(subIndex == 2){
+                               showForm(new ClienteConsultar());
+                            }if(subIndex == 3){
+                               showForm(new ClienteModificar());
+                            }       
+                    break;
+                        
+                    case 2:
+                         if( subIndex == 1){
+                                 showForm(new AmbulanciaRegistrar());
+                            }if(subIndex == 2){
+                               showForm(new AmbulanciaConsultar());
+                            }if(subIndex == 3){
+                               showForm(new AmbulanciaModificar());
+                            }       
+                        break;
+                    case 3:
+                        if( subIndex == 1){
+                                 showForm(new ConductorRegistrar());
+                            }if(subIndex == 2){
+                               showForm(new ConductorConsultar());
+                            }if(subIndex == 3){
+                               showForm(new ConductorModificar());
+                            }       
+                        break;
+                        
+                        
+                }                
+                
+                
+                
             }
         });
     }
@@ -45,7 +85,6 @@ public class Main extends javax.swing.JFrame {
         menu1 = new ui.menu.Menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(245, 245, 245));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(163, 163, 163)));
@@ -70,10 +109,10 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(scrollPaneWin111, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(scrollPaneWin111, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
