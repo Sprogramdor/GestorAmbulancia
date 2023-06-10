@@ -35,16 +35,16 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(265, 265, 265)
+                .addGap(273, 273, 273)
                 .addComponent(jLabel1)
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addContainerGap(274, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel1)
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addContainerGap(416, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
