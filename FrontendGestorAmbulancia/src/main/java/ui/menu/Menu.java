@@ -27,17 +27,11 @@ public class Menu extends JComponent {
     private MenuEvent event;
     private MigLayout layout;
     private String[][] menuItems = new String[][]{
-        {"Dashboard"},
-        {"Email", "Inbox", "Read", "Compost"},
-        {"Chat"},
-        {"Calendar"},
-        {"UI Kit", "Accordion", "Alerts", "Badges", "Breadcrumbs", "Buttons", "Button group"},
-        {"Advanced UI", "Cropper", "Owl Carousel", "Sweet Alert"},
-        {"Forms", "Basic Elements", "Advanced Elements", "SEditors", "Wizard"},
-        {"Charts", "Apex", "Flot", "Peity", "Sparkline"},
-        {"Table", "Basic Tables", "Data Table"},
-        {"Icons", "Feather Icons", "Flag Icons", "Mdi Icons"},
-        {"Special Pages", "Blank page", "Faq", "Invoice", "Profile", "Pricing", "Timeline"}
+        {"Home"},
+        {"Cliente","Registrar", "Consultar", "Modificar"},
+        {"Ambulancia", "Registrar", "Consultar", "Modificar"},
+        {"Conductor", "Registrar", "Consultar", "Modificar"},
+        {"Peticiones", "Registrar", "Consultar", "Modificar"}
     };
 
     public Menu() {
