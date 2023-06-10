@@ -3,6 +3,11 @@ package view;
 import ui.component.DefaultForm;
 import ui.component.HomeForm;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
 import ui.component.*;
 import ui.menu.MenuEvent;
 
@@ -17,6 +22,28 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        
+        Timer timer = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Obtiene la hora actual
+            Date date = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            String horaActual = dateFormat.format(date);
+
+            // Actualiza la etiqueta lblHora con la hora actual
+            lblHora.setText(horaActual);
+            
+            // Obtener la fecha actual
+            SimpleDateFormat dateFormatFecha = new SimpleDateFormat("EEEE, d 'de' MMMM 'del' yyyy");
+            String fechaActual = dateFormatFecha.format(date);
+
+            // Actualizar la etiqueta lblFecha con la fecha actual
+            lblFecha.setText(fechaActual);
+        }
+    });
+    // Inicia el Timer
+    timer.start();
         
         menu1.setEvent(new MenuEvent() {
             @Override
@@ -89,8 +116,8 @@ public class Main extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,13 +193,11 @@ public class Main extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(31, 67, 120));
         jPanel2.setVerifyInputWhenFocusTarget(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(100, 149, 237));
-        jLabel1.setText("11:05:25");
+        lblHora.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblHora.setForeground(new java.awt.Color(100, 149, 237));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Sabado, 10 de Junio del 2023");
+        lblFecha.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblFecha.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -180,9 +205,9 @@ public class Main extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 378, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(lblHora)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 786, Short.MAX_VALUE)
+                .addComponent(lblFecha)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,8 +215,8 @@ public class Main extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(lblHora)
+                    .addComponent(lblFecha))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -250,14 +275,14 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblHora;
     private ui.menu.Menu menu1;
     private ui.scroll.win11.ScrollPaneWin11 scrollPaneWin111;
     // End of variables declaration//GEN-END:variables
