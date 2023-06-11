@@ -35,6 +35,8 @@ public class Usuario {
 	private String nombreUsuario;
 	private String contrasena;
 
+	private boolean estado;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "rol", referencedColumnName = "id")
 	private Roles rol;
@@ -131,4 +133,11 @@ public class Usuario {
 		this.id = id;
 	}
 
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
 }

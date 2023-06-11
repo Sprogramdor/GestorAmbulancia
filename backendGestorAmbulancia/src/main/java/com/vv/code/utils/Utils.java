@@ -1,5 +1,6 @@
 package com.vv.code.utils;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -7,6 +8,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * @author Natanael Muñoz
@@ -61,11 +68,33 @@ public class Utils {
 		return bandera;
 	}
 
-	private void generarReportePDF() {
+	private void generarReporteExcel() {
 
-	}
+		try (Workbook reporte = new XSSFWorkbook()) {
+			Sheet hoja = reporte.createSheet("REPORTE");
 
-	private void imprimirReportePDF() {
+			Row filaUno = hoja.createRow(0);
+			Cell celdaUno = filaUno.createCell(0);
+			celdaUno.setCellValue("Punto de origen");
+
+			Cell celdaDos = filaUno.createCell(1);
+			celdaDos.setCellValue("Punto de destino");
+
+			Cell celdaTres = filaUno.createCell(2);
+			celdaTres.setCellValue("Placa de la ambulancia");
+
+			Cell celdaCuatro = filaUno.createCell(3);
+			celdaCuatro.setCellValue("Cedula del Conductor");
+
+			Cell celdaCinco = filaUno.createCell(4);
+			celdaCinco.setCellValue("Forma de pago");
+
+			Cell celdaSeis = filaUno.createCell(5);
+			celdaSeis.setCellValue("Total a pagar");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 	}
 
