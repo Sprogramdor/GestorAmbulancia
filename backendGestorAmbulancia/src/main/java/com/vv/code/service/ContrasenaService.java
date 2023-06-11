@@ -2,11 +2,12 @@ package com.vv.code.service;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.vv.code.model.entity.Correos;
+import com.vv.code.model.entity.Correo;
 import com.vv.code.model.entity.Usuario;
 import com.vv.code.repository.CorreoRespository;
 import com.vv.code.repository.UsuarioRepository;
@@ -23,6 +24,7 @@ public class ContrasenaService {
 	private final CorreoRespository correoRespository;
 	private final Utils util;
 
+	@Autowired
 	public ContrasenaService(UsuarioRepository usuarioRepository, CorreoRespository correoRespository, Utils util) {
 		super();
 		this.usuarioRepository = usuarioRepository;
@@ -33,7 +35,7 @@ public class ContrasenaService {
 	public ResponseEntity<String> recuperarContrasena(String correoElectronico) {
 
 		Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByEmail(correoElectronico));
-		Optional<Correos> correos = correoRespository.findById(1L);
+		Optional<Correo> correos = correoRespository.findById(1L);
 
 		if (!usuario.isPresent()) {
 			return new ResponseEntity<String>("NO SE HA ENCONTRADO EL RECURSO", HttpStatus.NOT_FOUND);

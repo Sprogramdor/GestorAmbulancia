@@ -12,7 +12,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Conductores {
+/**
+ * @author Natanael Muñoz
+ * @version 1.0 Date: 10/06/2023
+ */
+public class Conductor {
 
 	@Id
 	@SequenceGenerator(name = "conductores_id_seq", sequenceName = "conductores_id_seq", allocationSize = 1)
@@ -22,7 +26,7 @@ public class Conductores {
 	private String cedula;
 	private String nombre;
 	private String apellidos;
-	private CorreosConductores correo;
+	//private CorreosConductores correo;
 	private String sexo;
 	private Date fechaNacimiento;
 	private Date fechaContrato;
@@ -63,13 +67,13 @@ public class Conductores {
 		this.apellidos = apellidos;
 	}
 
-	public CorreosConductores getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(CorreosConductores correo) {
-		this.correo = correo;
-	}
+//	public CorreosConductores getCorreo() {
+//		return correo;
+//	}
+//
+//	public void setCorreo(CorreosConductores correo) {
+//		this.correo = correo;
+//	}
 
 	public String getSexo() {
 		return sexo;

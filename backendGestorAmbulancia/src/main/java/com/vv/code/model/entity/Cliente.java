@@ -1,21 +1,29 @@
 package com.vv.code.model.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class Clientes {
+/**
+ * @author Natanael Muñoz
+ * @version 1.0 Date: 10/06/2023
+ */
+public class Cliente {
 
 	@Id
-	@SequenceGenerator(name = "clientes_id_seq", sequenceName = "clientes_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clientes_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String cedula;
@@ -24,8 +32,14 @@ public class Clientes {
 	private String sexo;
 	private Date fechaNacimiento;
 
-	private CorreosClientes correosClientes;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clientes")
+	private Set<CorreoCliente> correosClientes;
 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
+	private Set<Peticion> peticiones;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "hospital_fk")
 	private Hospital hospital;
 
 	public Long getId() {
@@ -76,11 +90,11 @@ public class Clientes {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public CorreosClientes getCorreosClientes() {
+	public Set<CorreoCliente> getCorreosClientes() {
 		return correosClientes;
 	}
 
-	public void setCorreosClientes(CorreosClientes correosClientes) {
+	public void setCorreosClientes(Set<CorreoCliente> correosClientes) {
 		this.correosClientes = correosClientes;
 	}
 
@@ -90,6 +104,14 @@ public class Clientes {
 
 	public void setHospital(Hospital hospital) {
 		this.hospital = hospital;
+	}
+
+	public Set<Peticion> getPeticiones() {
+		return peticiones;
+	}
+
+	public void setPeticiones(Set<Peticion> peticiones) {
+		this.peticiones = peticiones;
 	}
 
 }

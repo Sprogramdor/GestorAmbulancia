@@ -14,7 +14,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
 
+@Component
 /**
  * @author Natanael Muñoz
  * @version 1.1 Date: 09/06/2023

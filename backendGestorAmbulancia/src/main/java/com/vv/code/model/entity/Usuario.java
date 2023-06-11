@@ -13,10 +13,10 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "usuarios")
 /**
  * @author Natanael Muñoz
- * @version 1.0 Date: 09/06/2023
+ * @version 1.0 Date: 10/06/2023
  */
 public class Usuario {
 
@@ -38,14 +38,14 @@ public class Usuario {
 	private boolean estado;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "rol", referencedColumnName = "id")
+	@JoinColumn(name = "rol_fk")
 	private Roles rol;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -129,10 +129,6 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public boolean isEstado() {
 		return estado;
 	}
@@ -140,4 +136,5 @@ public class Usuario {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+
 }

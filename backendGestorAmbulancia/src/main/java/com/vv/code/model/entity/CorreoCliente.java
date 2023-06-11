@@ -1,22 +1,26 @@
 package com.vv.code.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class CorreosClientes {
+public class CorreoCliente {
 
 	@Id
-	@SequenceGenerator(name = "correosClientes_id_seq", sequenceName = "correosClientes_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "correosClientes_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Clientes clientes;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cliente")
+	private Cliente clientes;
 
 	private String numeroTelefonico;
 
@@ -28,11 +32,11 @@ public class CorreosClientes {
 		this.id = id;
 	}
 
-	public Clientes getClientes() {
+	public Cliente getClientes() {
 		return clientes;
 	}
 
-	public void setClientes(Clientes clientes) {
+	public void setClientes(Cliente clientes) {
 		this.clientes = clientes;
 	}
 

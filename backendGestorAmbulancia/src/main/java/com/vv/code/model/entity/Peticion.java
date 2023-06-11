@@ -1,28 +1,42 @@
 package com.vv.code.model.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class Peticiones {
+/**
+ * @author Natanael Muñoz
+ * @version 1.0 Date: 10/06/2023
+ */
+public class Peticion {
 
 	@Id
-	@SequenceGenerator(name = "peticiones_id_seq", sequenceName = "peticiones_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "peticiones_id_seq")
+	@SequenceGenerator(name = "peticion_id_seq", sequenceName = "peticion_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "peticion_id_seq")
 	private Long id;
 
-	private Hospital hospital;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "hospital")
+	private Hospital hospital_fk;
 
-	private Clientes cliente;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cliente")
+	private Cliente cliente;
 
-	private Ambulancia ambulancia;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "peticion")
+	private Set<Ambulancia> ambulancia;
 
 	private String puntoOrigen;
 	private String puntoDestino;
@@ -38,26 +52,26 @@ public class Peticiones {
 	}
 
 	public Hospital getHospital() {
-		return hospital;
+		return hospital_fk;
 	}
 
 	public void setHospital(Hospital hospital) {
-		this.hospital = hospital;
+		this.hospital_fk = hospital;
 	}
 
-	public Clientes getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Clientes cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
-	public Ambulancia getAmbulancia() {
+	public Set<Ambulancia> getAmbulancia() {
 		return ambulancia;
 	}
 
-	public void setAmbulancia(Ambulancia ambulancia) {
+	public void setAmbulancia(Set<Ambulancia> ambulancia) {
 		this.ambulancia = ambulancia;
 	}
 
@@ -91,6 +105,14 @@ public class Peticiones {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public Hospital getHospital_fk() {
+		return hospital_fk;
+	}
+
+	public void setHospital_fk(Hospital hospital_fk) {
+		this.hospital_fk = hospital_fk;
 	}
 
 }

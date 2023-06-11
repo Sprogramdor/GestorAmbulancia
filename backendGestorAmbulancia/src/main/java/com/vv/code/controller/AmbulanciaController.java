@@ -7,7 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +37,7 @@ public class AmbulanciaController {
 	}
 
 	@PostMapping(consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	@RequestMapping(path = "/registarAmbulancia")
+	@RequestMapping(path = "/registrarAmbulancia")
 	/**
 	 * 
 	 * @param ambulanciaDTO - Se manda el objeto ambulancia en xml o json
@@ -48,13 +47,13 @@ public class AmbulanciaController {
 		return ambulanciaService.registrarAmbulancia(ambulanciaDTO);
 	}
 
-	@PutMapping
-	@RequestMapping(path = "modificarAmbulancia/{id}")
+	@PutMapping(consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(path = "/modificarAmbulancia")
 	/**
 	 * @param ambulanciaDTO - Se manda el objeto en JSON o XML
 	 * @return - Si fue exitoso o no
 	 */
-	public ResponseEntity<String> modificarAmbulancia(@PathVariable("id") Long id, @RequestBody Boolean estado,
+	public ResponseEntity<String> modificarAmbulancia(@RequestParam("id") String id, @RequestBody boolean estado,
 			@RequestBody String observaciones) {
 		return ambulanciaService.modificarAmbulancia(id, estado, observaciones);
 	}

@@ -1,12 +1,15 @@
 package com.vv.code.model.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -28,6 +31,12 @@ public class Hospital {
 	private Date fechaRegistro;
 
 	private boolean estado;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hospital")
+	private Set<Cliente> clientes;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hospital_fk")
+	private Set<Peticion> peticiones;
 
 	public Long getId() {
 		return id;
@@ -59,6 +68,22 @@ public class Hospital {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public Set<Peticion> getPeticiones() {
+		return peticiones;
+	}
+
+	public void setPeticiones(Set<Peticion> peticiones) {
+		this.peticiones = peticiones;
+	}
+
+	public Set<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(Set<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 }

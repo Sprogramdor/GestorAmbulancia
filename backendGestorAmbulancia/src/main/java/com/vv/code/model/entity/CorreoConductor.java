@@ -1,22 +1,25 @@
 package com.vv.code.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table
-public class CorreosConductores {
+public class CorreoConductor {
 
 	@Id
-	@SequenceGenerator(name = "correosConductores_id_seq", sequenceName = "correosConductores_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "correosConductores_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Conductores conductores;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Conductor conductores;
+
 	private String numeroTelefono;
 
 	public Long getId() {
@@ -27,11 +30,11 @@ public class CorreosConductores {
 		this.id = id;
 	}
 
-	public Conductores getConductores() {
+	public Conductor getConductores() {
 		return conductores;
 	}
 
-	public void setConductores(Conductores conductores) {
+	public void setConductores(Conductor conductores) {
 		this.conductores = conductores;
 	}
 

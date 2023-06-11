@@ -1,5 +1,6 @@
 package com.vv.code.model.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class Roles {
 
 	private String rol;
 
-	@OneToOne(mappedBy = "rol")
+	@OneToOne(cascade = CascadeType.ALL,  mappedBy = "rol")
 	private Usuario usuario;
 
 	public Long getId() {
