@@ -12,8 +12,8 @@ public class ClienteMapper implements Function<Cliente, ClienteDTO> {
 
 	@Override
 	public ClienteDTO apply(Cliente t) {
-		// TODO Auto-generated method stub
-		return null;
+		return new ClienteDTO(t.getCedula(), t.getNombre(), t.getApellidos(), null, t.getSexo(),
+				String.valueOf(t.getFechaNacimiento()));
 	}
 
 }

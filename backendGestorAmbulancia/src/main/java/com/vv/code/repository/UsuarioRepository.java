@@ -16,7 +16,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query("SELECT u FROM Usuario u INNER JOIN Roles r WHERE r.rol = :rol")
 	List<Usuario> findByRol(@Param("rol") String rol);
 
-	@Query(value = "SELECT u FROM usuarios u, roles r ON u.rol_fk = r.id WHERE r.rol = :rol", nativeQuery = true)
-	List<Usuario> findByRolName(@Param("rol") String rol);
+	@Query("SELECT u FROM Usuario u WHERE u.rol.rol = :nombreRol")
+	List<Usuario> findByRolName(@Param("nombreRol") String nombreRol);
 
 }

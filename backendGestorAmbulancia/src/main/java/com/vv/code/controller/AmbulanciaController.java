@@ -53,9 +53,9 @@ public class AmbulanciaController {
 	 * @param ambulanciaDTO - Se manda el objeto en JSON o XML
 	 * @return - Si fue exitoso o no
 	 */
-	public ResponseEntity<String> modificarAmbulancia(@RequestParam("id") String id, @RequestBody boolean estado,
-			@RequestBody String observaciones) {
-		return ambulanciaService.modificarAmbulancia(id, estado, observaciones);
+	public ResponseEntity<String> modificarAmbulancia(@RequestParam("id") String id,
+			@RequestBody AmbulanciaDTO ambulanciaDTO) {
+		return ambulanciaService.modificarAmbulancia(id, ambulanciaDTO);
 	}
 
 	@DeleteMapping

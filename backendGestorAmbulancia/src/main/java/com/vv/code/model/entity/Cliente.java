@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -33,7 +32,7 @@ public class Cliente {
 	private Date fechaNacimiento;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clientes")
-	private Set<CorreoCliente> correosClientes;
+	private Set<TelefonoCliente> telefonoClientes;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
 	private Set<Peticion> peticiones;
@@ -90,12 +89,12 @@ public class Cliente {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public Set<CorreoCliente> getCorreosClientes() {
-		return correosClientes;
+	public Set<TelefonoCliente> getTelefonoClientes() {
+		return telefonoClientes;
 	}
 
-	public void setCorreosClientes(Set<CorreoCliente> correosClientes) {
-		this.correosClientes = correosClientes;
+	public void setTelefonoClientes(Set<TelefonoCliente> correosClientes) {
+		this.telefonoClientes = correosClientes;
 	}
 
 	public Hospital getHospital() {

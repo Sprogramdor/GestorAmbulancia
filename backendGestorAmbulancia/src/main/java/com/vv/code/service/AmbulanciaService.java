@@ -11,14 +11,13 @@ import org.springframework.stereotype.Service;
 import com.vv.code.mapper.AmbulanciaDTOMapper;
 import com.vv.code.model.dto.AmbulanciaDTO;
 import com.vv.code.model.entity.Ambulancia;
-import com.vv.code.model.entity.Peticion;
 import com.vv.code.repository.AmbulanciaRepository;
 import com.vv.code.repository.PeticionesRepository;
 
 @Service
 /**
  * @author Natanael Muñoz
- * @version 1.0 Date: 09/06/2023
+ * @version 1.0 Date: 10/06/2023
  */
 public class AmbulanciaService {
 
@@ -58,8 +57,8 @@ public class AmbulanciaService {
 		return new ResponseEntity<String>("EXITOSO", HttpStatus.CREATED);
 	}
 
-	public ResponseEntity<String> modificarAmbulancia(String id, boolean estado, String observaciones) {
-		if (id.equals("") || observaciones.isEmpty()) {
+	public ResponseEntity<String> modificarAmbulancia(String id, AmbulanciaDTO ambulanciaDTO) {
+		if (id.equals("") || ambulanciaDTO == null) {
 			return new ResponseEntity<String>("FALLIDO", HttpStatus.BAD_REQUEST);
 		}
 
@@ -69,8 +68,8 @@ public class AmbulanciaService {
 			return new ResponseEntity<String>("NO SE ENCUENTRA ESE RECURSO", HttpStatus.NOT_FOUND);
 		}
 
-		ambulancia.get().setEstado(estado);
-		ambulancia.get().setObservaciones(observaciones);
+		ambulancia.get().setEstado(ambulanciaDTO.isEstado());
+		ambulancia.get().setObservaciones(ambulanciaDTO.getObservaciones());
 
 		ambulanciaRepository.save(ambulancia.get());
 

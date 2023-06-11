@@ -3,6 +3,7 @@ package com.vv.code.model.entity;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,8 @@ public class Usuario {
 	private String nombres;
 	private String apellidos;
 	private String sexo;
+
+	@Column(unique = true, length = 100)
 	private String correo;
 	private Date fechaNacimiento;
 	private Date fechaContrato;

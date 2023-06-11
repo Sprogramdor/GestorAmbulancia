@@ -57,34 +57,89 @@ public class UsuarioService {
 			return new ResponseEntity<String>("ERROR EN LA PETICION", HttpStatus.BAD_REQUEST);
 		}
 
-		Usuario usuario = new Usuario();
-		usuario.setCedula(usuarioDTO.getCedula());
-		usuario.setNombres(usuarioDTO.getNombres());
-		usuario.setApellidos(usuarioDTO.getApellidos());
-		usuario.setSexo(usuarioDTO.getSexo());
-		usuario.setCorreo(usuarioDTO.getCorreo());
-//
-		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-		Date fechaNacimiento = formato.parse(usuarioDTO.getFechaNacimiento());
+		try {
+			Usuario usuario = new Usuario();
+			usuario.setCedula(usuarioDTO.getCedula());
+			usuario.setNombres(usuarioDTO.getNombres());
+			usuario.setApellidos(usuarioDTO.getApellidos());
+			usuario.setSexo(usuarioDTO.getSexo());
+			usuario.setCorreo(usuarioDTO.getCorreo());
+			//
+			SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+			Date fechaNacimiento = formato.parse(usuarioDTO.getFechaNacimiento());
 
-		usuario.setFechaNacimiento(fechaNacimiento);
-		usuario.setFechaContrato(new Date());
+			usuario.setFechaNacimiento(fechaNacimiento);
+			usuario.setFechaContrato(new Date());
 
-		usuario.setNombreUsuario(usuarioDTO.getNombreUsuario());
-		usuario.setContrasena(usuarioDTO.getContrasena());
+			usuario.setNombreUsuario(usuarioDTO.getNombreUsuario());
+			usuario.setContrasena(usuarioDTO.getContrasena());
 
-		usuario.setEstado(true);
+			usuario.setEstado(true);
 
-		Optional<Roles> rol = Optional.ofNullable(rolesRepository.findByName(usuarioDTO.getTipo()));
-		if (!rol.isPresent()) {
-			return new ResponseEntity<String>("NO EXISTE ROL", HttpStatus.NOT_FOUND);
+			Optional<Roles> rol = Optional.ofNullable(rolesRepository.findByName(usuarioDTO.getTipo()));
+			if (!rol.isPresent()) {
+				return new ResponseEntity<String>("NO EXISTE ROL", HttpStatus.NOT_FOUND);
+			}
+
+			usuario.setRol(rol.get());
+			usuarioRepository.save(usuario);
+
+		} catch (Exception e) {
+			return new ResponseEntity<String>("CORREO EXISTENTE", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
-		usuario.setRol(rol.get());
-
-		usuarioRepository.save(usuario);
-
 		return new ResponseEntity<String>("EXITOSO", HttpStatus.CREATED);
+	}
+
+	public ResponseEntity<String> cambiarConfiguracionDeUsuario(Long id, UsuarioDTO usuarioDTO) {
+		if (id <= 0 || id == null || usuarioDTO == null) {
+			return new ResponseEntity<String>("ERROR EN LA PETICION", HttpStatus.BAD_REQUEST);
+		}
+
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		if (!usuario.isPresent()) {
+			return new ResponseEntity<String>("RECURSO NO ENCONTRADO", HttpStatus.NOT_FOUND);
+		}
+
+		usuario.get().setContrasena(usuarioDTO.getContrasena());
+		usuarioRepository.save(usuario.get());
+
+		return new ResponseEntity<String>("EXITOSO", HttpStatus.ACCEPTED);
+	}
+
+	public ResponseEntity<String> modificarUsuario(Long id, UsuarioDTO usuarioDTO) {
+		if (id <= 0 || id == null || usuarioDTO == null) {
+			return new ResponseEntity<String>("ERROR EN LA PETICION", HttpStatus.BAD_REQUEST);
+		}
+
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		if (!usuario.isPresent()) {
+			return new ResponseEntity<String>("RECURSO NO ENCONTRADO", HttpStatus.NOT_FOUND);
+		}
+
+		usuario.get().setNombreUsuario(usuarioDTO.getNombreUsuario());
+		usuario.get().setNombres(usuarioDTO.getNombres());
+		usuario.get().setApellidos(usuarioDTO.getApellidos());
+		usuario.get().setSexo(usuarioDTO.getSexo());
+		usuario.get().setCorreo(usuarioDTO.getCorreo());
+		usuarioRepository.save(usuario.get());
+
+		return new ResponseEntity<String>("EXITOSO", HttpStatus.ACCEPTED);
+	}
+
+	public ResponseEntity<String> eliminarUsuario(Long id) {
+		if (id <= 0 || id == null) {
+			return new ResponseEntity<String>("ERROR EN LA PETICION", HttpStatus.BAD_REQUEST);
+		}
+
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		if (!usuario.isPresent()) {
+			return new ResponseEntity<String>("RECURSO NO ENCONTRADO", HttpStatus.NOT_FOUND);
+		}
+
+		usuarioRepository.deleteById(id);
+
+		return new ResponseEntity<String>("EXITOSO", HttpStatus.ACCEPTED);
 	}
 
 }

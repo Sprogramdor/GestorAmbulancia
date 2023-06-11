@@ -22,9 +22,6 @@ public class Roles {
 
 	private String rol;
 
-	@OneToOne(cascade = CascadeType.ALL,  mappedBy = "rol")
-	private Usuario usuario;
-
 	public Long getId() {
 		return id;
 	}

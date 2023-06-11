@@ -2,6 +2,7 @@ package com.vv.code.model.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,8 +27,9 @@ public class Conductor {
 	private String cedula;
 	private String nombre;
 	private String apellidos;
-	//private CorreosConductores correo;
 	private String sexo;
+	@Column(length = 100, nullable = true)
+	private String correo;
 	private Date fechaNacimiento;
 	private Date fechaContrato;
 	private boolean estado;
@@ -106,4 +108,21 @@ public class Conductor {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public Ambulancia getAmbulancia() {
+		return ambulancia;
+	}
+
+	public void setAmbulancia(Ambulancia ambulancia) {
+		this.ambulancia = ambulancia;
+	}
+
 }
