@@ -9,11 +9,26 @@ public class UsuarioDTO {
 	private String apellidos;
 	private String sexo;
 	private String correo;
-	private Date fechaNacimiento;
+	private String fechaNacimiento;
 	private Date fechaContrato;
 
 	private String nombreUsuario;
 	private String contrasena;
+
+	private String tipo;
+
+	public UsuarioDTO(String cedula, String nombres, String apellidos, String sexo, String correo,
+			String fechaNacimiento, Date fechaContrato, String nombreUsuario) {
+		super();
+		this.cedula = cedula;
+		this.nombres = nombres;
+		this.apellidos = apellidos;
+		this.sexo = sexo;
+		this.correo = correo;
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaContrato = fechaContrato;
+		this.nombreUsuario = nombreUsuario;
+	}
 
 	public String getCedula() {
 		return cedula;
@@ -55,11 +70,11 @@ public class UsuarioDTO {
 		this.correo = correo;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -86,4 +101,13 @@ public class UsuarioDTO {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
 }

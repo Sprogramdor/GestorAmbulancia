@@ -12,20 +12,24 @@ import com.vv.code.mapper.AmbulanciaDTOMapper;
 import com.vv.code.model.dto.AmbulanciaDTO;
 import com.vv.code.model.entity.Ambulancia;
 import com.vv.code.repository.AmbulanciaRepository;
+import com.vv.code.repository.PeticionesRepository;
 
 @Service
 /**
  * @author Natanael Muñoz
- * @version 1.0 Date: 09/06/2023
+ * @version 1.0 Date: 10/06/2023
  */
 public class AmbulanciaService {
 
 	private final AmbulanciaRepository ambulanciaRepository;
+	private final PeticionesRepository peticionesRepository;
 	private final AmbulanciaDTOMapper ambulanciaDTOMapper;
 
-	public AmbulanciaService(AmbulanciaRepository ambulanciaRepository, AmbulanciaDTOMapper ambulanciaDTOMapper) {
+	public AmbulanciaService(AmbulanciaRepository ambulanciaRepository, PeticionesRepository peticionesRepository,
+			AmbulanciaDTOMapper ambulanciaDTOMapper) {
 		super();
 		this.ambulanciaRepository = ambulanciaRepository;
+		this.peticionesRepository = peticionesRepository;
 		this.ambulanciaDTOMapper = ambulanciaDTOMapper;
 	}
 
@@ -53,19 +57,19 @@ public class AmbulanciaService {
 		return new ResponseEntity<String>("EXITOSO", HttpStatus.CREATED);
 	}
 
-	public ResponseEntity<String> modificarAmbulancia(Long id, Boolean estado, String observaciones) {
-		if (id.equals("") || estado == null || observaciones.isEmpty()) {
+	public ResponseEntity<String> modificarAmbulancia(String id, AmbulanciaDTO ambulanciaDTO) {
+		if (id.equals("") || ambulanciaDTO == null) {
 			return new ResponseEntity<String>("FALLIDO", HttpStatus.BAD_REQUEST);
 		}
 
-		Optional<Ambulancia> ambulancia = ambulanciaRepository.findById(id);
+		Optional<Ambulancia> ambulancia = ambulanciaRepository.findById(Long.valueOf(id));
 
 		if (!ambulancia.isPresent()) {
 			return new ResponseEntity<String>("NO SE ENCUENTRA ESE RECURSO", HttpStatus.NOT_FOUND);
 		}
 
-		ambulancia.get().setEstado(estado);
-		ambulancia.get().setObservaciones(observaciones);
+		ambulancia.get().setEstado(ambulanciaDTO.isEstado());
+		ambulancia.get().setObservaciones(ambulanciaDTO.getObservaciones());
 
 		ambulanciaRepository.save(ambulancia.get());
 
@@ -77,9 +81,15 @@ public class AmbulanciaService {
 			return new ResponseEntity<String>("FALLIDO", HttpStatus.BAD_REQUEST);
 		}
 
-		ambulanciaRepository.deleteById(id);
+		Optional<Ambulancia> ambulancia = ambulanciaRepository.findById(id);
 
-		return new ResponseEntity<String>("EXITOSO", HttpStatus.ACCEPTED);
+		if (ambulancia.isPresent()) {
+			ambulanciaRepository.deleteById(id);
+			return new ResponseEntity<String>("EXITOSO", HttpStatus.ACCEPTED);
+		}
+
+		return new ResponseEntity<String>("NO SE ENCUENTRA EL RECURSO", HttpStatus.NOT_FOUND);
+
 	}
 
 }

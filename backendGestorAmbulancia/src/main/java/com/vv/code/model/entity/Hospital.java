@@ -1,9 +1,15 @@
 package com.vv.code.model.entity;
 
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,8 +26,17 @@ public class Hospital {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hospital_id_seq")
 	private Long id;
 	private String nombre;
-	private String ciudad;
-	private String direccion;
+
+	@Column(name = "fecha_registro")
+	private Date fechaRegistro;
+
+	private boolean estado;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hospital")
+	private Set<Cliente> clientes;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "hospital_fk")
+	private Set<Peticion> peticiones;
 
 	public Long getId() {
 		return id;
@@ -39,20 +54,36 @@ public class Hospital {
 		this.nombre = nombre;
 	}
 
-	public String getCiudad() {
-		return ciudad;
+	public Date getFechaRegistro() {
+		return fechaRegistro;
 	}
 
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
+	public void setFechaRegistro(Date fechaRegistro) {
+		this.fechaRegistro = fechaRegistro;
 	}
 
-	public String getDireccion() {
-		return direccion;
+	public boolean isEstado() {
+		return estado;
 	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	public Set<Peticion> getPeticiones() {
+		return peticiones;
+	}
+
+	public void setPeticiones(Set<Peticion> peticiones) {
+		this.peticiones = peticiones;
+	}
+
+	public Set<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(Set<Cliente> clientes) {
+		this.clientes = clientes;
 	}
 
 }

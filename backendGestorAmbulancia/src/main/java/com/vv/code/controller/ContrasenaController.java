@@ -17,8 +17,13 @@ import com.vv.code.service.ContrasenaService;
  */
 public class ContrasenaController {
 
+	private final ContrasenaService contrasenaService;
+
 	@Autowired
-	private ContrasenaService contrasenaService;
+	public ContrasenaController(ContrasenaService contrasenaService) {
+		super();
+		this.contrasenaService = contrasenaService;
+	}
 
 	@PostMapping
 	@RequestMapping(path = "/recuperarContrasena")

@@ -1,11 +1,13 @@
 package com.vv.code.model.entity;
 
-import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,14 +20,21 @@ import javax.persistence.Table;
 public class Ambulancia {
 
 	@Id
-	@SequenceGenerator(name = "ambulancia_id_seq", sequenceName = "ambulancia_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ambulancia_id_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String numeroPlaca;
 	private String modelo;
 	private String tipo;
 	private boolean estado;
 	private String observaciones;
+
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "peticion_fk", nullable = true)
+	private Peticion peticion;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "conductor", referencedColumnName = "id")
+	private Conductor conductor;
 
 	public Long getId() {
 		return id;
@@ -73,6 +82,22 @@ public class Ambulancia {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public Peticion getPeticion() {
+		return peticion;
+	}
+
+	public void setPeticion(Peticion peticion) {
+		this.peticion = peticion;
+	}
+
+	public Conductor getConductor() {
+		return conductor;
+	}
+
+	public void setConductor(Conductor conductor) {
+		this.conductor = conductor;
 	}
 
 }
