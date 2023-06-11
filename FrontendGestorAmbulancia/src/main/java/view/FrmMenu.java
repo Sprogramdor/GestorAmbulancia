@@ -83,6 +83,13 @@ public class FrmMenu extends javax.swing.JFrame {
                            showForm(new ConductorModificar());
                         }       
                     break;
+                case 4:
+                    if( subIndex == 1){
+                             showForm(new PeticionesAsignar());
+                        }if(subIndex == 2){
+                           showForm(new PeticionesConsultar());
+                        }
+                    break;
                 default:
                     showForm(new Home());
                     break;
@@ -149,11 +156,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addGap(24, 24, 24))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 171, 86));

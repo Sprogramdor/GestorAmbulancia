@@ -34,6 +34,7 @@ public class ConductorConsultar extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(810, 490));
 
         jPanel1.setBackground(new java.awt.Color(0, 122, 204));
