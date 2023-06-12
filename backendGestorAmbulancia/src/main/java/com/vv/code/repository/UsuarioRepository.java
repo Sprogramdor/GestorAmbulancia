@@ -1,6 +1,7 @@
 package com.vv.code.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query("SELECT u FROM Usuario u WHERE u.rol.rol = :nombreRol")
 	List<Usuario> findByRolName(@Param("nombreRol") String nombreRol);
+
+	@Query("SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario")
+	Optional<Usuario> findByNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
 
 }

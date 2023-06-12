@@ -32,6 +32,11 @@ public class UsuarioController {
 		this.usuarioService = usuarioService;
 	}
 
+	@GetMapping(path = "/ingresarAlSistema")
+	public ResponseEntity<UsuarioDTO> ingresarAlSistema(@RequestBody UsuarioDTO usuarioDTO) {
+		return usuarioService.ingresarAlSistema(usuarioDTO);
+	}
+
 	@GetMapping(path = "/listarUsuarios/{tipo}")
 	/**
 	 * @param tipo - Tipo de usuario: gerente o secretaria

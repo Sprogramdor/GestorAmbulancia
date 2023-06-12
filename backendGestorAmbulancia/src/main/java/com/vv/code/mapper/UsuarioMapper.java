@@ -12,9 +12,9 @@ public class UsuarioMapper implements Function<Usuario, UsuarioDTO> {
 
 	@Override
 	public UsuarioDTO apply(Usuario usuario) {
-		return new UsuarioDTO(usuario.getCedula(), usuario.getNombres(), usuario.getApellidos(), usuario.getSexo(),
-				usuario.getCorreo(), String.valueOf(usuario.getFechaNacimiento()), usuario.getFechaContrato(),
-				usuario.getNombreUsuario());
+		return new UsuarioDTO(usuario.getId(), usuario.getCedula(), usuario.getNombres(), usuario.getApellidos(),
+				usuario.getSexo(), usuario.getCorreo(), String.valueOf(usuario.getFechaNacimiento()),
+				usuario.getFechaContrato(), usuario.getNombreUsuario());
 	}
 
 }
