@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class UsuarioDTO {
 
+	private Long id;
 	private String cedula;
 	private String nombres;
 	private String apellidos;
@@ -17,9 +18,13 @@ public class UsuarioDTO {
 
 	private String tipo;
 
-	public UsuarioDTO(String cedula, String nombres, String apellidos, String sexo, String correo,
+	public UsuarioDTO() {
+	}
+
+	public UsuarioDTO(Long id, String cedula, String nombres, String apellidos, String sexo, String correo,
 			String fechaNacimiento, Date fechaContrato, String nombreUsuario) {
 		super();
+		this.id = id;
 		this.cedula = cedula;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
@@ -108,6 +113,14 @@ public class UsuarioDTO {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

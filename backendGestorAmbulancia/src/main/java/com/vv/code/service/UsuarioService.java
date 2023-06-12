@@ -142,4 +142,28 @@ public class UsuarioService {
 		return new ResponseEntity<String>("EXITOSO", HttpStatus.ACCEPTED);
 	}
 
+	public ResponseEntity<UsuarioDTO> ingresarAlSistema(UsuarioDTO usuarioDTO) {
+		if (usuarioDTO == null) {
+			return new ResponseEntity<UsuarioDTO>(new UsuarioDTO(), HttpStatus.BAD_REQUEST);
+		}
+
+		Optional<Usuario> usuario = usuarioRepository.findByNombreUsuario(usuarioDTO.getNombreUsuario());
+		if (!usuario.isPresent()) {
+			return new ResponseEntity<UsuarioDTO>(new UsuarioDTO(), HttpStatus.NOT_FOUND);
+		}
+
+		UsuarioDTO dto = new UsuarioDTO();
+		dto.setId(usuario.get().getId());
+		dto.setCedula(usuario.get().getCedula());
+		dto.setNombres(usuario.get().getNombres());
+		dto.setApellidos(usuario.get().getApellidos());
+		dto.setCorreo(usuario.get().getCorreo());
+		dto.setSexo(usuario.get().getSexo());
+		dto.setNombreUsuario(usuario.get().getNombreUsuario());
+		dto.setContrasena(usuario.get().getContrasena());
+
+		return new ResponseEntity<UsuarioDTO>(dto, HttpStatus.ACCEPTED);
+
+	}
+
 }

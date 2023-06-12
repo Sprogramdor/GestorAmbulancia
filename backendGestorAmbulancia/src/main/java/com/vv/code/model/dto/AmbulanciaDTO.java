@@ -12,6 +12,10 @@ public class AmbulanciaDTO {
 	private boolean estado;
 	private String observaciones;
 
+	public AmbulanciaDTO() {
+		super();
+	}
+
 	public AmbulanciaDTO(String numeroPlaca, String modelo, String tipo, boolean estado, String observaciones) {
 		super();
 		this.numeroPlaca = numeroPlaca;
