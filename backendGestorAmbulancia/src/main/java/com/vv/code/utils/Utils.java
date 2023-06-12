@@ -1,5 +1,7 @@
 package com.vv.code.utils;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -70,34 +72,30 @@ public class Utils {
 		return bandera;
 	}
 
-	private void generarReporteExcel() {
+	public ByteArrayInputStream generarReporteServicios() {
+
+		String[] cabecera = { "Punto de origen", "Punto de destino", "Placa de la ambulancia", "Cedula del Conductor",
+				"Estado" };
+		ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
 		try (Workbook reporte = new XSSFWorkbook()) {
 			Sheet hoja = reporte.createSheet("REPORTE");
 
 			Row filaUno = hoja.createRow(0);
-			Cell celdaUno = filaUno.createCell(0);
-			celdaUno.setCellValue("Punto de origen");
 
-			Cell celdaDos = filaUno.createCell(1);
-			celdaDos.setCellValue("Punto de destino");
+			for (int indice = 0; indice < cabecera.length; indice++) {
+				Cell cell = filaUno.createCell(indice);
+				cell.setCellValue(cabecera[indice]);
+			}
 
-			Cell celdaTres = filaUno.createCell(2);
-			celdaTres.setCellValue("Placa de la ambulancia");
-
-			Cell celdaCuatro = filaUno.createCell(3);
-			celdaCuatro.setCellValue("Cedula del Conductor");
-
-			Cell celdaCinco = filaUno.createCell(4);
-			celdaCinco.setCellValue("Forma de pago");
-
-			Cell celdaSeis = filaUno.createCell(5);
-			celdaSeis.setCellValue("Total a pagar");
+			reporte.write(stream);
+			reporte.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+		return new ByteArrayInputStream(stream.toByteArray());
 	}
 
 }
