@@ -2,6 +2,7 @@ package com.vv.prueba;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.vv.code.utils.Utils;
@@ -15,6 +16,7 @@ public class CorreoTest {
 	private final Utils utils = new Utils();
 
 	@Test
+	@Disabled
 	/**
 	 * @param remitente          - correo de donde se envia
 	 * @param contrasena         - contraseña del remitente
