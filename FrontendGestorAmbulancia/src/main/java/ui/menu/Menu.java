@@ -1,4 +1,4 @@
-package ui.menu;
+package view.ui.menu;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -50,7 +50,7 @@ public class Menu extends JComponent {
     }
 
     private Icon getIcon(int index) {
-        URL url = getClass().getResource("/raven/menu/" + index + ".png");
+        URL url = getClass().getResource("/view/ui/menu"+index +".png");
         if (url != null) {
             return new ImageIcon(url);
         } else {

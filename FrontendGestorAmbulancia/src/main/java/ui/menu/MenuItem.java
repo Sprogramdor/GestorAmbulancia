@@ -1,4 +1,4 @@
-package ui.menu;
+package view.ui.menu;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import ui.effect.RippleEffect;
-import ui.swing.shadow.ShadowRenderer;
+import view.ui.effect.RippleEffect;
+import view.ui.swing.shadow.ShadowRenderer;
 
 public class MenuItem extends JButton {
 

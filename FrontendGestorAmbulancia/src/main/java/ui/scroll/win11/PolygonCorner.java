@@ -1,4 +1,4 @@
-package ui.scroll.win11;
+package view.ui.scroll.win11;
 
 import java.awt.Point;
 import java.awt.geom.GeneralPath;

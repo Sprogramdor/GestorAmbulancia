@@ -1,4 +1,4 @@
-package ui.scroll.win11;
+package view.ui.scroll.win11;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

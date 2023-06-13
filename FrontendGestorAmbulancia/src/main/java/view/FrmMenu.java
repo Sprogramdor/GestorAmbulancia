@@ -1,13 +1,24 @@
 package view;
 
+import view.ui.component.PeticionesConsultar;
+import view.ui.component.ClienteRegistrar;
+import view.ui.component.ConductorModificar;
+import view.ui.component.PeticionesAsignar;
+import view.ui.component.ConductorRegistrar;
+import view.ui.component.ConductorConsultar;
+import view.ui.component.AmbulanciaRegistrar;
+import view.ui.component.ClienteConsultar;
+import view.ui.component.AmbulanciaConsultar;
+import view.ui.component.ClienteActualizar;
+import view.ui.component.Home;
+import view.ui.component.AmbulanciaModificar;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.Timer;
-import ui.component.*;
-import ui.menu.MenuEvent;
+import view.ui.menu.MenuEvent;
 
 /**
  *
@@ -114,13 +125,13 @@ public class FrmMenu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        scrollPaneWin111 = new ui.scroll.win11.ScrollPaneWin11();
-        menu1 = new ui.menu.Menu();
         jPanel4 = new javax.swing.JPanel();
         btnCerrarSesión = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblHora = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
+        scrollPaneWin111 = new view.ui.scroll.win11.ScrollPaneWin11();
+        menu1 = new view.ui.menu.Menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -164,12 +175,6 @@ public class FrmMenu extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 171, 86));
-
-        menu1.setMinimumSize(new java.awt.Dimension(91, 174));
-        menu1.setPreferredSize(new java.awt.Dimension(91, 175));
-        scrollPaneWin111.setViewportView(menu1);
-
-        jPanel1.add(scrollPaneWin111, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 85, 173, 402));
 
         jPanel4.setBackground(new java.awt.Color(31, 30, 68));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -230,6 +235,11 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(171, 485, 810, 50));
 
+        scrollPaneWin111.setViewportView(menu1);
+
+        jPanel1.add(scrollPaneWin111, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1, 85, 173, 400));
+        scrollPaneWin111.getAccessibleContext().setAccessibleDescription("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -263,7 +273,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblHora;
-    private ui.menu.Menu menu1;
-    private ui.scroll.win11.ScrollPaneWin11 scrollPaneWin111;
+    private view.ui.menu.Menu menu1;
+    private view.ui.scroll.win11.ScrollPaneWin11 scrollPaneWin111;
     // End of variables declaration//GEN-END:variables
 }
