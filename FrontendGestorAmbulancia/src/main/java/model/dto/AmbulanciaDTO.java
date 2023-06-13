@@ -1,79 +1,67 @@
-package model.dto;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Model.dto;
 
 /**
- * @author Natanael Muñoz
- * @version 1.0 Date: 12/06/2023
+ *
+ * @author nelso
  */
 public class AmbulanciaDTO {
+    String Placa;
+    String Modelo;
+    String Tipo;
+    boolean Estado;
+    String Observacion;
 
-	private Long id;
-	private String numeroPlaca;
-	private String modelo;
-	private String tipo;
-	private boolean estado;
-	private String observaciones;
+    public AmbulanciaDTO(String Placa, String Modelo, String Tipo, boolean Estado, String Observacion) {
+        this.Placa = Placa;
+        this.Modelo = Modelo;
+        this.Tipo = Tipo;
+        this.Estado = Estado;
+        this.Observacion = Observacion;
+    }
 
-	public AmbulanciaDTO() {
-		super();
-	}
+    public String getPlaca() {
+        return Placa;
+    }
 
-	public AmbulanciaDTO(Long id, String numeroPlaca, String modelo, String tipo, boolean estado,
-			String observaciones) {
-		super();
-		this.id = id;
-		this.numeroPlaca = numeroPlaca;
-		this.modelo = modelo;
-		this.tipo = tipo;
-		this.estado = estado;
-		this.observaciones = observaciones;
-	}
+    public void setPlaca(String Placa) {
+        this.Placa = Placa;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public String getModelo() {
+        return Modelo;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setModelo(String Modelo) {
+        this.Modelo = Modelo;
+    }
 
-	public String getNumeroPlaca() {
-		return numeroPlaca;
-	}
+    public String getTipo() {
+        return Tipo;
+    }
 
-	public void setNumeroPlaca(String numeroPlaca) {
-		this.numeroPlaca = numeroPlaca;
-	}
+    public void setTipo(String Tipo) {
+        this.Tipo = Tipo;
+    }
 
-	public String getModelo() {
-		return modelo;
-	}
+    public boolean getEstado() {
+        return Estado;
+    }
 
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
+    public void setEstado(boolean Estado) {
+        this.Estado = Estado;
+    }
 
-	public String getTipo() {
-		return tipo;
-	}
+    public String getObservacion() {
+        return Observacion;
+    }
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
-
-	public String getObservaciones() {
-		return observaciones;
-	}
-
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
-
+    public void setObservacion(String Observacion) {
+        this.Observacion = Observacion;
+    }
+    
+    
 }

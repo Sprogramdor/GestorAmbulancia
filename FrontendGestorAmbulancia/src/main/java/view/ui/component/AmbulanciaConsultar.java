@@ -4,17 +4,24 @@
  */
 package view.ui.component;
 
+import Control.AmbulanciaController;
+import Model.dto.AmbulanciaDTO;
+import java.util.List;
+import javax.swing.SwingWorker;
+
 /**
  *
  * @author Jesus
  */
 public class AmbulanciaConsultar extends javax.swing.JPanel {
-
+    private AmbulanciaController ambulanciaController;
     /**
      * Creates new form AmbulanciaConsultar
      */
     public AmbulanciaConsultar() {
         initComponents();
+        ambulanciaController = new AmbulanciaController();
+        ambulanciaController.setTablaAmbulancia(tbAmbulancia); // Asignar la tabla al controlador
     }
 
     /**
@@ -27,7 +34,7 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbAmbulancia = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         tfPlaca = new javax.swing.JTextField();
         btnConsultar = new javax.swing.JButton();
@@ -36,20 +43,28 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbAmbulancia.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tbAmbulancia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Numero de Placa", "Modelo", "Tipo", "Estado", "Observaciones"
             }
-        ));
-        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbAmbulancia.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jScrollPane1.setViewportView(tbAmbulancia);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Numero de Placa:");
@@ -58,6 +73,11 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
 
         btnConsultar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 122, 204));
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -116,6 +136,29 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        String numeroPlaca = tfPlaca.getText();
+        SwingWorker<List<AmbulanciaDTO>, Void> worker = new SwingWorker<List<AmbulanciaDTO>, Void>() {
+        @Override
+        protected List<AmbulanciaDTO> doInBackground() throws Exception {
+            return ambulanciaController.consultarAmbulanciaPorPlaca(numeroPlaca);
+        }
+
+        @Override
+        protected void done() {
+            try {
+                List<AmbulanciaDTO> ambulancias = get();
+                ambulanciaController.mostrarAmbulanciasEnTabla(ambulancias);
+            } catch (Exception e) {
+                // Manejo de excepciones
+                e.printStackTrace();
+            }
+        }
+    };
+
+    worker.execute();
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
@@ -123,7 +166,7 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbAmbulancia;
     private javax.swing.JTextField tfPlaca;
     // End of variables declaration//GEN-END:variables
 }
