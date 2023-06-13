@@ -4,6 +4,21 @@
  */
 package view;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fbrz
@@ -29,12 +44,12 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfUsuario = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnAcceder = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btnRecuperarContrseña = new javax.swing.JButton();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        pfContraseña = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
         btnCancelar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -60,7 +75,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(178, 178, 178));
         jLabel2.setText("Contraseña");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tfUsuario.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(62, 62, 62));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -103,7 +118,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pfContraseña.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         jPanel4.setBackground(new java.awt.Color(204, 0, 0));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -149,8 +164,8 @@ public class FrmLogin extends javax.swing.JFrame {
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1)
-                            .addComponent(jPasswordField1)
+                            .addComponent(tfUsuario)
+                            .addComponent(pfContraseña)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(55, 55, 55)
                                 .addComponent(jLabel3)
@@ -169,11 +184,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pfContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,9 +293,18 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         // TODO add your handling code here:
-        FrmMenu frmMenu = new FrmMenu();
-        frmMenu.setVisible(true);
-        this.dispose();
+          String usuario = tfUsuario.getText();
+        String contrasenia = new String(pfContraseña.getPassword());
+
+        if (validarCredenciales(usuario, contrasenia)) {
+            // Credenciales válidas, continuar con el flujo de la aplicación
+            FrmMenu frmMenu = new FrmMenu();
+            frmMenu.setVisible(true);
+            this.dispose();
+        } else {
+            // Credenciales inválidas, mostrar mensaje de error al usuario
+            JOptionPane.showMessageDialog(this, "Credenciales inválidas", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnAccederActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -295,6 +319,53 @@ public class FrmLogin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRecuperarContrseñaActionPerformed
 
+    private boolean validarCredenciales(String usuario, String contrasenia) {
+    try {
+        URL url = new URL("https://backendambulancia.onrender.com/vv/api/v1/listarUsuarios/Gerente/");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.connect();
+
+        int responseCode = conn.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            StringBuilder response;
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String inputLine;
+            response = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            String apiResponse = response.toString();
+            Gson gson = new Gson();
+            JsonArray jsonArray = gson.fromJson(apiResponse, JsonArray.class);
+            
+            // Iterar a través del array y comparar las credenciales
+            for (JsonElement element : jsonArray) {
+                JsonObject jsonObject = element.getAsJsonObject();
+                JsonElement usernameElement = jsonObject.get("nombreUsuario");
+                JsonElement passwordElement = jsonObject.get("nombres");
+
+                String usernameFromAPI = (usernameElement != null && !usernameElement.isJsonNull())
+                        ? usernameElement.getAsString() : null;
+                String passwordFromAPI = (passwordElement != null && !passwordElement.isJsonNull())
+                        ? passwordElement.getAsString() : null;
+
+                if (Objects.equals(usuario, usernameFromAPI) && Objects.equals(contrasenia, passwordFromAPI)) {
+                    return true; // Las credenciales coinciden
+                }
+            }
+
+            return false; // Las credenciales no se encontraron en la respuesta de la API
+        } else {
+            JOptionPane.showMessageDialog(this, "Error en la conexión a la API", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (IOException ex) {
+        JOptionPane.showMessageDialog(this, "Error al acceder a la API", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    return false; // Autenticación fallida
+}
     /**
      * @param args the command line arguments
      */
@@ -346,7 +417,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField pfContraseña;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }
