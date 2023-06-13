@@ -291,6 +291,11 @@ public class FrmLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Maneja el evento de acción del botón "Acceder".
+    *
+    * @param evt El evento de acción.
+    */
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         // TODO add your handling code here:
           String usuario = tfUsuario.getText();
@@ -318,7 +323,14 @@ public class FrmLogin extends javax.swing.JFrame {
         frmRC.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRecuperarContrseñaActionPerformed
-
+    
+    /**
+    * Valida las credenciales de usuario y contraseña consultando una API remota.
+    *
+    * @param usuario     El nombre de usuario a validar.
+    * @param contrasenia La contraseña a validar.
+    * @return {@code true} si las credenciales son válidas, {@code false} en caso contrario.
+    */
     private boolean validarCredenciales(String usuario, String contrasenia) {
     try {
         URL url = new URL("https://backendambulancia.onrender.com/vv/api/v1/listarUsuarios/Gerente/");
