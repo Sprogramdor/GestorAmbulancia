@@ -9,17 +9,16 @@ import model.dto.ConductorDTO;
  * @author Jesus
  */
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import com.google.gson.Gson;
 import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import model.dto.ConductorDTO;
+
 
 /**
  * Controlador que maneja las operaciones relacionadas con los conductores.
@@ -76,8 +75,6 @@ public class ConductorController {
     
     
     public ConductorDTO consultabyCedula(String cedula) throws IOException{
-        
-        
         for(ConductorDTO c:this.obtenerConductores()){
             if(c.getCedula().equals(cedula)){
                  return c;
@@ -86,4 +83,52 @@ public class ConductorController {
         
         return null;
     }
+    
+    /**
+     * Registra un conductor enviando los datos a la API.
+     *
+     * @param conductor Objeto de tipo Conductor con los datos del conductor a registrar
+     * @return true si el registro fue exitoso, false en caso contrario
+     */
+    public boolean registrarConductor(ConductorDTO conductor) {
+        // Crear un objeto Gson para convertir el objeto Model a JSON
+        Gson gson = new Gson();
+
+        // Convertir el objeto Model a JSON
+        String jsonBody = gson.toJson(conductor);
+
+        // Crear el objeto OkHttpClient
+        OkHttpClient client = new OkHttpClient();
+
+        // Configurar la URL de la API
+        String url = "https://backendambulancia.onrender.com/vv/api/v1/registrarConductor";
+
+        // Crear el cuerpo de la solicitud
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonBody);
+
+        // Crear la solicitud POST
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            // Manejar la respuesta de la API, como obtener el código de estado, el cuerpo de la respuesta, etc.
+            // ...
+            System.out.println(   response.body().string()  );  
+         
+            
+            
+            // Devolver true si el registro fue exitoso, false en caso contrario
+            return response.isSuccessful();
+        } catch (IOException e) {
+            // Manejar errores de conexión o solicitud HTTP
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+    
+    
+    
 }
