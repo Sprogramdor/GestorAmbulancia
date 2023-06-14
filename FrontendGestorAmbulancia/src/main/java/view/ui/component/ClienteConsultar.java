@@ -15,14 +15,16 @@ import model.dto.UsuarioDTO;
  */
 public class ClienteConsultar extends javax.swing.JPanel {
     ClienteController cc = new ClienteController();
+    String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario"};
+    DefaultTableModel model = new DefaultTableModel(columnasNames, 0);
     /**
      * Creates new form ClienteRegistro
      */
     public ClienteConsultar() {
         initComponents();
-        String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario"};
-        DefaultTableModel model = new DefaultTableModel(columnasNames, 0);
         this.TblCliente.setModel(model);
+        this.btnGrupo.add(rdbCedula);
+        this.btnGrupo.add(rdbNombre);
     }
 
     /**
@@ -34,15 +36,16 @@ public class ClienteConsultar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrupo = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jButton4 = new javax.swing.JButton();
+        txtDato = new javax.swing.JTextField();
+        rdbCedula = new javax.swing.JRadioButton();
+        rdbNombre = new javax.swing.JRadioButton();
+        btnConsultaCN = new javax.swing.JButton();
         btnMostrarTodos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TblCliente = new javax.swing.JTable();
@@ -85,18 +88,23 @@ public class ClienteConsultar extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel6.setText("Datos");
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtDato.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        jRadioButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jRadioButton2.setText("Cédula");
+        rdbCedula.setBackground(new java.awt.Color(255, 255, 255));
+        rdbCedula.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        rdbCedula.setText("Cédula");
 
-        jRadioButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jRadioButton3.setText("Nombre");
+        rdbNombre.setBackground(new java.awt.Color(255, 255, 255));
+        rdbNombre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        rdbNombre.setText("Nombre");
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jButton4.setText("Consultar");
+        btnConsultaCN.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnConsultaCN.setText("Consultar");
+        btnConsultaCN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaCNActionPerformed(evt);
+            }
+        });
 
         btnMostrarTodos.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnMostrarTodos.setText("Mostar todos");
@@ -136,11 +144,11 @@ public class ClienteConsultar extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDato, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton2)
+                        .addComponent(rdbCedula)
                         .addGap(18, 18, 18)
-                        .addComponent(jRadioButton3))
+                        .addComponent(rdbNombre))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(27, 27, 27)
@@ -151,7 +159,7 @@ public class ClienteConsultar extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 262, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(btnConsultaCN)
                         .addGap(27, 27, 27)
                         .addComponent(btnMostrarTodos)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -164,14 +172,14 @@ public class ClienteConsultar extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
+                    .addComponent(txtDato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rdbCedula)
+                    .addComponent(rdbNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(btnMostrarTodos)
-                    .addComponent(jButton4)
+                    .addComponent(btnConsultaCN)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,10 +193,9 @@ public class ClienteConsultar extends javax.swing.JPanel {
 
     private void btnMostrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodosActionPerformed
         // TODO add your handling code here:
+        model.setRowCount(0);
         List<UsuarioDTO> clientes;
         clientes = cc.obtenerClientes();
-        String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario"};
-        DefaultTableModel model = new DefaultTableModel(columnasNames, 0);
         for(UsuarioDTO u : clientes){
             Object[] rowData = {u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario()};
             model.addRow(rowData);
@@ -196,21 +203,33 @@ public class ClienteConsultar extends javax.swing.JPanel {
         this.TblCliente.setModel(model);
     }//GEN-LAST:event_btnMostrarTodosActionPerformed
 
+    private void btnConsultaCNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaCNActionPerformed
+        // TODO add your handling code here:
+        model.setRowCount(0);
+        boolean cedula = this.rdbCedula.isSelected();
+        boolean nombre = this.rdbNombre.isSelected();
+        String dato = this.txtDato.getText();
+        UsuarioDTO u = cc.ConsultarCN(cedula, nombre, dato);
+        model.addRow(new Object[]{u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario()});
+        this.TblCliente.setModel(model);
+    }//GEN-LAST:event_btnConsultaCNActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TblCliente;
+    private javax.swing.JButton btnConsultaCN;
+    private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JButton btnMostrarTodos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JRadioButton rdbCedula;
+    private javax.swing.JRadioButton rdbNombre;
+    private javax.swing.JTextField txtDato;
     // End of variables declaration//GEN-END:variables
 }
