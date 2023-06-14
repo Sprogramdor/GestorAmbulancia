@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import model.dto.ConductorDTO;
 
 /**
  * Controlador que maneja las operaciones relacionadas con los conductores.

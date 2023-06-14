@@ -21,10 +21,9 @@ public class UsuarioDTO {
 	public UsuarioDTO() {
 	}
 
-	public UsuarioDTO(Long id, String cedula, String nombres, String apellidos, String sexo, String correo,
+	public UsuarioDTO(String cedula, String nombres, String apellidos, String sexo, String correo,
 			String fechaNacimiento, Date fechaContrato, String nombreUsuario, String tipo) {
 		super();
-		this.id = id;
 		this.cedula = cedula;
 		this.nombres = nombres;
 		this.apellidos = apellidos;
