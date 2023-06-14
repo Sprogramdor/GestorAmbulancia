@@ -5,7 +5,10 @@
 package view.ui.component;
 
 import control.ConductorController;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.dto.ConductorDTO;
@@ -16,12 +19,16 @@ import model.dto.ConductorDTO;
  */
 public class ConductorConsultar extends javax.swing.JPanel {
 
+    
+    ConductorController cc= new ConductorController();
+    
+    
     /**
      * Creates new form ConductorConsultar
      */
     public ConductorConsultar() {
         initComponents();
-        this.CargarDatos();
+        this.CargarDatos(); 
     }
     
     
@@ -29,7 +36,7 @@ public class ConductorConsultar extends javax.swing.JPanel {
     
     
     public  void CargarDatos (){
-        ConductorController cc= new ConductorController();
+       
         
       List<ConductorDTO> conductores;
         try {
@@ -48,9 +55,13 @@ public class ConductorConsultar extends javax.swing.JPanel {
         // Crear el modelo de tabla con los nombres de las columnas
         DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
+        String estado="No Disponible";
         // Agregar los datos a la tabla
         for (ConductorDTO conductor : conductores) {
-            Object[] rowData = {conductor.getCedula(),conductor.getNombre(),conductor.getApellidos(),conductor.getCorreo(),conductor.getFechaContrato(),conductor.isEstado()};
+            if(conductor.isEstado()){
+                estado="Disponible";
+            }
+            Object[] rowData = {conductor.getCedula(),conductor.getNombre(),conductor.getApellidos(),conductor.getCorreo(),conductor.getFechaContrato(),estado};
             // Agregar más datos según el modelo de Conductor
 
             model.addRow(rowData);
@@ -117,6 +128,11 @@ public class ConductorConsultar extends javax.swing.JPanel {
 
         btnConsultar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnConsultar.setText("Consultar");
+        btnConsultar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsultarMouseClicked(evt);
+            }
+        });
 
         TablaConductores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -163,6 +179,46 @@ public class ConductorConsultar extends javax.swing.JPanel {
                 .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConsultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultarMouseClicked
+        
+        try {
+            ConductorDTO conductor= cc.consultabyCedula(this.txtCedula.getText());
+             String[] columnNames = {"Cedula","Nombre","Apellidos","Correo","Fecha contrato","Estado"};
+        // Agregar más columnas según el modelo de Conductor
+
+        // Crear el modelo de tabla con los nombres de las columnas
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        
+         // Agregar los datos a la tabla
+           String estado="No Disponible";
+           
+          if(conductor != null){
+               if(conductor.isEstado()){
+                     estado="Disponible";
+                    }
+                Object[] rowData = {conductor.getCedula(),conductor.getNombre(),conductor.getApellidos(),conductor.getCorreo(),conductor.getFechaContrato(),estado};
+         
+               model.addRow(rowData);
+        
+               // Establecer el modelo de tabla en la JTable
+               this.TablaConductores.setModel(model);
+          }else{
+              JOptionPane.showMessageDialog(this, "Conductor no Existe en el sistema");
+          }
+                              
+                
+           
+            
+                 
+        } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(this, "Conductor no Existe en el sistema");
+
+            //Logger.getLogger(ConductorConsultar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+  
+        
+    }//GEN-LAST:event_btnConsultarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

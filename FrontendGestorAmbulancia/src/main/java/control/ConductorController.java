@@ -33,35 +33,35 @@ public class ConductorController {
     
     
     public  List<ConductorDTO> obtenerConductores() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("https://backendambulancia.onrender.com/vv/api/v1/listarConductores")
-                .build();
+                    OkHttpClient client = new OkHttpClient();
+                    Request request = new Request.Builder()
+                            .url("https://backendambulancia.onrender.com/vv/api/v1/listarConductores")
+                            .build();
 
-        List<ConductorDTO> conductores = new ArrayList<>();
+                     List<ConductorDTO> conductores = new ArrayList<>();
 
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                String responseBody = response.body().string();
-                JSONArray conductoresArray = new JSONArray(responseBody);
+                    try {
+                        Response response = client.newCall(request).execute();
+                            if (response.isSuccessful()) {
+                                String responseBody = response.body().string();
+                                JSONArray conductoresArray = new JSONArray(responseBody);
 
-                for (int i = 0; i < conductoresArray.length(); i++) {
-                    JSONObject conductorJson = conductoresArray.getJSONObject(i);
-                    ConductorDTO conductor = new ConductorDTO();
-                    
-                    conductor.setCedula(conductorJson.getString("cedula"));
-                    conductor.setNombre(conductorJson.getString("nombre"));
-                   conductor.setApellidos(conductorJson.getString("apellidos"));
-                   conductor.setCorreo(conductorJson.getString("correo"));
-                  conductor.setFechaContrato(conductorJson.getString("fechaContrato"));
-                   conductor.setFechaNacimiento(conductorJson.getString("fechaNacimiento"));
-                conductor.setSexo(conductorJson.getString("sexo"));
-                  conductor.setEstado(conductorJson.getBoolean("estado")   );
-                    // Agregar más propiedades según el modelo de Conductor
-                  
-                    conductores.add(conductor);
-                }
+                                for (int i = 0; i < conductoresArray.length(); i++) {
+                                    JSONObject conductorJson = conductoresArray.getJSONObject(i);
+                                    ConductorDTO conductor = new ConductorDTO();
+
+                                    conductor.setCedula(conductorJson.getString("cedula"));
+                                    conductor.setNombre(conductorJson.getString("nombre"));
+                                    conductor.setApellidos(conductorJson.getString("apellidos"));
+                                    conductor.setCorreo(conductorJson.getString("correo"));
+                                    conductor.setFechaContrato(conductorJson.getString("fechaContrato"));
+                                    conductor.setFechaNacimiento(conductorJson.getString("fechaNacimiento"));
+                                    conductor.setSexo(conductorJson.getString("sexo"));
+                                   conductor.setEstado(conductorJson.getBoolean("estado")   );
+                                    // Agregar más propiedades según el modelo de Conductor
+
+                                    conductores.add(conductor);
+                                }
             } else {
                 System.out.println("Error: " + response.code() + " " + response.message());
             }
@@ -70,5 +70,19 @@ public class ConductorController {
         }
 
         return conductores;
+    }
+    
+    
+    
+    public ConductorDTO consultabyCedula(String cedula) throws IOException{
+        
+        
+        for(ConductorDTO c:this.obtenerConductores()){
+            if(c.getCedula().equals(cedula)){
+                 return c;
+            }
+        }
+        
+        return null;
     }
 }
