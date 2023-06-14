@@ -4,7 +4,7 @@
  */
 package Control;
 
-import Model.dto.AmbulanciaDTO;
+import model.dto.AmbulanciaDTO;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;

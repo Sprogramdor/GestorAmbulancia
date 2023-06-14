@@ -5,7 +5,7 @@
 package view.ui.component;
 
 import Control.AmbulanciaController;
-import Model.dto.AmbulanciaDTO;
+import model.dto.AmbulanciaDTO;
 import javax.swing.JOptionPane;
 
 /**

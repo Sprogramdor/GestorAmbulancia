@@ -5,14 +5,16 @@
 package view;
 
 import control.LoginController;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author fbrz
  */
 public class FrmLogin extends javax.swing.JFrame {
-    
+
     LoginController admLogin = new LoginController();
+
     /**
      * Creates new form FrmLogin
      */
@@ -100,6 +102,11 @@ public class FrmLogin extends javax.swing.JFrame {
         btnRecuperar.setForeground(new java.awt.Color(204, 204, 204));
         btnRecuperar.setText("¿Ha olvidado su contraseña?");
         btnRecuperar.setContentAreaFilled(false);
+        btnRecuperar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecuperarActionPerformed(evt);
+            }
+        });
 
         txtPassword.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
@@ -280,11 +287,27 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
-        // TODO add your handling code here:
-        admLogin.iniciarSesion(txtUsuario.getText(), txtPassword.getText());
+        String usuario = txtUsuario.getText();
+        String contrasena = txtPassword.getText();
+
+        try {
+            if (admLogin.iniciarSesion(usuario, contrasena)) {
+                this.dispose();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: usuario no encontrado.", "Error - Usuario no registrado", JOptionPane.ERROR_MESSAGE);
+
+        }
     }//GEN-LAST:event_btnAccederActionPerformed
-    
-    
+
+    private void btnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarActionPerformed
+        // TODO add your handling code here:
+        FrmRecuperarContrasenia frmRC = new FrmRecuperarContrasenia();
+        frmRC.show();
+        this.dispose();
+        
+    }//GEN-LAST:event_btnRecuperarActionPerformed
+
     /**
      * @param args the command line arguments
      */

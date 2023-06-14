@@ -4,12 +4,15 @@
  */
 package view;
 
+import control.LoginController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fbrz
  */
 public class FrmRecuperarContrasenia extends javax.swing.JFrame {
-
+    LoginController admLogin = new LoginController();
     /**
      * Creates new form FrmLogin
      */
@@ -28,7 +31,7 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtRecuperarContrsena = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnRecuperar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -53,7 +56,7 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(178, 178, 178));
         jLabel1.setText("Ingresa tu usuario o correo electrónico");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtRecuperarContrsena.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(62, 62, 62));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -62,6 +65,11 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
         btnRecuperar.setForeground(new java.awt.Color(255, 255, 255));
         btnRecuperar.setText("Recuperar");
         btnRecuperar.setContentAreaFilled(false);
+        btnRecuperar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecuperarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -121,7 +129,7 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField1))
+                    .addComponent(txtRecuperarContrsena))
                 .addGap(25, 25, 25))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(126, 126, 126)
@@ -136,7 +144,7 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtRecuperarContrsena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,6 +252,23 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecuperarActionPerformed
+        // TODO add your handling code here:
+        String usuario = txtRecuperarContrsena.getText();
+
+        try {
+            if (admLogin.recuperarContrasena(usuario)) {
+                this.dispose();
+                FrmLogin frmLogin = new FrmLogin();
+                frmLogin.show();
+                this.dispose();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error: usuario no encontrado.", "Error - Usuario no registrado", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btnRecuperarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRecuperar;
@@ -258,6 +283,6 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtRecuperarContrsena;
     // End of variables declaration//GEN-END:variables
 }
