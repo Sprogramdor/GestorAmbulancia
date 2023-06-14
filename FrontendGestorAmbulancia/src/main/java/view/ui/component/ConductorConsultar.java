@@ -28,19 +28,21 @@ public class ConductorConsultar extends javax.swing.JPanel {
     
     
     
-    public void CargarDatos (){
+    public  void CargarDatos (){
         ConductorController cc= new ConductorController();
         
       List<ConductorDTO> conductores;
         try {
             conductores = cc.obtenerConductores();
+            System.out.println(cc.obtenerConductores().toString());
         } catch (Exception e) {
+            
             JOptionPane.showMessageDialog(this, "Error al obtener los conductores");
             return;
         }
 
         // Obtener los nombres de las columnas
-        String[] columnNames = {"Nombre", "Edad"};
+        String[] columnNames = {"Cedula","Nombre","Apellidos","Correo","Fecha contrato","Estado"};
         // Agregar más columnas según el modelo de Conductor
 
         // Crear el modelo de tabla con los nombres de las columnas
@@ -48,14 +50,14 @@ public class ConductorConsultar extends javax.swing.JPanel {
 
         // Agregar los datos a la tabla
         for (ConductorDTO conductor : conductores) {
-            Object[] rowData = {conductor.getNombre()};
+            Object[] rowData = {conductor.getCedula(),conductor.getNombre(),conductor.getApellidos(),conductor.getCorreo(),conductor.getFechaContrato(),conductor.isEstado()};
             // Agregar más datos según el modelo de Conductor
 
             model.addRow(rowData);
         }
 
         // Establecer el modelo de tabla en la JTable
-        this.TablaConductores.setModel(model);
+       this.TablaConductores.setModel(model);
     }
     
     
@@ -118,13 +120,13 @@ public class ConductorConsultar extends javax.swing.JPanel {
 
         TablaConductores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
         jScrollPane1.setViewportView(TablaConductores);
