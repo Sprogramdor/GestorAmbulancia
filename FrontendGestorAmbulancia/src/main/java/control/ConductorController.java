@@ -1,0 +1,66 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package control;
+/**
+ *
+ * @author Jesus
+ */
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import javax.swing.table.DefaultTableModel;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Controlador que maneja las operaciones relacionadas con los conductores.
+ */
+public class ConductorController {
+    /**
+     * Consulta la API de conductores y devuelve una lista de objetos Conductor.
+     *
+     * @return Una lista de objetos Conductor.
+     * @throws IOException Si ocurre un error al realizar la solicitud HTTP.
+     */
+    
+    
+    public List<ConductorDTO> obtenerConductores() throws IOException {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://backendambulancia.onrender.com/vv/api/v1/listarConductores")
+                .build();
+
+        List<ConductorDTO> conductores = new ArrayList<>();
+
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                String responseBody = response.body().string();
+                JSONArray conductoresArray = new JSONArray(responseBody);
+
+                for (int i = 0; i < conductoresArray.length(); i++) {
+                    JSONObject conductorJson = conductoresArray.getJSONObject(i);
+                    ConductorDTO conductor = new ConductorDTO();
+                    conductor.setNombre(conductorJson.getString("nombre"));
+                    
+                    // Agregar más propiedades según el modelo de Conductor
+
+                    conductores.add(conductor);
+                }
+            } else {
+                System.out.println("Error: " + response.code() + " " + response.message());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return conductores;
+    }
+}

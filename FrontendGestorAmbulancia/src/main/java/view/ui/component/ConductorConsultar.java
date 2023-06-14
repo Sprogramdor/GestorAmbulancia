@@ -4,6 +4,12 @@
  */
 package view.ui.component;
 
+import control.ConductorController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.dto.ConductorDTO;
+
 /**
  *
  * @author Jesus
@@ -15,7 +21,48 @@ public class ConductorConsultar extends javax.swing.JPanel {
      */
     public ConductorConsultar() {
         initComponents();
+        this.CargarDatos();
     }
+    
+    
+    
+    
+    
+    public void CargarDatos (){
+        ConductorController cc= new ConductorController();
+        
+      List<ConductorDTO> conductores;
+        try {
+            conductores = cc.obtenerConductores();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener los conductores");
+            return;
+        }
+
+        // Obtener los nombres de las columnas
+        String[] columnNames = {"Nombre", "Edad"};
+        // Agregar más columnas según el modelo de Conductor
+
+        // Crear el modelo de tabla con los nombres de las columnas
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+        // Agregar los datos a la tabla
+        for (ConductorDTO conductor : conductores) {
+            Object[] rowData = {conductor.getNombre()};
+            // Agregar más datos según el modelo de Conductor
+
+            model.addRow(rowData);
+        }
+
+        // Establecer el modelo de tabla en la JTable
+        this.TablaConductores.setModel(model);
+    }
+    
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,11 +75,11 @@ public class ConductorConsultar extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfCedula = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnConsultar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaConductores = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(810, 490));
@@ -61,7 +108,7 @@ public class ConductorConsultar extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        tfCedula.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtCedula.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel2.setText("Cedula:");
@@ -69,7 +116,7 @@ public class ConductorConsultar extends javax.swing.JPanel {
         btnConsultar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnConsultar.setText("Consultar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaConductores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,7 +127,7 @@ public class ConductorConsultar extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TablaConductores);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -92,7 +139,7 @@ public class ConductorConsultar extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnConsultar)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -107,7 +154,7 @@ public class ConductorConsultar extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(tfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConsultar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
@@ -117,12 +164,12 @@ public class ConductorConsultar extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaConductores;
     private javax.swing.JButton btnConsultar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField tfCedula;
+    private javax.swing.JTextField txtCedula;
     // End of variables declaration//GEN-END:variables
 }
