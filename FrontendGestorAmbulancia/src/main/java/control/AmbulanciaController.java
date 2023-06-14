@@ -147,18 +147,21 @@ public List<AmbulanciaDTO> consultarAmbulanciaPorPlaca(String numeroPlaca) {
     tableModel.setRowCount(0); // Limpiar filas existentes
 
     for (AmbulanciaDTO ambulancia : ambulancias) {
+        String estado = ambulancia.getEstado() ? "Disponible" : "No disponible"; // Cambiar estado booleano a cadena
+
         Object[] row = {
             ambulancia.getPlaca(),
             ambulancia.getModelo(),
             ambulancia.getTipo(),
-            ambulancia.getEstado(),
+            estado, // Mostrar estado como "Disponible" o "No disponible"
             ambulancia.getObservacion()
         };
         tableModel.addRow(row);
     }
 
     tbAmbulancia.setModel(tableModel); // Actualizar la tabla con los nuevos datos
-    }
+}
+
 
     /**
      * Establece la referencia de la tabla de ambulancias.
@@ -257,9 +260,7 @@ public List<AmbulanciaDTO> consultarAmbulanciaPorPlaca(String numeroPlaca) {
 
 
     
-    /**
-    * Actualiza los datos de la ambulancia en la API.
-    */
+
    /**
  * Actualiza los datos de la ambulancia en la API.
  */

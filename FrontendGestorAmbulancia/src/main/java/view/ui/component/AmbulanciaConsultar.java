@@ -43,7 +43,7 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        tbAmbulancia.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        tbAmbulancia.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tbAmbulancia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

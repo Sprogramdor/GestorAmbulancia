@@ -66,7 +66,7 @@ public class AmbulanciaRegistrar extends javax.swing.JPanel {
         });
 
         cbEstado.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Disponible", "No disponible" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccionar-", "Disponible", "No disponible" }));
 
         btnAgregar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnAgregar.setText("Agregar");
@@ -131,8 +131,8 @@ public class AmbulanciaRegistrar extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cbEstado, 0, 273, Short.MAX_VALUE)
-                    .addComponent(tfPlaca)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(tfPlaca))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
