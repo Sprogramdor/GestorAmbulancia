@@ -248,12 +248,19 @@ public class ClienteRegistrar extends javax.swing.JPanel {
         String cedula = this.txtCedula.getText();
         String nombres = this.txtNombres.getText();
         String apellidos = this.txtApellidos.getText();
-        String sexo = this.rdbMasculino.isSelected() ? "Masculino" : "Femenino";
+        String sexo = "";
+        if(this.rdbMasculino.isSelected()){
+            sexo = "Masculino";
+        }else if(this.rdbFemenino.isSelected()){
+            sexo = "Femenino";
+        }else {
+            sexo = "";
+        }
         String correo = this.txtCorreo.getText();
         Date selectedDate = dtcFechaNacimiento.getDate();
         String fechaNacimiento = this.dtcFechaNacimiento.getDateFormatString() + "";
         if(selectedDate != null){
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             fechaNacimiento = sdf.format(selectedDate);
         }
         String usuario = this.txtUsuario.getText();
@@ -261,11 +268,21 @@ public class ClienteRegistrar extends javax.swing.JPanel {
 
         try {
             if (cc.Registrar(cedula, nombres, apellidos, sexo, correo, fechaNacimiento, usuario, contrasena, "Secretario")) {
-                JOptionPane.showMessageDialog(null, "Se registro correctamente", "Registro correcto", JOptionPane.OK_OPTION);
+                JOptionPane.showMessageDialog(null, "¡Se ha registrado correctamente!", "Registro correcto", JOptionPane.INFORMATION_MESSAGE);
+                this.txtCedula.setText("");
+                this.txtApellidos.setText("");
+                this.txtNombres.setText("");
+                this.rdbMasculino.setSelected(false);
+                this.rdbFemenino.setSelected(false);
+                this.txtCorreo.setText("");
+                this.dtcFechaNacimiento.setDate(null);
+                this.txtUsuario.setText("");
+                this.txtContrasena.setText("");
+            }else{
+                JOptionPane.showMessageDialog(null, "Error: Datos faltantes", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error: Datos faltantes", "Error", JOptionPane.ERROR_MESSAGE);
-
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
