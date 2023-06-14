@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package control;
+import model.dto.ConductorDTO;
 /**
  *
  * @author Jesus
@@ -32,7 +33,7 @@ public class ConductorController {
      */
     
     
-    public List<ConductorDTO> obtenerConductores() throws IOException {
+    public  List<ConductorDTO> obtenerConductores() throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url("https://backendambulancia.onrender.com/vv/api/v1/listarConductores")
@@ -49,17 +50,24 @@ public class ConductorController {
                 for (int i = 0; i < conductoresArray.length(); i++) {
                     JSONObject conductorJson = conductoresArray.getJSONObject(i);
                     ConductorDTO conductor = new ConductorDTO();
-                    conductor.setNombre(conductorJson.getString("nombre"));
                     
+                    conductor.setCedula(conductorJson.getString("cedula"));
+                    conductor.setNombre(conductorJson.getString("nombre"));
+                   conductor.setApellidos(conductorJson.getString("apellidos"));
+                   conductor.setCorreo(conductorJson.getString("correo"));
+                  conductor.setFechaContrato(conductorJson.getString("fechaContrato"));
+                   conductor.setFechaNacimiento(conductorJson.getString("fechaNacimiento"));
+                conductor.setSexo(conductorJson.getString("sexo"));
+                  conductor.setEstado(conductorJson.getBoolean("estado")   );
                     // Agregar más propiedades según el modelo de Conductor
-
+                  
                     conductores.add(conductor);
                 }
             } else {
                 System.out.println("Error: " + response.code() + " " + response.message());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.toString());
         }
 
         return conductores;
