@@ -9,13 +9,17 @@ import model.dto.AmbulanciaDTO;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Panel para modificar información de ambulancias.
+ * Permite realizar modificaciones en los datos de las ambulancias.
+ * Utiliza un objeto AmbulanciaController para gestionar las operaciones relacionadas con las ambulancias.
+ * 
  * @author Jesus
  */
 public class AmbulanciaModificar extends javax.swing.JPanel {
     AmbulanciaController ambulanciaController = new AmbulanciaController();
     /**
-     * Creates new form AmbulanciaModificar
+     * Crea un nuevo formulario AmbulanciaModificar.
+     * Inicializa los componentes del formulario.
      */
     public AmbulanciaModificar() {
         initComponents();
@@ -73,6 +77,8 @@ public class AmbulanciaModificar extends javax.swing.JPanel {
         taObservaciones.setColumns(20);
         taObservaciones.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         taObservaciones.setRows(5);
+        taObservaciones.setToolTipText("");
+        taObservaciones.setWrapStyleWord(true);
         jScrollPane1.setViewportView(taObservaciones);
 
         jPanel1.setBackground(new java.awt.Color(0, 122, 204));
@@ -183,11 +189,17 @@ public class AmbulanciaModificar extends javax.swing.JPanel {
                         .addComponent(btnBuscar))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnActualizar)
+                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Acción ejecutada al hacer clic en el botón "Buscar".
+    * Busca una ambulancia por número de placa y muestra los datos correspondientes en los campos del formulario.
+    *
+    * @param evt Evento de acción generado por el botón.
+    */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String numeroPlaca = tfPlaca.getText().trim();
         
@@ -207,6 +219,12 @@ public class AmbulanciaModificar extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    /**
+    * Acción ejecutada al hacer clic en el botón "Actualizar".
+    * Actualiza los datos de una ambulancia con los valores ingresados en los campos del formulario.
+    *
+    * @param evt Evento de acción generado por el botón.
+    */
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         String numeroPlaca = tfPlaca.getText().trim();
         boolean estado = cbEstado.getSelectedItem().equals("Disponible");

@@ -9,13 +9,16 @@ import model.dto.AmbulanciaDTO;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Clase que representa el panel de registro de ambulancias.
+ * Permite registrar una nueva ambulancia.
+ * 
  * @author Jesus
  */
 public class AmbulanciaRegistrar extends javax.swing.JPanel {
     private AmbulanciaController ambulanciaController;
     /**
-     * Creates new form AmbulanciaRegistrar
+     * Crea un nuevo formulario de registro de ambulancias.
+     * Inicializa los componentes y el controlador de ambulancias.
      */
     public AmbulanciaRegistrar() {
         initComponents();
@@ -101,9 +104,7 @@ public class AmbulanciaRegistrar extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        taObservaciones.setColumns(20);
         taObservaciones.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        taObservaciones.setRows(5);
         jScrollPane2.setViewportView(taObservaciones);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -145,7 +146,7 @@ public class AmbulanciaRegistrar extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(340, 340, 340))
+                .addGap(301, 301, 301))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,13 +169,19 @@ public class AmbulanciaRegistrar extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         jLabel2.getAccessibleContext().setAccessibleName("lbPlaca");
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Método que se ejecuta al hacer clic en el botón de agregar.
+    * Realiza la lógica para agregar una nueva ambulancia.
+    * 
+    * @param evt Evento de acción generado por el botón.
+    */
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // lógica para agregar la ambulancia
         String placa = tfPlaca.getText();
@@ -182,9 +189,11 @@ public class AmbulanciaRegistrar extends javax.swing.JPanel {
         String tipo = (String) cbTipo.getSelectedItem();
         String estado = (String) cbEstado.getSelectedItem();
         boolean blestado = estado.equalsIgnoreCase("Disponible");
-        String observaciones = taObservaciones.getText();
+        String observacion = taObservaciones.getText();
 
-        AmbulanciaDTO ambulancia = new AmbulanciaDTO(placa, modelo, tipo, blestado, observaciones);
+        // Crear el objeto AmbulanciaDTO con los valores proporcionados
+        AmbulanciaDTO ambulancia = new AmbulanciaDTO(placa, modelo, tipo, blestado, observacion);
+        // Llamar al controlador para registrar la ambulancia
         ambulanciaController.registrarAmbulancia(ambulancia);
 
         // Limpiar los campos después de agregar la ambulancia
@@ -192,6 +201,7 @@ public class AmbulanciaRegistrar extends javax.swing.JPanel {
         cbEstado.setSelectedIndex(0);
         taObservaciones.setText("");
         tfModelo.setText("");
+        // Mostrar un mensaje de éxito
         JOptionPane.showMessageDialog(null, "Ambulancia agregada correctamente.");
     }//GEN-LAST:event_btnAgregarActionPerformed
 

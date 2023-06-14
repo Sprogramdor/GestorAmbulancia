@@ -10,18 +10,23 @@ import java.util.List;
 import javax.swing.SwingWorker;
 
 /**
- *
+ * Clase que representa el panel de consulta de ambulancias.
+ * Permite consultar y mostrar la información de las ambulancias en una tabla.
+ * 
  * @author Jesus
  */
 public class AmbulanciaConsultar extends javax.swing.JPanel {
     private AmbulanciaController ambulanciaController;
     /**
-     * Creates new form AmbulanciaConsultar
+     * Crea un nuevo objeto AmbulanciaConsultar.
+     * Inicializa los componentes del panel y configura el controlador de ambulancias.
      */
     public AmbulanciaConsultar() {
         initComponents();
+        // Inicializar el controlador de ambulancias
         ambulanciaController = new AmbulanciaController();
-        ambulanciaController.setTablaAmbulancia(tbAmbulancia); // Asignar la tabla al controlador
+        // Asignar la tabla al controlador
+        ambulanciaController.setTablaAmbulancia(tbAmbulancia); 
     }
 
     /**
@@ -136,27 +141,33 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+    * Método de acción ejecutado cuando se hace clic en el botón "Consultar".
+    * Realiza una consulta de ambulancias por número de placa y actualiza la tabla con los resultados obtenidos.
+    *
+    * @param evt El evento de acción generado por el botón.
+    */
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
         String numeroPlaca = tfPlaca.getText();
         SwingWorker<List<AmbulanciaDTO>, Void> worker = new SwingWorker<List<AmbulanciaDTO>, Void>() {
-        @Override
-        protected List<AmbulanciaDTO> doInBackground() throws Exception {
-            return ambulanciaController.consultarAmbulanciaPorPlaca(numeroPlaca);
-        }
-
-        @Override
-        protected void done() {
-            try {
-                List<AmbulanciaDTO> ambulancias = get();
-                ambulanciaController.mostrarAmbulanciasEnTabla(ambulancias);
-            } catch (Exception e) {
-                // Manejo de excepciones
-                e.printStackTrace();
+            @Override
+            protected List<AmbulanciaDTO> doInBackground() throws Exception {
+                return ambulanciaController.consultarAmbulanciaPorPlaca(numeroPlaca);
             }
-        }
-    };
 
-    worker.execute();
+            @Override
+            protected void done() {
+                try {
+                    List<AmbulanciaDTO> ambulancias = get();
+                    ambulanciaController.mostrarAmbulanciasEnTabla(ambulancias);
+                } catch (Exception e) {
+                    // Manejo de excepciones
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        worker.execute();
     }//GEN-LAST:event_btnConsultarActionPerformed
 
 

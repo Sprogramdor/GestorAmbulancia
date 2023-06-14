@@ -40,50 +40,59 @@ public class AmbulanciaController {
      * @param ambulancia Objeto AmbulanciaDTO a registrar.
      */
     public void registrarAmbulancia(AmbulanciaDTO ambulancia) {
-        try {
-            // Crear la conexión HTTP
-            URL url = new URL(API_URL);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setDoOutput(true);
-            
-            // Convertir la ambulancia a formato JSON
-            String jsonAmbulancia = "{\"numeroPlaca\":\"" + ambulancia.getPlaca() + "\","
-                    + "\"modelo\":\"" + ambulancia.getModelo() + "\","
-                    + "\"tipo\":\"" + ambulancia.getTipo() + "\","
-                    + "\"estado\":\"" + ambulancia.getEstado() + "\","
-                    + "\"observaciones\":\"" + ambulancia.getObservacion() + "\"}";
+    try {
+        // Crear la conexión HTTP
+        URL url = new URL(API_URL);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setDoOutput(true);
 
-            // Enviar la solicitud POST con la ambulancia en formato JSON
-            try (OutputStream outputStream = connection.getOutputStream()) {
-                outputStream.write(jsonAmbulancia.getBytes());
-                outputStream.flush();
-            }
-            
-            // Obtener la respuesta de la API
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                JOptionPane.showMessageDialog(null, "Ambulancia registrada correctamente.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al registrar la ambulancia. Código de respuesta: " + responseCode);
-            }
-            
-            // Cerrar la conexión
-            connection.disconnect();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al comunicarse con la API: " + e.getMessage());
+        // Crear el objeto JSON para la ambulancia
+        JSONObject jsonAmbulancia = new JSONObject();
+        jsonAmbulancia.put("numeroPlaca", ambulancia.getPlaca());
+        jsonAmbulancia.put("modelo", ambulancia.getModelo());
+        jsonAmbulancia.put("tipo", ambulancia.getTipo());
+        jsonAmbulancia.put("estado", ambulancia.getEstado());
+        
+        // Obtener las observaciones y manejar el valor nulo
+        String observaciones = ambulancia.getObservacion();
+        if (observaciones == null) {
+            observaciones = " "; // Cambiar observaciones nulas a una cadena vacía
         }
+        jsonAmbulancia.put("observaciones", observaciones);
+
+        // Enviar la solicitud POST con el objeto JSON
+        try (OutputStream outputStream = connection.getOutputStream()) {
+            outputStream.write(jsonAmbulancia.toString().getBytes());
+            outputStream.flush();
+        }
+
+        // Obtener la respuesta de la API
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            JOptionPane.showMessageDialog(null, "Ambulancia registrada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al registrar la ambulancia. Código de respuesta: " + responseCode);
+        }
+
+        // Cerrar la conexión
+        connection.disconnect();
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al comunicarse con la API: " + e.getMessage());
     }
+}
+
+
     
     
-/**
- * Consulta las ambulancias por número de placa y actualiza la tabla con los resultados.
- *
- * @param numeroPlaca Número de placa de la ambulancia a consultar.
- * @return Lista de ambulancias encontradas.
- */
-public List<AmbulanciaDTO> consultarAmbulanciaPorPlaca(String numeroPlaca) {
+    /**
+     * Consulta las ambulancias por número de placa y actualiza la tabla con los resultados.
+     *
+     * @param numeroPlaca Número de placa de la ambulancia a consultar.
+     * @return Lista de ambulancias encontradas que coinciden con el número de placa especificado.
+     */
+    public List<AmbulanciaDTO> consultarAmbulanciaPorPlaca(String numeroPlaca) {
     List<AmbulanciaDTO> ambulancias = new ArrayList<>();
     try {
         // Crear la conexión HTTP con la URL de consulta por placa
@@ -173,10 +182,12 @@ public List<AmbulanciaDTO> consultarAmbulanciaPorPlaca(String numeroPlaca) {
     }
  
     /**
-     * Consulta las ambulancias por número de placa y actualiza el formulario con los datos encontrados.
-     *
-     * @param numeroPlaca Número de placa de la ambulancia a consultar.
-     */
+    * Consulta las ambulancias por número de placa y actualiza el formulario con los datos encontrados.
+    *
+    * @param numeroPlaca Número de placa de la ambulancia a consultar.
+    * @return El objeto AmbulanciaDTO con los datos de la ambulancia encontrada. Si no se encuentra ninguna ambulancia con la placa especificada, devuelve null.
+    * @throws IOException Si ocurre un error de comunicación con la API.
+    */
     public AmbulanciaDTO buscarPorPlaca(String numeroPlaca) {
     try {
         // Crear la conexión HTTP
@@ -261,10 +272,18 @@ public List<AmbulanciaDTO> consultarAmbulanciaPorPlaca(String numeroPlaca) {
 
     
 
-   /**
- * Actualiza los datos de la ambulancia en la API.
- */
-public boolean actualizarDatos(int id, String numeroPlaca, boolean estado, String tipo, String modelo, String observaciones) {
+    /**
+     * Actualiza los datos de la ambulancia en la API.
+     *
+     * @param id             El ID de la ambulancia que se va a actualizar.
+     * @param numeroPlaca    El número de placa de la ambulancia.
+     * @param estado         El estado de la ambulancia (true si está activa, false si no lo está).
+     * @param tipo           El tipo de la ambulancia.
+     * @param modelo         El modelo de la ambulancia.
+     * @param observaciones  Las observaciones de la ambulancia.
+     * @return true si los datos se actualizaron correctamente, false en caso contrario.
+     */
+    public boolean actualizarDatos(int id, String numeroPlaca, boolean estado, String tipo, String modelo, String observaciones) {
     try {
         String url = "https://backendambulancia.onrender.com/vv/api/v1/modificarAmbulancia?id=" + id; // URL de la API
 
@@ -306,6 +325,13 @@ public boolean actualizarDatos(int id, String numeroPlaca, boolean estado, Strin
     }
 }
 
+    /**
+    * Obtiene el ID de una ambulancia dado su número de placa.
+    *
+    * @param numeroPlaca El número de placa de la ambulancia.
+    * @return El ID de la ambulancia correspondiente al número de placa especificado. Si no se encuentra ninguna ambulancia con la placa especificada, devuelve -1.
+    * @throws IOException Si ocurre un error de comunicación con la API.
+    */ 
     public int obtenerIdAmbulancia(String numeroPlaca) {
     try {
         // Crear la conexión HTTP con la URL de la API
