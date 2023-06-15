@@ -103,11 +103,11 @@ public class ClienteController {
 
     public boolean Actualizar(String nombres, String apellidos, String sexo, String correo, String nombreUsuario, String id) {
         OkHttpClient client = new OkHttpClient();
-        String jsonBody = "{\"nombres\": \"" + nombres + "\", " +
-                  "\"apellidos\": \"" + apellidos + "\", " +
-                  "\"sexo\": \"" + sexo + "\", " +
-                  "\"correo\": \"" + correo + "\", " +
-                  "\"nombreUsuario\": \"" + nombreUsuario + "\"}";
+        String jsonBody = "{\"nombres\": \"" + nombres + "\", "
+                + "\"apellidos\": \"" + apellidos + "\", "
+                + "\"sexo\": \"" + sexo + "\", "
+                + "\"correo\": \"" + correo + "\", "
+                + "\"nombreUsuario\": \"" + nombreUsuario + "\"}";
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonBody);
 
         Request request = new Request.Builder()
@@ -119,11 +119,32 @@ public class ClienteController {
             if (response.isSuccessful()) {
                 JOptionPane.showMessageDialog(null, "¡Se ha actualizado los datos correctamente!", "Actualización correcta", JOptionPane.INFORMATION_MESSAGE);
                 return true;
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Error: Datos faltantes", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         } catch (Exception e) {
+        }
+        return false;
+    }
+
+    public boolean Eliminar(int id) {
+        OkHttpClient client = new OkHttpClient();
+        String url = "https://backendambulancia.onrender.com/vv/api/v1/eliminarCliente?id="+id;
+        Request request = new Request.Builder()
+                .url(url)
+                .delete()
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                JOptionPane.showMessageDialog(null, "¡Se ha eliminado al cliente!", "Cliente eliminado", JOptionPane.INFORMATION_MESSAGE);
+                return true;
+            } else {
+                System.out.println(response.toString());
+                JOptionPane.showMessageDialog(null, "Error: No se ha podido eliminar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return false;
     }

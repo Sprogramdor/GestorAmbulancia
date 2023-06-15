@@ -6,6 +6,11 @@ package view.ui.component;
 
 import control.ClienteController;
 import java.util.List;
+import javafx.scene.control.SelectionMode;
+import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import model.dto.UsuarioDTO;
 
@@ -14,9 +19,15 @@ import model.dto.UsuarioDTO;
  * @author Jesus
  */
 public class ClienteConsultar extends javax.swing.JPanel {
+
     ClienteController cc = new ClienteController();
-    String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario"};
-    DefaultTableModel model = new DefaultTableModel(columnasNames, 0);
+    String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario", "id"};
+    DefaultTableModel model = new DefaultTableModel(columnasNames, 0) {
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
     /**
      * Creates new form ClienteRegistro
      */
@@ -25,6 +36,32 @@ public class ClienteConsultar extends javax.swing.JPanel {
         this.TblCliente.setModel(model);
         this.btnGrupo.add(rdbCedula);
         this.btnGrupo.add(rdbNombre);
+        this.TblCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        TblCliente.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = TblCliente.getSelectedRow();
+                    if (selectedRow != -1) {
+                        Object[] rowData = new Object[columnasNames.length];
+                        for (int i = 0; i < columnasNames.length; i++) {
+                            rowData[i] = model.getValueAt(selectedRow, i);
+                        }
+                        int id = Integer.parseInt(rowData[rowData.length - 1].toString());
+                        int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar al usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                        if (respuesta == JOptionPane.YES_OPTION) {
+                            cc.Eliminar(id);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Acción cancelada. El usuario no ha sido eliminado.", "Eliminación cancelada", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
+                    }
+                }
+            }
+
+        });
+
     }
 
     /**
@@ -116,13 +153,10 @@ public class ClienteConsultar extends javax.swing.JPanel {
 
         TblCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(TblCliente);
@@ -196,8 +230,8 @@ public class ClienteConsultar extends javax.swing.JPanel {
         model.setRowCount(0);
         List<UsuarioDTO> clientes;
         clientes = cc.obtenerClientes();
-        for(UsuarioDTO u : clientes){
-            Object[] rowData = {u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario()};
+        for (UsuarioDTO u : clientes) {
+            Object[] rowData = {u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario(), u.getId()};
             model.addRow(rowData);
         }
         this.TblCliente.setModel(model);
@@ -210,7 +244,7 @@ public class ClienteConsultar extends javax.swing.JPanel {
         boolean nombre = this.rdbNombre.isSelected();
         String dato = this.txtDato.getText();
         UsuarioDTO u = cc.ConsultarCN(cedula, nombre, dato);
-        model.addRow(new Object[]{u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario()});
+        model.addRow(new Object[]{u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario(), u.getId()});
         this.TblCliente.setModel(model);
     }//GEN-LAST:event_btnConsultaCNActionPerformed
 
