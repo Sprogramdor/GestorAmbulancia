@@ -11,6 +11,18 @@ public class PeticionDTO {
 	private ConductorDTO conductor;
 	private boolean estado;
 
+    public PeticionDTO(Long id, String puntoOrigen, String puntoDestino, HospitalDTO hospital, ClienteDTO cliente, AmbulanciaDTO ambulancia, ConductorDTO conductor, boolean estado) {
+        this.id = id;
+        this.puntoOrigen = puntoOrigen;
+        this.puntoDestino = puntoDestino;
+        this.hospital = hospital;
+        this.cliente = cliente;
+        this.ambulancia = ambulancia;
+        this.conductor = conductor;
+        this.estado = estado;
+    }
+        
+
 	public Long getId() {
 		return id;
 	}

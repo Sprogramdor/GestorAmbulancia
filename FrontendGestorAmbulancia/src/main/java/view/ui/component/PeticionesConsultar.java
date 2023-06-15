@@ -4,19 +4,60 @@
  */
 package view.ui.component;
 
+import control.PeticionController;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.dto.PeticionDTO;
+
 /**
- *
- * @author Jesus
+ * Panel que permite consultar y mostrar las peticiones.
+ * Extiende de javax.swing.JPanel.
+ * 
+ * @author Jesús
  */
 public class PeticionesConsultar extends javax.swing.JPanel {
-
+    private PeticionController peticionController;
     /**
-     * Creates new form AmbulanciaConsultar
+     * Crea una nueva instancia del panel PeticionesConsultar.
+     * Inicializa los componentes y carga las peticiones.
      */
     public PeticionesConsultar() {
         initComponents();
+        peticionController = new PeticionController();
+        cargarPeticiones();
     }
 
+    /**
+     * Carga las peticiones y las muestra en una tabla.
+     * Captura cualquier excepción que ocurra durante el proceso.
+     */
+    private void cargarPeticiones() {
+        try {
+            // Obtén la referencia al modelo de la tabla
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            
+            // Elimina todas las filas existentes en la tabla
+            model.setRowCount(0);
+            
+            // Obtiene las peticiones del controlador
+            List<PeticionDTO> peticiones = peticionController.obtenerPeticiones();
+            
+            // Agrega las peticiones al modelo de la tabla
+            for (PeticionDTO peticion : peticiones) {
+                Object[] row = new Object[] {
+                    peticion.getAmbulancia().getPlaca(),
+                    peticion.getPuntoOrigen(),
+                    peticion.getPuntoDestino(),
+                    peticion.getConductor().getCedula(),
+                    peticion.isEstado()
+                };
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+            // Maneja el error adecuadamente
+            e.printStackTrace();
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
