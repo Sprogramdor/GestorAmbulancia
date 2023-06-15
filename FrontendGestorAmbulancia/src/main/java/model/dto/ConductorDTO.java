@@ -43,8 +43,7 @@ public class ConductorDTO {
                         || correo == null || correo.isEmpty()
                         || fechaNacimiento == null || fechaNacimiento.isEmpty()
                         || fechaContrato == null || fechaContrato.isEmpty()
-                        || sexo == null || sexo.isEmpty()
-                        || !estado;
+                        || sexo == null || sexo.isEmpty();
             }
 
 

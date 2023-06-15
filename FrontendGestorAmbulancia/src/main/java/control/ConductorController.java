@@ -123,6 +123,92 @@ public class ConductorController {
         return false;
     }
     
+    public boolean  actualizarDatos( ConductorDTO cdt){
+        
+        JSONObject json = new JSONObject();
+            json.put("cedula",cdt.getCedula());
+            json.put("nombre",cdt.getNombre());
+            json.put("apellidos",cdt.getApellidos());
+            json.put("correo", cdt.getCorreo());
+            json.put("fechaNacimiento",cdt.getFechaNacimiento());
+            json.put("fechaContrato", cdt.getFechaContrato());
+            json.put("sexo", cdt.getSexo());
+            json.put("estado", cdt.isEstado());
+           OkHttpClient client = new OkHttpClient();
+
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json.toString());
+
+            
+            // Supongamos que tienes una variable llamada "idConductor" que contiene el ID del conductor seleccionado
+
+            // Construye la URL con el ID del conductor
+            String url = "https://backendambulancia.onrender.com/vv/api/v1/modificarConductor?id=" + cdt.getId();
+
+            // Construye la solicitud HTTP utilizando la URL adecuada y el método HTTP correcto
+            Request request = new Request.Builder()
+                    .url(url)
+                    .put(requestBody) // o .post(requestBody) si es un método POST
+                    .build();
+
+            try (Response response = client.newCall(request).execute()) {
+        if (response.isSuccessful()) {
+            // La solicitud fue exitosa
+            String responseBody = response.body().string();
+            // Manejar la respuesta según sea necesario
+            
+            // Retorna true para indicar que la respuesta fue exitosa
+            return true;
+        } else {
+            // La solicitud no fue exitosa
+            // Manejar el error
+            
+            // Retorna false para indicar que la respuesta no fue exitosa
+            return false;
+        }
+    } catch (IOException e) {
+        // Ocurrió un error de red u otra excepción
+        e.printStackTrace();
+        
+        // Retorna false para indicar que ocurrió un error
+        return false;
+    }
+    }
+    
+    public boolean eliminarConductor(long idConductor) {
+    OkHttpClient client = new OkHttpClient();
+
+    // Construye la URL con el ID del conductor
+    String url = "https://backendambulancia.onrender.com/vv/api/v1/eliminarConductor?id=" + idConductor;
+
+    // Construye la solicitud HTTP utilizando la URL adecuada y el método DELETE
+    Request request = new Request.Builder()
+            .url(url)
+            .delete()
+            .build();
+
+    try (Response response = client.newCall(request).execute()) {
+        if (response.isSuccessful()) {
+            // La solicitud fue exitosa
+            // Manejar la respuesta según sea necesario
+            
+            // Retorna true para indicar que la eliminación fue exitosa
+            return true;
+        } else {
+            // La solicitud no fue exitosa
+            // Manejar el error
+            
+            // Retorna false para indicar que la eliminación no fue exitosa
+            return false;
+        }
+    } catch (IOException e) {
+        // Ocurrió un error de red u otra excepción
+        e.printStackTrace();
+        
+        // Retorna false para indicar que ocurrió un error
+        return false;
+    }
+}
+
     
     
 }

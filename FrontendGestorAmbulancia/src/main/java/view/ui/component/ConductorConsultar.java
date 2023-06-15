@@ -60,6 +60,8 @@ public class ConductorConsultar extends javax.swing.JPanel {
         for (ConductorDTO conductor : conductores) {
             if(conductor.isEstado()){
                 estado="Disponible";
+            }else{
+                estado="No disponible";
             }
             Object[] rowData = {conductor.getCedula(),conductor.getNombre(),conductor.getApellidos(),conductor.getCorreo(),conductor.getFechaContrato(),estado};
             // Agregar más datos según el modelo de Conductor

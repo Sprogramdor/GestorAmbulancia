@@ -32,6 +32,7 @@ public class ConductorModificar extends javax.swing.JPanel {
      // Agrupar los botones de opción en un ButtonGroup
         ButtonGroup buttonGroup = new ButtonGroup();
         ConductorController cc = new ConductorController();
+        long id;
         
     public ConductorModificar() {
         initComponents();
@@ -43,6 +44,9 @@ public class ConductorModificar extends javax.swing.JPanel {
 
     }
 
+    
+    
+    
     
     public void Modificar(){
         
@@ -76,24 +80,18 @@ public class ConductorModificar extends javax.swing.JPanel {
             cd.setEstado(false);
         }
       
+        cd.setId(id);
         
-        
-        if( cd.PropiedadesVacias()){
+        if(cd.PropiedadesVacias()){
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
+             System.out.println(cd.toString()); 
         }else{
             
-             if(cc.registrarConductor(cd)){
-                         JOptionPane.showMessageDialog(this, "Registro realizado con Exito");
-                                     this.tfCedula.setText(" "); 
-                                     this.tfNombres.setText(" "); 
-                                     this.tfApellidos.setText(" "); 
-                                     this.tfCorreo.setText(" "); 
-                                     this.dcContrato.setDate(null);
-                                     this.dcNacimiento.setDate(null);
-                                     this.cbEstado.setSelectedIndex(0);
-                                     this.buttonGroup.clearSelection();
+             if(cc.actualizarDatos(cd)){
+                         JOptionPane.showMessageDialog(this, "Actualizacion realizada con Exito");
+                                     this.Limpiar();
          }else{
-             JOptionPane.showMessageDialog(this, "El registro Fallo, intente de nuevo");
+             JOptionPane.showMessageDialog(this, "Problemas para actualizar datos");
          }
             
             
@@ -142,7 +140,7 @@ public class ConductorModificar extends javax.swing.JPanel {
                                          this.dcContrato.setLocale(new Locale("es"));
                                      this.dcContrato.setDate(datecontrato);
                                      this.dcNacimiento.setDate( datenacimiento);
-                                     
+                                     id=dt.getId();
                                  
                  
            } catch (IOException ex) {
@@ -156,16 +154,36 @@ public class ConductorModificar extends javax.swing.JPanel {
        }catch(NullPointerException b){
            JOptionPane.showMessageDialog(this, "Ingrese la cedula de un conductor ");
        }
-       
-      
-          
-           
-                                     
-           
-      
-        
-      
+         
     }
+   
+   
+   public void Eliminar(){
+       
+       if(cc.eliminarConductor(id)){
+           JOptionPane.showMessageDialog(this, "Conducto Eliminado");
+           this.Limpiar();
+       }else{
+            JOptionPane.showMessageDialog(this, "No se pudo Eliminar conductor");
+       }
+       
+       
+   }
+   
+   
+   public void Limpiar(){
+                                    this.tfCedula.setText(" "); 
+                                     this.tfNombres.setText(" "); 
+                                     this.tfApellidos.setText(" "); 
+                                     this.tfCorreo.setText(" "); 
+                                     this.dcContrato.setDate(null);
+                                     this.dcNacimiento.setDate(null);
+                                     this.cbEstado.setSelectedIndex(0);
+                                     this.buttonGroup.clearSelection();
+   }
+   
+   
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -332,12 +350,10 @@ public class ConductorModificar extends javax.swing.JPanel {
     private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
         
         this.Modificar();
-       
-        
     }//GEN-LAST:event_btnActualizarMouseClicked
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
-        // TODO add your handling code here:
+        this.Eliminar();
     }//GEN-LAST:event_btnEliminarMouseClicked
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
