@@ -128,24 +128,30 @@ public class ClienteController {
         return false;
     }
 
-    public boolean Eliminar(int id) {
+    public boolean eliminar(long id) {
         OkHttpClient client = new OkHttpClient();
-        String url = "https://backendambulancia.onrender.com/vv/api/v1/eliminarCliente?id="+id;
+
+        String url = "https://backendambulancia.onrender.com/vv/api/v1/eliminarUsuario?id=" + id;
+
         Request request = new Request.Builder()
                 .url(url)
                 .delete()
                 .build();
-        try (Response response = client.newCall(request).execute()) {
-            if (response.isSuccessful()) {
-                JOptionPane.showMessageDialog(null, "¡Se ha eliminado al cliente!", "Cliente eliminado", JOptionPane.INFORMATION_MESSAGE);
-                return true;
-            } else {
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar al usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+        // Verificar la respuesta
+        if (respuesta == JOptionPane.YES_OPTION) {
+            try (Response response = client.newCall(request).execute()) {
                 System.out.println(response.toString());
-                JOptionPane.showMessageDialog(null, "Error: No se ha podido eliminar al cliente", "Error", JOptionPane.ERROR_MESSAGE);
+                if (response.isSuccessful()) {
+                    return true;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } 
         return false;
     }
+
 }

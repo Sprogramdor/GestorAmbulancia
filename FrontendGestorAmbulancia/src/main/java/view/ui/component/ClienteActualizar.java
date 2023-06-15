@@ -5,6 +5,7 @@
 package view.ui.component;
 
 import control.ClienteController;
+import javax.swing.JOptionPane;
 import model.dto.UsuarioDTO;
 
 /**
@@ -12,8 +13,8 @@ import model.dto.UsuarioDTO;
  * @author Jesus
  */
 public class ClienteActualizar extends javax.swing.JPanel {
+
     ClienteController cc = new ClienteController();
-    
 
     /**
      * Creates new form ClienteRegistro
@@ -54,6 +55,7 @@ public class ClienteActualizar extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         btnBuscar = new javax.swing.JButton();
         lblId = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(810, 490));
@@ -136,6 +138,14 @@ public class ClienteActualizar extends javax.swing.JPanel {
 
         lblId.setText("id");
 
+        btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,7 +182,10 @@ public class ClienteActualizar extends javax.swing.JPanel {
                         .addComponent(txtApellido))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnActualizar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnActualizar)
+                                .addGap(33, 33, 33)
+                                .addComponent(btnEliminar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(107, 107, 107)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +235,9 @@ public class ClienteActualizar extends javax.swing.JPanel {
                     .addComponent(jLabel12)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addComponent(btnActualizar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnEliminar))
                 .addGap(50, 50, 50))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -231,13 +246,13 @@ public class ClienteActualizar extends javax.swing.JPanel {
         // TODO add your handling code here:
         String cedula = this.txtCedula.getText();
         UsuarioDTO u = cc.ConsultarCN(true, false, cedula);
-        this.lblId.setText(u.getId()+"");
+        this.lblId.setText(u.getId() + "");
         this.txtCorreo.setText(u.getCorreo());
         this.txtNombres.setText(u.getNombres());
         this.txtApellido.setText(u.getApellidos());
-        if(u.getSexo().equals("Masculino")){
+        if (u.getSexo().equals("Masculino")) {
             this.rdbMasculino.setSelected(true);
-        }else{
+        } else {
             this.rdbFemenino.setSelected(true);
         }
         this.txtUsuario.setText(u.getNombreUsuario());
@@ -248,15 +263,15 @@ public class ClienteActualizar extends javax.swing.JPanel {
         String nombres = this.txtNombres.getText();
         String apellidos = this.txtApellido.getText();
         String sexo = "";
-        if(this.rdbMasculino.isSelected()){
-           sexo = "Masculino";
-        }else if(this.rdbFemenino.isSelected()){
-          sexo = "Femenino";  
+        if (this.rdbMasculino.isSelected()) {
+            sexo = "Masculino";
+        } else if (this.rdbFemenino.isSelected()) {
+            sexo = "Femenino";
         }
         String correo = this.txtCorreo.getText();
         String nombreUsuario = this.txtUsuario.getText();
         String id = this.lblId.getText();
-        if(cc.Actualizar(nombres, apellidos, sexo, correo, nombreUsuario, id)){
+        if (cc.Actualizar(nombres, apellidos, sexo, correo, nombreUsuario, id)) {
             this.txtCedula.setText("");
             this.txtCorreo.setText("");
             this.txtNombres.setText("");
@@ -267,10 +282,21 @@ public class ClienteActualizar extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        Long id = Long.parseLong(this.lblId.getText());
+        if (cc.eliminar(id)) {
+            JOptionPane.showMessageDialog(null, "¡Se ha eliminado al usuario!", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Acción cancelada. El usuario no ha sido eliminado.", "Eliminación cancelada", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

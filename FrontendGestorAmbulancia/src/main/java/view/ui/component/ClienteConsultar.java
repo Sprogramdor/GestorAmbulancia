@@ -21,7 +21,7 @@ import model.dto.UsuarioDTO;
 public class ClienteConsultar extends javax.swing.JPanel {
 
     ClienteController cc = new ClienteController();
-    String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario", "id"};
+    String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario"};
     DefaultTableModel model = new DefaultTableModel(columnasNames, 0) {
         public boolean isCellEditable(int row, int column) {
             return false;
@@ -36,34 +36,7 @@ public class ClienteConsultar extends javax.swing.JPanel {
         this.TblCliente.setModel(model);
         this.btnGrupo.add(rdbCedula);
         this.btnGrupo.add(rdbNombre);
-        this.TblCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        TblCliente.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = TblCliente.getSelectedRow();
-                    if (selectedRow != -1) {
-                        Object[] rowData = new Object[columnasNames.length];
-                        for (int i = 0; i < columnasNames.length; i++) {
-                            rowData[i] = model.getValueAt(selectedRow, i);
-                        }
-                        int id = Integer.parseInt(rowData[rowData.length - 1].toString());
-                        int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar al usuario?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-                        if (respuesta == JOptionPane.YES_OPTION) {
-                            cc.Eliminar(id);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Acción cancelada. El usuario no ha sido eliminado.", "Eliminación cancelada", JOptionPane.INFORMATION_MESSAGE);
-                        }
-
-                    }
-                }
-            }
-
-        });
-
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -244,7 +217,7 @@ public class ClienteConsultar extends javax.swing.JPanel {
         boolean nombre = this.rdbNombre.isSelected();
         String dato = this.txtDato.getText();
         UsuarioDTO u = cc.ConsultarCN(cedula, nombre, dato);
-        model.addRow(new Object[]{u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario(), u.getId()});
+        model.addRow(new Object[]{u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario()});
         this.TblCliente.setModel(model);
     }//GEN-LAST:event_btnConsultaCNActionPerformed
 
