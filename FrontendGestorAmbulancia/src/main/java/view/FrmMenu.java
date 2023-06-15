@@ -2,10 +2,11 @@ package view;
 
 import view.ui.component.PeticionesConsultar;
 import view.ui.component.ClienteRegistrar;
-import view.ui.component.ConductorModificar;
+
 import view.ui.component.PeticionesAsignar;
 import view.ui.component.ConductorRegistrar;
 import view.ui.component.ConductorConsultar;
+import view.ui.component.ConductorModificar;
 import view.ui.component.AmbulanciaRegistrar;
 import view.ui.component.ClienteConsultar;
 import view.ui.component.AmbulanciaConsultar;
@@ -17,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 import view.ui.menu.MenuEvent;
 
@@ -96,7 +99,11 @@ public class FrmMenu extends javax.swing.JFrame {
                     break;
                 case 4:
                     if( subIndex == 1){
-                             showForm(new PeticionesAsignar());
+                try {
+                    showForm(new PeticionesAsignar());
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmMenu.class.getName()).log(Level.SEVERE, null, ex);
+                }
                         }if(subIndex == 2){
                            showForm(new PeticionesConsultar());
                         }

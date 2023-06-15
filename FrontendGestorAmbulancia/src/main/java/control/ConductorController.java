@@ -48,7 +48,7 @@ public class ConductorController {
                                 for (int i = 0; i < conductoresArray.length(); i++) {
                                     JSONObject conductorJson = conductoresArray.getJSONObject(i);
                                     ConductorDTO conductor = new ConductorDTO();
-
+                                   conductor.setId(conductorJson.getLong("id"));
                                     conductor.setCedula(conductorJson.getString("cedula"));
                                     conductor.setNombre(conductorJson.getString("nombre"));
                                     conductor.setApellidos(conductorJson.getString("apellidos"));
