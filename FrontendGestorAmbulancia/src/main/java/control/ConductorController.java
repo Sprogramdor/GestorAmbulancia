@@ -13,7 +13,6 @@ import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.google.gson.Gson;
-import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,11 +113,6 @@ public class ConductorController {
 
         try (Response response = client.newCall(request).execute()) {
             // Manejar la respuesta de la API, como obtener el código de estado, el cuerpo de la respuesta, etc.
-            // ...
-            System.out.println(   response.body().string()  );  
-         
-            
-            
             // Devolver true si el registro fue exitoso, false en caso contrario
             return response.isSuccessful();
         } catch (IOException e) {

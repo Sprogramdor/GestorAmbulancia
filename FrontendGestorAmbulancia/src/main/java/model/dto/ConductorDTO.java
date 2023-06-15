@@ -30,6 +30,31 @@ public class ConductorDTO {
 		this.estado = estado;
 	}
 
+        
+            /**
+            * Verifica si alguna de las propiedades en el objeto Persona tiene valores nulos o valores por defecto.
+            *
+            * @return true si alguna propiedad está vacía o con valor por defecto, false de lo contrario.
+            */
+            public boolean PropiedadesVacias() {
+                return cedula == null || cedula.isEmpty()
+                        || nombre == null || nombre.isEmpty()
+                        || apellidos == null || apellidos.isEmpty()
+                        || correo == null || correo.isEmpty()
+                        || fechaNacimiento == null || fechaNacimiento.isEmpty()
+                        || fechaContrato == null || fechaContrato.isEmpty()
+                        || sexo == null || sexo.isEmpty()
+                        || !estado;
+            }
+
+
+        
+        
+        
+        
+        
+        
+        
 	public Long getId() {
 		return id;
 	}

@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
 import model.dto.ConductorDTO;
 
 /**
@@ -21,13 +22,13 @@ public class ConductorRegistrar extends javax.swing.JPanel {
      * Creates new form ConductorRegistrar
      */
     
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+     // Agrupar los botones de opción en un ButtonGroup
+        ButtonGroup buttonGroup = new ButtonGroup();
     
     public ConductorRegistrar() {
         initComponents();
-        // Agrupar los botones de opción en un ButtonGroup
-        ButtonGroup buttonGroup = new ButtonGroup();
+       
         buttonGroup.add(this.rbMasculino);
         buttonGroup.add(this.rbFemenino);
         // Definir el formato de fecha deseado
@@ -51,9 +52,9 @@ public class ConductorRegistrar extends javax.swing.JPanel {
         // Verificar si se ha seleccionado una fecha
         if (fechascontrato != null) {
             // Convertir la fecha a un objeto Timestamp
-            Timestamp timestamp = new Timestamp(fechascontrato.getTime());
-        //cd.setFechaNacimiento(dateFormat.format(this.dcNacimiento));
-       // cd.setFechaContrato(timestamp.toString());
+          
+        cd.setFechaNacimiento(dateFormat.format(this.dcNacimiento.getDate()));
+        cd.setFechaContrato(dateFormat.format(this.dcContrato.getDate()));
         }
         if(this.rbMasculino.isSelected()){
             sexo="Masculino";
@@ -68,11 +69,29 @@ public class ConductorRegistrar extends javax.swing.JPanel {
         }
       
         ConductorController cc= new ConductorController();
-         if(cc.registrarConductor(cd)){
-             System.out.println("registrado");
+        
+        if( cd.PropiedadesVacias()){
+            JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
+        }else{
+            
+             if(cc.registrarConductor(cd)){
+                         JOptionPane.showMessageDialog(this, "Registro realizado con Exito");
+                                     this.tfCedula.setText(" "); 
+                                     this.tfNombres.setText(" "); 
+                                     this.tfApellidos.setText(" "); 
+                                     this.tfCorreo.setText(" "); 
+                                     this.dcContrato.setDate(null);
+                                     this.dcNacimiento.setDate(null);
+                                     this.cbEstado.setSelectedIndex(0);
+                                     this.buttonGroup.clearSelection();
          }else{
-             System.out.println("no se guardo cruck");
+             JOptionPane.showMessageDialog(this, "El registro Fallo, intente de nuevo");
          }
+            
+            
+        }
+        
+        
         
         
     }
