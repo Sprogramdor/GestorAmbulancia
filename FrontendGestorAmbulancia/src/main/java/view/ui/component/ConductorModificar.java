@@ -209,7 +209,7 @@ public class ConductorModificar extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Registrar Conductor");
+        jLabel1.setText("Modificar Conductor");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -305,7 +305,7 @@ public class ConductorModificar extends javax.swing.JPanel {
 
         btnEliminar.setBackground(new java.awt.Color(255, 51, 51));
         btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminar.setText("Eliminar");
         btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
