@@ -7,7 +7,11 @@ package data;
 /**
  *
  * @author fbrz
+ * Clase que contiene los datos de configuración para la API
  */
 public class Datos {
+     /**
+     * La URL base de la API.
+     */
     public static final String API_BASE_URL = "https://backendambulancia.onrender.com/vv/api/v1";
 }

@@ -23,6 +23,8 @@ import org.json.JSONObject;
 
 /**
  * Controlador para la funcionalidad de AmbulanciaDTO.
+ *
+ * @author Nelson Angel Zamora Zhingri
  */
 public class AmbulanciaController {
     private String API_URL = "https://backendambulancia.onrender.com/vv/api/v1/registrarAmbulancia";
@@ -381,6 +383,5 @@ public class AmbulanciaController {
 
 
 }
-
 
 

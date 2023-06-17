@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model.dto;
 
 /**
  *
- * @author nelso
+ * @author NELSON ZAMORA 
+ * Clase que representa los datos de una ambulancia.
  */
 public class AmbulanciaDTO {
     String Placa;
@@ -15,6 +12,15 @@ public class AmbulanciaDTO {
     boolean Estado;
     String Observacion;
 
+     /**
+     * Constructor de la clase AmbulanciaDTO.
+     *
+     * @param Placa       La placa de la ambulancia.
+     * @param Modelo      El modelo de la ambulancia.
+     * @param Tipo        El tipo de la ambulancia.
+     * @param Estado      El estado de la ambulancia.
+     * @param Observacion La observación de la ambulancia.
+     */
     public AmbulanciaDTO(String Placa, String Modelo, String Tipo, boolean Estado, String Observacion) {
         this.Placa = Placa;
         this.Modelo = Modelo;

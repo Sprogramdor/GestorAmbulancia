@@ -1,14 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view.ui.component;
 
 import control.ConductorController;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.dto.ConductorDTO;
@@ -32,47 +27,43 @@ public class ConductorConsultar extends javax.swing.JPanel {
     }
     
     
-    
-    
-    
-    public  void CargarDatos (){
-       
-        
-      List<ConductorDTO> conductores;
-        try {
-            conductores = cc.obtenerConductores();
-            System.out.println(cc.obtenerConductores().toString());
-        } catch (Exception e) {
-            
-            JOptionPane.showMessageDialog(this, "Error al obtener los conductores");
-            return;
-        }
-
-        // Obtener los nombres de las columnas
-        String[] columnNames = {"Cedula","Nombre","Apellidos","Correo","Fecha contrato","Estado"};
-        // Agregar más columnas según el modelo de Conductor
-
-        // Crear el modelo de tabla con los nombres de las columnas
-        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-
-        String estado="No Disponible";
-        // Agregar los datos a la tabla
-        for (ConductorDTO conductor : conductores) {
-            if(conductor.isEstado()){
-                estado="Disponible";
-            }else{
-                estado="No disponible";
-            }
-            Object[] rowData = {conductor.getCedula(),conductor.getNombre(),conductor.getApellidos(),conductor.getCorreo(),conductor.getFechaContrato(),estado};
-            // Agregar más datos según el modelo de Conductor
-
-            model.addRow(rowData);
-        }
-
-        // Establecer el modelo de tabla en la JTable
-       this.TablaConductores.setModel(model);
+    public void CargarDatos() {
+    // Obtener la lista de conductores
+    List<ConductorDTO> conductores;
+    try {
+        conductores = cc.obtenerConductores();
+        System.out.println(cc.obtenerConductores().toString());
+    } catch (Exception e) {
+        // Mostrar mensaje de error si hay un problema al obtener los conductores
+        JOptionPane.showMessageDialog(this, "Error al obtener los conductores");
+        return;
     }
-    
+
+    // Obtener los nombres de las columnas de la tabla
+    String[] columnNames = {"Cedula", "Nombre", "Apellidos", "Correo", "Fecha contrato", "Estado"};
+    // Agregar más columnas según el modelo de Conductor
+
+    // Crear el modelo de tabla con los nombres de las columnas
+    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+
+    String estado = "No Disponible";
+    // Agregar los datos a la tabla
+    for (ConductorDTO conductor : conductores) {
+        if (conductor.isEstado()) {
+            estado = "Disponible";
+        } else {
+            estado = "No disponible";
+        }
+        Object[] rowData = {conductor.getCedula(), conductor.getNombre(), conductor.getApellidos(), conductor.getCorreo(), conductor.getFechaContrato(), estado};
+        // Agregar más datos según el modelo de Conductor
+
+        model.addRow(rowData);
+    }
+
+    // Establecer el modelo de tabla en la JTable
+    this.TablaConductores.setModel(model);
+}
+
     
     
     
@@ -207,16 +198,10 @@ public class ConductorConsultar extends javax.swing.JPanel {
                this.TablaConductores.setModel(model);
           }else{
               JOptionPane.showMessageDialog(this, "Conductor no Existe en el sistema");
-          }
-                              
-                
-           
-            
-                 
+          } 
         } catch (IOException ex) {
                         JOptionPane.showMessageDialog(this, "Conductor no Existe en el sistema");
 
-            //Logger.getLogger(ConductorConsultar.class.getName()).log(Level.SEVERE, null, ex);
         }
   
         

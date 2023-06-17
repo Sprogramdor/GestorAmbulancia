@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package control;
-import model.dto.ConductorDTO;
+
 /**
  *
  * @author Jesus
@@ -72,7 +69,13 @@ public class ConductorController {
     }
     
     
-    
+/**
+ * Consulta un conductor por cédula.
+ *
+ * @param cedula La cédula del conductor a buscar.
+ * @return El objeto ConductorDTO correspondiente al conductor encontrado, o null si no se encuentra ningún conductor.
+ * @throws IOException Si ocurre un error durante la consulta.
+ */    
     public ConductorDTO consultabyCedula(String cedula) throws IOException{
         for(ConductorDTO c:this.obtenerConductores()){
             if(c.getCedula().equals(cedula)){
@@ -123,6 +126,12 @@ public class ConductorController {
         return false;
     }
     
+ /**
+ * Actualiza los datos de un conductor.
+ *
+ * @param cdt El objeto ConductorDTO que contiene los datos actualizados del conductor.
+ * @return true si la actualización fue exitosa, false si ocurrió un error.
+ */
     public boolean  actualizarDatos( ConductorDTO cdt){
         
         JSONObject json = new JSONObject();
@@ -174,6 +183,14 @@ public class ConductorController {
     }
     }
     
+    
+    
+ /**
+ * Elimina un conductor según su ID.
+ *
+ * @param idConductor El ID del conductor a eliminar.
+ * @return true si la eliminación fue exitosa, false si ocurrió un error.
+ */
     public boolean eliminarConductor(long idConductor) {
     OkHttpClient client = new OkHttpClient();
 

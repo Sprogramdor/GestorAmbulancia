@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import control.LoginController;
@@ -9,7 +5,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author fbrz
+ * @author Fabrizio
  */
 public class FrmRecuperarContrasenia extends javax.swing.JFrame {
     LoginController admLogin = new LoginController();

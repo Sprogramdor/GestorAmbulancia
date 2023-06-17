@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package control;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.dto.ClienteDTO;
 import model.dto.UsuarioDTO;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -17,17 +13,29 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import view.FrmCPeticion;
-import view.FrmMenu;
 
 /**
  *
- * @author fbrz
+ * @author MAURO FABRIZIO RAMOS MESIAS
  */
 public class ClienteController {
 
     public String url = "https://backendambulancia.onrender.com/vv/api/v1/registrarUsuario";
 
+  /**
+ * Registra un nuevo usuario Secretario.
+ *
+ * @param cedula           La cédula del usuario.
+ * @param nombres          Los nombres del usuario.
+ * @param apellidos        Los apellidos del usuario.
+ * @param sexo             El sexo del usuario.
+ * @param correo           El correo del usuario.
+ * @param fechaNacimiento  La fecha de nacimiento del usuario.
+ * @param usuario          El nombre de usuario.
+ * @param contrasena       La contraseña del usuario.
+ * @param secretario       El tipo de usuario (en este caso, "Secretario").
+ * @return true si el registro se realiza con éxito, false de lo contrario.
+ */
     public boolean Registrar(String cedula, String nombres, String apellidos, String sexo, String correo, String fechaNacimiento, String usuario, String contrasena, String secretario) {
         OkHttpClient client = new OkHttpClient();
         MediaType mediaType = MediaType.parse("application/json");
@@ -46,6 +54,15 @@ public class ClienteController {
         return false;
     }
 
+    
+ /**
+ * Consulta un usuario Cliente por cédula o nombre.
+ *
+ * @param cedula  Indica si se realizará la búsqueda por cédula.
+ * @param nombre  Indica si se realizará la búsqueda por nombre.
+ * @param dato    El dato a buscar (cedula o nombre).
+ * @return El objeto UsuarioDTO correspondiente al cliente encontrado, o null si no se encuentra ningún cliente.
+ */
     public UsuarioDTO ConsultarCN(boolean cedula, boolean nombre, String dato) {
         if (cedula) {
             for (UsuarioDTO c : this.obtenerClientes()) {
@@ -64,7 +81,12 @@ public class ClienteController {
         }
         return null;
     }
-
+    
+/**
+ * Obtiene una lista de clientes.
+ *
+ * @return La lista de clientes obtenida.
+ */
     public List<UsuarioDTO> obtenerClientes() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -101,6 +123,17 @@ public class ClienteController {
         return clientes;
     }
 
+ /**
+ * Actualiza los datos de un usuario.
+ *
+ * @param nombres       Los nuevos nombres del usuario.
+ * @param apellidos     Los nuevos apellidos del usuario.
+ * @param sexo          El nuevo sexo del usuario.
+ * @param correo        El nuevo correo electrónico del usuario.
+ * @param nombreUsuario El nuevo nombre de usuario del usuario.
+ * @param id            El ID del usuario a actualizar.
+ * @return true si se actualizó correctamente, false en caso contrario.
+ */
     public boolean Actualizar(String nombres, String apellidos, String sexo, String correo, String nombreUsuario, String id) {
         OkHttpClient client = new OkHttpClient();
         String jsonBody = "{\"nombres\": \"" + nombres + "\", "
@@ -128,6 +161,13 @@ public class ClienteController {
         return false;
     }
 
+    
+ /**
+ * Elimina un usuario por su ID.
+ *
+ * @param id El ID del usuario a eliminar.
+ * @return true si se eliminó correctamente, false en caso contrario.
+ */
     public boolean eliminar(long id) {
         OkHttpClient client = new OkHttpClient();
 

@@ -25,7 +25,7 @@ import view.ui.menu.MenuEvent;
 
 /**
  *
- * @author RAVEN
+ * @author  Fabrizio 
  */
 public class FrmMenu extends javax.swing.JFrame {
 
@@ -60,11 +60,7 @@ public class FrmMenu extends javax.swing.JFrame {
     menu1.setEvent(new MenuEvent() {
         @Override
         public void selected(int index, int subIndex) {
-            /*if (index == 0) {
-                showForm(new HomeForm());
-            } else {
-                showForm(new DefaultForm("Form : " + index + " " + subIndex));
-            }*/
+        
 
             switch(index){
                 case 0: showForm(new Home());

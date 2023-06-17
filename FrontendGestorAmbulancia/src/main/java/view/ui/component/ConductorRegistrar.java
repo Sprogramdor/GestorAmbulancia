@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view.ui.component;
 
 import control.ConductorController;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ButtonGroup;
@@ -36,7 +32,13 @@ public class ConductorRegistrar extends javax.swing.JPanel {
 
     }
 
-    
+ /**
+ * Registra un nuevo conductor en la base de datos utilizando los valores ingresados en los campos del formulario.
+ * Obtiene los valores ingresados en los campos de texto y selecciones, y crea un nuevo objeto ConductorDTO.
+ * Luego, llama al método de registro en el ConductorController para almacenar los datos en la base de datos.
+ * Si el registro se realiza con éxito, se muestra un mensaje de éxito y se limpian los campos del formulario.
+ * Si ocurre algún error durante el registro, se muestra un mensaje de error.
+ */
     public void Registrar(){
         String sexo;
         

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view.ui.component;
 
 import Control.AmbulanciaController;
@@ -12,7 +9,7 @@ import javax.swing.JOptionPane;
  * Clase que representa el panel de registro de ambulancias.
  * Permite registrar una nueva ambulancia.
  * 
- * @author Jesus
+ * @author Nelson
  */
 public class AmbulanciaRegistrar extends javax.swing.JPanel {
     private AmbulanciaController ambulanciaController;

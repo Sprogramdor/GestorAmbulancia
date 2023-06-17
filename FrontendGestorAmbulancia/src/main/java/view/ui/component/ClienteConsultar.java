@@ -1,22 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view.ui.component;
 
 import control.ClienteController;
 import java.util.List;
-import javafx.scene.control.SelectionMode;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import model.dto.UsuarioDTO;
 
 /**
  *
- * @author Jesus
+ * @author Fabrizio
  */
 public class ClienteConsultar extends javax.swing.JPanel {
 
@@ -199,26 +191,41 @@ public class ClienteConsultar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMostrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodosActionPerformed
-        // TODO add your handling code here:
-        model.setRowCount(0);
-        List<UsuarioDTO> clientes;
-        clientes = cc.obtenerClientes();
-        for (UsuarioDTO u : clientes) {
-            Object[] rowData = {u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario(), u.getId()};
-            model.addRow(rowData);
-        }
-        this.TblCliente.setModel(model);
+      // Limpiar todas las filas existentes en la tabla
+    model.setRowCount(0);
+
+    // Obtener la lista de clientes
+    List<UsuarioDTO> clientes = cc.obtenerClientes();
+
+    // Agregar cada cliente como una fila en la tabla
+    for (UsuarioDTO u : clientes) {
+        Object[] rowData = {u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario(), u.getId()};
+        model.addRow(rowData);
+    }
+
+    // Establecer el modelo de datos en la tabla
+    this.TblCliente.setModel(model);
     }//GEN-LAST:event_btnMostrarTodosActionPerformed
 
     private void btnConsultaCNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaCNActionPerformed
-        // TODO add your handling code here:
-        model.setRowCount(0);
-        boolean cedula = this.rdbCedula.isSelected();
-        boolean nombre = this.rdbNombre.isSelected();
-        String dato = this.txtDato.getText();
-        UsuarioDTO u = cc.ConsultarCN(cedula, nombre, dato);
-        model.addRow(new Object[]{u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario()});
-        this.TblCliente.setModel(model);
+       // Limpiar todas las filas existentes en la tabla
+    model.setRowCount(0);
+
+    // Obtener los valores de los radio buttons de búsqueda
+    boolean cedula = this.rdbCedula.isSelected();
+    boolean nombre = this.rdbNombre.isSelected();
+
+    // Obtener el dato de búsqueda ingresado
+    String dato = this.txtDato.getText();
+
+    // Realizar la consulta utilizando el controlador de clientes
+    UsuarioDTO u = cc.ConsultarCN(cedula, nombre, dato);
+
+    // Agregar el resultado de la consulta como una fila en la tabla
+    model.addRow(new Object[]{u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario()});
+
+    // Establecer el modelo de datos en la tabla
+    this.TblCliente.setModel(model);
     }//GEN-LAST:event_btnConsultaCNActionPerformed
 
 

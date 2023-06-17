@@ -2,94 +2,191 @@ package model.dto;
 
 import java.util.List;
 
+/**
+ * Clase que representa los datos de un cliente.
+ */
 public class ClienteDTO {
 
-	private Long id;
-	private String cedula;
-	private String nombres;
-	private String apellidos;
-	private String correo;
-	private String sexo;
-	private String fechaNacimiento;
-	private List<String> numeroTelefonico;
+    private Long id;
+    private String cedula;
+    private String nombres;
+    private String apellidos;
+    private String correo;
+    private String sexo;
+    private String fechaNacimiento;
+    private List<String> numeroTelefonico;
 
-	public ClienteDTO() {
-	}
+    /**
+     * Constructor de la clase ClienteDTO.
+     */
+    public ClienteDTO() {
+    }
 
-	public ClienteDTO(Long id, String cedula, String nombres, String apellidos, String correo, String sexo,
-			String fechaNacimiento) {
-		super();
-		this.id = id;
-		this.cedula = cedula;
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.correo = correo;
-		this.sexo = sexo;
-		this.fechaNacimiento = fechaNacimiento;
-	}
+    /**
+     * Constructor de la clase ClienteDTO.
+     *
+     * @param id              El ID del cliente.
+     * @param cedula          La cédula del cliente.
+     * @param nombres         Los nombres del cliente.
+     * @param apellidos       Los apellidos del cliente.
+     * @param correo          El correo electrónico del cliente.
+     * @param sexo            El sexo del cliente.
+     * @param fechaNacimiento La fecha de nacimiento del cliente.
+     */
+    public ClienteDTO(Long id, String cedula, String nombres, String apellidos, String correo, String sexo,
+            String fechaNacimiento) {
+        super();
+        this.id = id;
+        this.cedula = cedula;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.correo = correo;
+        this.sexo = sexo;
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    /**
+     * Obtiene el ID del cliente.
+     *
+     * @return El ID del cliente.
+     */
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * Establece el ID del cliente.
+     *
+     * @param id El ID del cliente.
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getCedula() {
-		return cedula;
-	}
+    /**
+     * Obtiene la cédula del cliente.
+     *
+     * @return La cédula del cliente.
+     */
+    public String getCedula() {
+        return cedula;
+    }
 
-	public void setCedula(String cedula) {
-		this.cedula = cedula;
-	}
+    /**
+     * Establece la cédula del cliente.
+     *
+     * @param cedula La cédula del cliente.
+     */
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
 
-	public String getNombres() {
-		return nombres;
-	}
+    /**
+     * Obtiene los nombres del cliente.
+     *
+     * @return Los nombres del cliente.
+     */
+    public String getNombres() {
+        return nombres;
+    }
 
-	public void setNombres(String nombres) {
-		this.nombres = nombres;
-	}
+    /**
+     * Establece los nombres del cliente.
+     *
+     * @param nombres Los nombres del cliente.
+     */
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
 
-	public String getApellidos() {
-		return apellidos;
-	}
+    /**
+     * Obtiene los apellidos del cliente.
+     *
+     * @return Los apellidos del cliente.
+     */
+    public String getApellidos() {
+        return apellidos;
+    }
 
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+    /**
+     * Establece los apellidos del cliente.
+     *
+     * @param apellidos Los apellidos del cliente.
+     */
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
-	public String getCorreo() {
-		return correo;
-	}
+    /**
+     * Obtiene el correo electrónico del cliente.
+     *
+     * @return El correo electrónico del cliente.
+     */
+    public String getCorreo() {
+        return correo;
+    }
 
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
+    /**
+     * Establece el correo electrónico del cliente.
+     *
+     * @param correo El correo electrónico del cliente.
+     */
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
 
-	public String getSexo() {
-		return sexo;
-	}
+    /**
+     * Obtiene el sexo del cliente.
+     *
+     * @return El sexo del cliente.
+     */
+    public String getSexo() {
+        return sexo;
+    }
 
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
+    /**
+     * Establece el sexo del cliente.
+     *
+     * @param sexo El sexo del cliente.
+     */
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
 
-	public String getFechaNacimiento() {
-		return fechaNacimiento;
-	}
+    /**
+     * Obtiene la fecha de nacimiento del cliente.
+     *
+     * @return La fecha de nacimiento del cliente.
+     */
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
 
-	public void setFechaNacimiento(String fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
+    /**
+     * Establece la fecha de nacimiento del cliente.
+     *
+     * @param fechaNacimiento La fecha de nacimiento del cliente.
+     */
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
-	public List<String> getNumeroTelefonico() {
-		return numeroTelefonico;
-	}
+    /**
+     * Obtiene la lista de números telefónicos del cliente.
+     *
+     * @return La lista de números telefónicos del cliente.
+     */
+    public List<String> getNumeroTelefonico() {
+        return numeroTelefonico;
+    }
 
-	public void setNumeroTelefonico(List<String> numeroTelefonico) {
-		this.numeroTelefonico = numeroTelefonico;
-	}
+    /**
+     * Establece la lista de números telefónicos del cliente.
+     *
+     * @param numeroTelefonico La lista de números telefónicos del cliente.
+     */
+    public void setNumeroTelefonico(List<String> numeroTelefonico) {
+        this.numeroTelefonico = numeroTelefonico;
+    }
 
 }

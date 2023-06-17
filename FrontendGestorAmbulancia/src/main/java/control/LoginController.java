@@ -11,10 +11,25 @@ import org.json.JSONObject;
 import view.FrmCPeticion;
 import view.FrmMenu;
 
+
+
+/**
+ *
+ * @author MAURO FABRIZIO RAMOS MESIAS
+
+ * Controlador para el inicio de sesión y recuperación de contraseña.
+ */
 public class LoginController {
 
     public String url = "https://backendambulancia.onrender.com/vv/api/v1/ingresarAlSistema";
-
+ 
+    /**
+     * Inicia sesión en el sistema con las credenciales proporcionadas.
+     *
+     * @param usuario    El nombre de usuario.
+     * @param contrasena La contraseña.
+     * @return true si el inicio de sesión fue exitoso, false si hubo un error.
+     */
     public boolean iniciarSesion(String usuario, String contrasena) {
 
         if (usuario.equals("") && contrasena.equals("")) {
@@ -67,7 +82,13 @@ public class LoginController {
 
         return false;
     }
-
+    
+/**
+     * Recupera la contraseña para el usuario especificado.
+     *
+     * @param usuario El nombre de usuario para el cual se desea recuperar la contraseña.
+     * @return true si la recuperación de contraseña fue exitosa, false si hubo un error.
+     */
     public boolean recuperarContrasena(String usuario) {
         if (usuario.equals("")) {
             JOptionPane.showMessageDialog(null, "Error: no ha ingresado el usuario", "Error", JOptionPane.ERROR_MESSAGE);

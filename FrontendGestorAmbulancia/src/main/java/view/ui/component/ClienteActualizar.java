@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view.ui.component;
 
 import control.ClienteController;
@@ -10,7 +7,7 @@ import model.dto.UsuarioDTO;
 
 /**
  *
- * @author Jesus
+ * @author Fabrizio
  */
 public class ClienteActualizar extends javax.swing.JPanel {
 
@@ -243,13 +240,18 @@ public class ClienteActualizar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        String cedula = this.txtCedula.getText();
-        UsuarioDTO u = cc.ConsultarCN(true, false, cedula);
+        // Obtener el valor de la cédula ingresada en el campo de texto
+    String cedula = this.txtCedula.getText();
+
+    // Consultar los datos del usuario correspondiente a la cédula ingresada
+    UsuarioDTO u = cc.ConsultarCN(true, false, cedula);
+
+    // Mostrar los datos del usuario en los campos correspondientes
         this.lblId.setText(u.getId() + "");
         this.txtCorreo.setText(u.getCorreo());
         this.txtNombres.setText(u.getNombres());
         this.txtApellido.setText(u.getApellidos());
+        // Establecer la opción de género según el valor del campo "sexo" del usuario
         if (u.getSexo().equals("Masculino")) {
             this.rdbMasculino.setSelected(true);
         } else {
@@ -271,7 +273,13 @@ public class ClienteActualizar extends javax.swing.JPanel {
         String correo = this.txtCorreo.getText();
         String nombreUsuario = this.txtUsuario.getText();
         String id = this.lblId.getText();
+         // Llamar al método "Actualizar" en una instancia de la clase "cc" (se asume que está definida en otro lugar)
+    // Pasar los valores obtenidos como argumentos
         if (cc.Actualizar(nombres, apellidos, sexo, correo, nombreUsuario, id)) {
+            // Si la actualización es exitosa, se ejecuta el siguiente bloque de código
+
+        // Limpiar los campos de texto y otros componentes de la GUI
+            
             this.txtCedula.setText("");
             this.txtCorreo.setText("");
             this.txtNombres.setText("");

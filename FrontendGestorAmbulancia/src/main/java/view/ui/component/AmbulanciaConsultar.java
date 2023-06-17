@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view.ui.component;
 
 import Control.AmbulanciaController;
@@ -13,7 +10,7 @@ import javax.swing.SwingWorker;
  * Clase que representa el panel de consulta de ambulancias.
  * Permite consultar y mostrar la información de las ambulancias en una tabla.
  * 
- * @author Jesus
+ * @author Nelson
  */
 public class AmbulanciaConsultar extends javax.swing.JPanel {
     private AmbulanciaController ambulanciaController;

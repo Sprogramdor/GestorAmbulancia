@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view.ui.component;
 
 import Control.AmbulanciaController;
@@ -13,7 +9,7 @@ import javax.swing.JOptionPane;
  * Permite realizar modificaciones en los datos de las ambulancias.
  * Utiliza un objeto AmbulanciaController para gestionar las operaciones relacionadas con las ambulancias.
  * 
- * @author Jesus
+ * @author Nelson
  */
 public class AmbulanciaModificar extends javax.swing.JPanel {
     AmbulanciaController ambulanciaController = new AmbulanciaController();
