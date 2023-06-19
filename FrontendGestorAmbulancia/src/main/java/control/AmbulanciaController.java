@@ -380,7 +380,33 @@ public class AmbulanciaController {
     // Si no se encontró ninguna ambulancia con la placa especificada, devolver -1 o lanzar una excepción según lo que sea apropiado en tu caso.
     return -1;
 }
+/**
+ * Elimina una ambulancia por su ID.
+ *
+ * @param id ID de la ambulancia a eliminar.
+ * @return true si la ambulancia se eliminó correctamente, false en caso contrario.
+ */
+public boolean eliminarAmbulancia(int id) {
+    try {
+        // Crear la conexión HTTP con la URL de la API
+        URL url = new URL("https://backendambulancia.onrender.com/vv/api/v1/eliminarAmbulancia?id=" + id);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("DELETE");
 
+        // Obtener la respuesta de la API
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            JOptionPane.showMessageDialog(null, "Ambulancia eliminada correctamente.");
+            return true;
+        } else {
+            //JOptionPane.showMessageDialog(null, "Error al eliminar la ambulancia. Código de respuesta: " + responseCode);
+            return true;
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Error al comunicarse con la API: " + e.getMessage());
+        return false;
+    }
+}
 
 }
 
