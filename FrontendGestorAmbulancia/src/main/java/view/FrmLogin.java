@@ -3,7 +3,6 @@ package view;
 
 import control.LoginController;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author fbrz
