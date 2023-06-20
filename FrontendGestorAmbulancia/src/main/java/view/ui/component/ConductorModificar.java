@@ -1,19 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package view.ui.component;
 
 import control.ConductorController;
 import java.io.IOException;
-import static java.lang.String.format;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import model.dto.ConductorDTO;
@@ -27,163 +20,190 @@ public class ConductorModificar extends javax.swing.JPanel {
     /**
      * Creates new form ConductorRegistrar
      */
-    
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-     // Agrupar los botones de opción en un ButtonGroup
-        ButtonGroup buttonGroup = new ButtonGroup();
-        ConductorController cc = new ConductorController();
-        long id;
-        
+    // Agrupar los botones de opción en un ButtonGroup
+    ButtonGroup buttonGroup = new ButtonGroup();
+    ConductorController cc = new ConductorController();
+    long id;
+
     public ConductorModificar() {
         initComponents();
-       
-        buttonGroup.add(this.rbMasculino);
+
+       buttonGroup.add(this.rbMasculino);
         buttonGroup.add(this.rbFemenino);
         // Definir el formato de fecha deseado
-         
 
     }
+/**
+ * Modifica los datos de un conductor existente en base a los valores ingresados en los campos del formulario.
+ * Obtiene los valores ingresados en los campos de texto y selecciones, y actualiza el objeto ConductorDTO correspondiente.
+ * Luego, llama al método de actualización en el ConductorController para aplicar los cambios en la base de datos.
+ * Si se realizan cambios exitosamente, se muestra un mensaje de éxito y se limpian los campos del formulario.
+ * Si ocurre algún error durante la actualización, se muestra un mensaje de error.
+ */
+    public void Modificar() {
+    String sexo;
+    ConductorController cc = new ConductorController();
+    ConductorDTO cd = new ConductorDTO();
 
-    
-    
-    
-    
-    public void Modificar(){
-        
-        String sexo;
-        ConductorController cc= new ConductorController();
-        ConductorDTO cd=new ConductorDTO();
-        cd.setCedula(this.tfCedula.getText());
-        cd.setNombre(this.tfNombres.getText());
-        cd.setApellidos(this.tfApellidos.getText());
-        cd.setCorreo(this.tfCorreo.getText());
-        
-        // Obtener la fecha seleccionada
-        Date fechascontrato = this.dcContrato.getDate();
+    // Obtener los datos del formulario
+    cd.setCedula(this.tfCedula.getText());
+    cd.setNombre(this.tfNombres.getText());
+    cd.setApellidos(this.tfApellidos.getText());
+    cd.setCorreo(this.tfCorreo.getText());
 
-        // Verificar si se ha seleccionado una fecha
-        if (fechascontrato != null) {
-            // Convertir la fecha a un objeto Timestamp
-          
-        cd.setFechaNacimiento(dateFormat.format(this.dcNacimiento.getDate()));
-        cd.setFechaContrato(dateFormat.format(this.dcContrato.getDate()));
-        }
-        if(this.rbMasculino.isSelected()){
-            sexo="Masculino";
-        }else{
-            sexo="Femenino";
-        }
-        cd.setSexo(sexo);
-        if(this.cbEstado.getSelectedItem().toString().equals("Disponible")){
-              cd.setEstado(true);
-        }else{
-            cd.setEstado(false);
-        }
-      
-        cd.setId(id);
-        
-        if(cd.PropiedadesVacias()){
-            JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
-             System.out.println(cd.toString()); 
-        }else{
-            
-             if(cc.actualizarDatos(cd)){
-                         JOptionPane.showMessageDialog(this, "Actualizacion realizada con Exito");
-                                     this.Limpiar();
-         }else{
-             JOptionPane.showMessageDialog(this, "Problemas para actualizar datos");
-         }
-            
-            
-        }
-        
-        
-      
+    // Obtener la fecha de contrato seleccionada
+    Date fechaContrato = this.dcContrato.getDate();
+
+    // Verificar si se ha seleccionado una fecha de contrato
+    if (fechaContrato != null) {
+        // Convertir la fecha a un formato deseado y establecerla en el objeto ConductorDTO
+        cd.setFechaContrato(dateFormat.format(fechaContrato));
     }
-    
-   public void Buscar(){
-       Date datecontrato= null; 
-       Date  datenacimiento=null;
-       String idcedula="";
-       try{ 
-           if( this.txtbuscar.getText()!=null){
-            idcedula=this.txtbuscar.getText();
- try {
-               ConductorDTO  dt =cc.consultabyCedula(idcedula);
-               
-                                     this.tfCedula.setText(dt.getCedula()); 
-                                     this.tfNombres.setText(dt.getNombre()); 
-                                     this.tfApellidos.setText(dt.getApellidos()); 
-                                     this.tfCorreo.setText(dt.getCorreo()); 
-                                     
-                                     
-                                     try {
-                                             datecontrato = dateFormat.parse(dt.getFechaContrato());
-                                              datenacimiento = dateFormat.parse(dt.getFechaNacimiento());
-                                        } catch (ParseException e) {
-                                            e.printStackTrace();
-                                        }
-                                     
-                                        if(dt.isEstado()){
-                                             this.cbEstado.setSelectedIndex(1);     
-                                             }else{
-                                                     this.cbEstado.setSelectedIndex(2);        
-                                                      }
-                                        
-                                        
-                                             if(dt.getSexo().equals("Masculino")){
-                                                 this.rbMasculino.setSelected(true); 
-                                             }else{
-                                                    this.rbFemenino.setSelected(true);      
-                                                      }          
-                                     
-                                         this.dcContrato.setLocale(new Locale("es"));
-                                     this.dcContrato.setDate(datecontrato);
-                                     this.dcNacimiento.setDate( datenacimiento);
-                                     id=dt.getId();
-                                 
-                 
-           } catch (IOException ex) {
-              //Logger.getLogger(ConductorModificar.class.getName()).log(Level.SEVERE, null, ex);
-                          JOptionPane.showMessageDialog(this, "Ingrese la cedula antes ");
 
-           }
-           }else{
-            JOptionPane.showMessageDialog(this, "Ingrese la cedula de un conductor ");
-       }
-       }catch(NullPointerException b){
-           JOptionPane.showMessageDialog(this, "Ingrese la cedula de un conductor ");
-       }
-         
+    // Obtener la fecha de nacimiento seleccionada
+    Date fechaNacimiento = this.dcNacimiento.getDate();
+
+    // Verificar si se ha seleccionado una fecha de nacimiento
+    if (fechaNacimiento != null) {
+        // Convertir la fecha a un formato deseado y establecerla en el objeto ConductorDTO
+        cd.setFechaNacimiento(dateFormat.format(fechaNacimiento));
     }
-   
-   
-   public void Eliminar(){
-       
-       if(cc.eliminarConductor(id)){
-           JOptionPane.showMessageDialog(this, "Conducto Eliminado");
-           this.Limpiar();
-       }else{
+
+    // Obtener el sexo seleccionado
+    if (this.rbMasculino.isSelected()) {
+        sexo = "Masculino";
+    } else {
+        sexo = "Femenino";
+    }
+    cd.setSexo(sexo);
+
+    // Obtener el estado seleccionado
+    if (this.cbEstado.getSelectedItem().toString().equals("Disponible")) {
+        cd.setEstado(true);
+    } else {
+        cd.setEstado(false);
+    }
+
+    // Establecer el ID del conductor a modificar
+    cd.setId(id);
+
+    // Verificar si hay propiedades vacías en el objeto ConductorDTO
+    if (cd.PropiedadesVacias()) {
+        JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
+        System.out.println(cd.toString());
+    } else {
+        // Actualizar los datos del conductor
+        if (cc.actualizarDatos(cd)) {
+            JOptionPane.showMessageDialog(this, "Actualización realizada con éxito");
+            this.Limpiar();
+        } else {
+            JOptionPane.showMessageDialog(this, "Problemas para actualizar datos");
+        }
+    }
+}
+
+/**
+ * Realiza la búsqueda de un conductor utilizando el identificador de cédula.
+ * Obtiene los datos del conductor correspondiente a la cédula ingresada y los muestra en los campos del formulario.
+ * Si no se ingresa ninguna cédula o no se encuentra un conductor con esa cédula, se muestra un mensaje de error.
+ * 
+ * Nota: Antes de llamar a este método, asegúrate de que el campo de texto 'txtbuscar' contenga la cédula del conductor a buscar.
+ * 
+ * @throws NullPointerException Si no se ingresa ninguna cédula
+ */
+   public void Buscar() {
+    Date dateContrato = null;
+    Date dateNacimiento = null;
+    String idCedula = "";
+
+    try {
+        if (this.txtbuscar.getText() != null) {
+            idCedula = this.txtbuscar.getText();
+
+            try {
+                // Consultar el conductor por su cédula
+                ConductorDTO dt = cc.consultabyCedula(idCedula);
+
+                // Mostrar los datos del conductor en los campos correspondientes
+                this.tfCedula.setText(dt.getCedula());
+                this.tfNombres.setText(dt.getNombre());
+                this.tfApellidos.setText(dt.getApellidos());
+                this.tfCorreo.setText(dt.getCorreo());
+
+                try {
+                    // Convertir las fechas de contrato y nacimiento al formato deseado
+                    dateContrato = dateFormat.parse(dt.getFechaContrato());
+                    dateNacimiento = dateFormat.parse(dt.getFechaNacimiento());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                // Establecer el estado del conductor en el campo correspondiente
+                if (dt.isEstado()) {
+                    this.cbEstado.setSelectedIndex(1);
+                } else {
+                    this.cbEstado.setSelectedIndex(2);
+                }
+
+                // Establecer el sexo del conductor en el campo correspondiente
+                if (dt.getSexo().equals("Masculino")) {
+                    this.rbMasculino.setSelected(true);
+                } else {
+                    this.rbFemenino.setSelected(true);
+                }
+
+                // Establecer las fechas de contrato y nacimiento en los campos correspondientes
+                this.dcContrato.setLocale(new Locale("es"));
+                this.dcContrato.setDate(dateContrato);
+                this.dcNacimiento.setDate(dateNacimiento);
+
+                // Establecer el ID del conductor encontrado
+                id = dt.getId();
+
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Ingrese la cédula antes");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Ingrese la cédula de un conductor");
+        }
+    } catch (NullPointerException b) {
+        JOptionPane.showMessageDialog(this, "Ingrese la cédula de un conductor");
+    }
+}
+
+/**
+ * Elimina el conductor actualmente seleccionado.
+ * Si se elimina correctamente, se muestra un mensaje de confirmación y se realiza la limpieza de campos.
+ * Si no se puede eliminar el conductor, se muestra un mensaje de error.
+ */
+    public void Eliminar() {
+
+        if (cc.eliminarConductor(id)) {
+            JOptionPane.showMessageDialog(this, "Conducto Eliminado");
+            this.Limpiar();
+        } else {
             JOptionPane.showMessageDialog(this, "No se pudo Eliminar conductor");
-       }
-       
-       
-   }
-   
-   
-   public void Limpiar(){
-                                    this.tfCedula.setText(" "); 
-                                     this.tfNombres.setText(" "); 
-                                     this.tfApellidos.setText(" "); 
-                                     this.tfCorreo.setText(" "); 
-                                     this.dcContrato.setDate(null);
-                                     this.dcNacimiento.setDate(null);
-                                     this.cbEstado.setSelectedIndex(0);
-                                     this.buttonGroup.clearSelection();
-   }
-   
-   
-   
+        }
+
+    }
+    
+/**
+ * Limpia los campos del formulario, restableciéndolos a sus valores predeterminados.
+ * Esto incluye borrar el texto en los campos de texto, deseleccionar los botones de opción,
+ * establecer las fechas en los componentes de fecha a nulo y restablecer la selección del estado.
+ */
+    public void Limpiar() {
+        this.tfCedula.setText(" ");
+        this.tfNombres.setText(" ");
+        this.tfApellidos.setText(" ");
+        this.tfCorreo.setText(" ");
+        this.dcContrato.setDate(null);
+        this.dcNacimiento.setDate(null);
+        this.cbEstado.setSelectedIndex(0);
+        this.buttonGroup.clearSelection();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -298,7 +318,7 @@ public class ConductorModificar extends javax.swing.JPanel {
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 369, -1, -1));
 
         tfCorreo.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        add(tfCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 367, 244, -1));
+        add(tfCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 370, 244, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel10.setText("Sexo");
@@ -348,7 +368,7 @@ public class ConductorModificar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
-        
+
         this.Modificar();
     }//GEN-LAST:event_btnActualizarMouseClicked
 

@@ -17,7 +17,6 @@ public class PeticionDTO {
     /**
      * Constructor de la clase PeticionDTO.
      *
-     * @param id            El ID de la petición.
      * @param puntoOrigen   El punto de origen de la petición.
      * @param puntoDestino  El punto de destino de la petición.
      * @param hospital      El hospital asociado a la petición.
@@ -26,9 +25,9 @@ public class PeticionDTO {
      * @param conductor     El conductor asociado a la petición.
      * @param estado        El estado de la petición.
      */
-    public PeticionDTO(Long id, String puntoOrigen, String puntoDestino, HospitalDTO hospital, ClienteDTO cliente,
+    public PeticionDTO(String puntoOrigen, String puntoDestino, HospitalDTO hospital, ClienteDTO cliente,
                        AmbulanciaDTO ambulancia, ConductorDTO conductor, boolean estado) {
-        this.id = id;
+      
         this.puntoOrigen = puntoOrigen;
         this.puntoDestino = puntoDestino;
         this.hospital = hospital;
@@ -37,6 +36,12 @@ public class PeticionDTO {
         this.conductor = conductor;
         this.estado = estado;
     }
+/**
+     * Constructor de la clase PeticionDTO por defecto.
+     **/
+    public PeticionDTO() {
+    }
+    
 
     /**
      * Obtiene el ID de la petición.

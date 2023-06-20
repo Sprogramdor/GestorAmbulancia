@@ -1,7 +1,6 @@
 
 package view;
 
-import control.ConductorController;
 import control.LoginController;
 import javax.swing.JOptionPane;
 

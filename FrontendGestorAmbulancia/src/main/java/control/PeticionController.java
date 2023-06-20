@@ -1,29 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package control;
 
+package control;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import model.dto.AmbulanciaDTO;
 import model.dto.ClienteDTO;
 import model.dto.ConductorDTO;
 import model.dto.HospitalDTO;
 import model.dto.PeticionDTO;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 
@@ -33,6 +26,12 @@ public class PeticionController {
     private static final String AMBULANCIA_API_URL = "https://backendambulancia.onrender.com/vv/api/v1/listarAmbulancias";
     private static final String API_URL = "https://backendambulancia.onrender.com/vv/api/v1/listarPeticiones";
     
+    /**
+     * Obtiene la lista de ambulancias.
+     *
+     * @return Lista de objetos AmbulanciaDTO.
+     * @throws Exception Si ocurre un error al obtener las ambulancias.
+     */
     public List<AmbulanciaDTO> obtenerAmbulancias() throws Exception {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -51,6 +50,13 @@ public class PeticionController {
             throw new Exception("Error al obtener las ambulancias. Código de respuesta: " + response.code());
         }
     }
+    
+/**
+ * Obtiene la lista de placas de ambulancias disponibles.
+ *
+ * @return Lista de placas de ambulancias.
+ * @throws Exception Si ocurre un error al obtener las ambulancias.
+ */
     public List<String> listarAmbulancias() throws Exception {
         List<AmbulanciaDTO> ambulancias = obtenerAmbulancias();
         List<String> placas = new ArrayList<>();
@@ -144,7 +150,7 @@ public class PeticionController {
                 );
             }
 
-            PeticionDTO peticion = new PeticionDTO(id, puntoOrigen, puntoDestino, hospital, cliente, ambulancia, conductor, estado);
+            PeticionDTO peticion = new PeticionDTO(puntoOrigen, puntoDestino, hospital, cliente, ambulancia, conductor, estado);
             peticiones.add(peticion);
         }
 
@@ -152,7 +158,42 @@ public class PeticionController {
     }
 }
 
+/**
+     * Guarda una petición utilizando la API.
+     *
+     * @param peticion La petición a guardar.
+     * @return true si la petición se guardó correctamente, false de lo contrario.
+     */
+    public static boolean guardarPeticion(PeticionDTO peticion) {
+        try {
+            
+            // Convertir la petición a formato JSON utilizando Gson
+        Gson gson = new GsonBuilder().create();
+          // Convertir la petición a formato JSON
+        String jsonBody = gson.toJson(peticion);
+            
+          
 
+            // Configurar el cliente de OkHttp
+            OkHttpClient client = new OkHttpClient();
+
+            // Crear la solicitud POST
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonBody);
+            Request request = new Request.Builder()
+                    .url(API_REGISTRAR_PETICION)
+                    .post(requestBody)
+                    .build();
+
+            // Ejecutar la solicitud y obtener la respuesta
+            try (Response response = client.newCall(request).execute()) {
+                // Comprobar el código de respuesta para determinar si se guardó correctamente
+                return response.isSuccessful();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 
 

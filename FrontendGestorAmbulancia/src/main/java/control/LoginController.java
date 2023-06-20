@@ -64,14 +64,15 @@ public class LoginController {
 
             // Obtener el valor del campo "tipo"
             String tipo = jsonObject.getString("tipo");
-
+             // Obtener el valor del campo "nombres
+            String nombre = jsonObject.getString("nombres");
             // Utilizar el valor de "tipo" según sea necesario
             if (tipo.equals("Gerente")) {
                 FrmMenu frmMenu = new FrmMenu();
                 frmMenu.show();
                 return true;
             } else if (tipo.equals("Secretario")) {
-                FrmCPeticion frmcPeticion = new FrmCPeticion();
+                FrmCPeticion frmcPeticion = new FrmCPeticion(nombre);
                 frmcPeticion.show();
                 return true;
             }
