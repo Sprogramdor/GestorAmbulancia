@@ -53,5 +53,14 @@
             <artifactId>okhttp-urlconnection</artifactId>
             <version>4.11.0</version>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.google.code.findbugs/findbugs -->
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>findbugs</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+
     </dependencies>
 </project>
