@@ -4,6 +4,8 @@ package view.ui.component;
 import Control.AmbulanciaController;
 import model.dto.AmbulanciaDTO;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 /**
@@ -156,16 +158,32 @@ public class AmbulanciaConsultar extends javax.swing.JPanel {
             protected void done() {
                 try {
                     List<AmbulanciaDTO> ambulancias = get();
-                    ambulanciaController.mostrarAmbulanciasEnTabla(ambulancias);
-                } catch (Exception e) {
-                    // Manejo de excepciones
-                    e.printStackTrace();
+                    actualizarInterfazUsuario(ambulancias);
+                } catch (InterruptedException | ExecutionException e) {
+                    mostrarMensajeError("Error al consultar la ambulancia: " + e.getMessage());
                 }
             }
         };
-
         worker.execute();
     }//GEN-LAST:event_btnConsultarActionPerformed
+
+    /**
+    * Actualiza la interfaz de usuario con los resultados de la consulta de ambulancias.
+    * 
+    * @param ambulancias Lista de ambulancias obtenidas de la consulta.
+    */
+   private void actualizarInterfazUsuario(List<AmbulanciaDTO> ambulancias) {
+       ambulanciaController.mostrarAmbulanciasEnTabla(ambulancias);
+   }
+
+   /**
+    * Muestra un mensaje de error al usuario.
+    * 
+    * @param mensaje Mensaje de error a mostrar.
+    */
+   private void mostrarMensajeError(String mensaje) {
+       JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+   }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
