@@ -114,8 +114,6 @@ public class ClienteController {
 
                     clientes.add(cliente);
                 }
-            } else {
-                System.out.println("Error" + response.code() + " XD" + response.message());
             }
         } catch (IOException e) {
             System.out.println(e.toString());
