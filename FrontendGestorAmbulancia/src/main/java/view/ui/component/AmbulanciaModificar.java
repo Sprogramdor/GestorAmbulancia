@@ -213,20 +213,17 @@ public class AmbulanciaModificar extends javax.swing.JPanel {
     */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String numeroPlaca = tfPlaca.getText().trim();
-        
+
         // Llamar al controlador para buscar la ambulancia por placa
         AmbulanciaController ambulanciaController = new AmbulanciaController();
         AmbulanciaDTO ambulancia = ambulanciaController.buscarPorPlaca(numeroPlaca);
-        
+
         if (ambulancia != null) {
             // Si se encuentra la ambulancia, mostrar los datos en los campos correspondientes
-            cbEstado.setSelectedItem(ambulancia.getEstado());
-            cbTipo.setSelectedItem(ambulancia.getTipo());
-            tfModelo.setText(ambulancia.getModelo());
-            taObservaciones.setText(ambulancia.getObservacion());
+            mostrarDatosAmbulancia(ambulancia);
         } else {
             // Si no se encuentra la ambulancia, mostrar un mensaje de error
-            JOptionPane.showMessageDialog(this, "No se encontró una ambulancia con la placa proporcionada.", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarMensajeError("No se encontró una ambulancia con la placa proporcionada.");
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -245,40 +242,86 @@ public class AmbulanciaModificar extends javax.swing.JPanel {
 
         // Obtener el ID de la ambulancia desde alguna fuente, como un campo oculto en el formulario o una variable de instancia
         int id = ambulanciaController.obtenerIdAmbulancia(numeroPlaca);
+
         // Llamar al controlador para actualizar los datos de la ambulancia
         boolean exito = ambulanciaController.actualizarDatos(id, numeroPlaca, estado, tipo, modelo, observaciones);
 
-        if (exito==false) {
-            // Si se actualizan los datos correctamente, mostrar un mensaje de éxito
-            JOptionPane.showMessageDialog(this, "Los datos de la ambulancia han sido actualizados correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            if (exito) {
+                // Si se actualizan los datos correctamente, mostrar un mensaje de éxito
+                mostrarMensajeExito("Los datos de la ambulancia han sido actualizados correctamente.");
 
-            // Limpiar los campos del formulario
-            tfPlaca.setText("");
-            cbEstado.setSelectedIndex(0);
-            cbTipo.setSelectedIndex(0);
-            tfModelo.setText("");
-            taObservaciones.setText("");
-        } else {
-            // Si no se pueden actualizar los datos, mostrar un mensaje de error
-            JOptionPane.showMessageDialog(this, "No se pudo actualizar los datos de la ambulancia.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+                // Limpiar los campos del formulario
+                limpiarCamposFormulario();
+            } else {
+                // Si no se pueden actualizar los datos, mostrar un mensaje de error
+                mostrarMensajeError("No se pudo actualizar los datos de la ambulancia.");
+            }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    /**
+    * Realiza la acción de eliminar una ambulancia al hacer clic en el botón correspondiente.
+    * Obtiene el número de placa de la interfaz de usuario, obtiene la ID de la ambulancia a eliminar
+    * y llama al controlador para realizar la eliminación. Muestra un mensaje de éxito o error según
+    * el resultado de la eliminación.
+    * 
+    * @param evt El evento de acción generado por el botón.
+    */
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-     String numeroPlaca = tfPlaca.getText().trim();
+        String numeroPlaca = tfPlaca.getText().trim();
+
         // Obtener la ID de la ambulancia a eliminar (puedes reemplazar "obtenerIdAmbulancia()" con el método adecuado para obtener la ID)
         int idAmbulancia = ambulanciaController.obtenerIdAmbulancia(numeroPlaca);
 
         // Llamar al método eliminarAmbulancia y verificar si se eliminó correctamente
         boolean eliminada = ambulanciaController.eliminarAmbulancia(idAmbulancia);
-        if (eliminada) {
-            JOptionPane.showMessageDialog(this, "Ambulancia eliminada con éxito.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo eliminar la ambulancia.", "Error", JOptionPane.ERROR_MESSAGE);
-        }  
+            if (eliminada) {
+                mostrarMensajeExito("Ambulancia eliminada con éxito.");
+            } else {
+                mostrarMensajeError("No se pudo eliminar la ambulancia.");
+            } 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    /**
+    * Muestra los datos de una ambulancia en los campos correspondientes de la interfaz.
+    * 
+    * @param ambulancia La ambulancia cuyos datos se van a mostrar.
+    */
+   private void mostrarDatosAmbulancia(AmbulanciaDTO ambulancia) {
+       cbEstado.setSelectedItem(ambulancia.getEstado());
+       cbTipo.setSelectedItem(ambulancia.getTipo());
+       tfModelo.setText(ambulancia.getModelo());
+       taObservaciones.setText(ambulancia.getObservacion());
+   }
 
+   /**
+    * Muestra un mensaje de error en una ventana emergente.
+    * 
+    * @param mensaje El mensaje de error a mostrar.
+    */
+   private void mostrarMensajeError(String mensaje) {
+       JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+   }
+
+    /**
+    * Muestra un mensaje de éxito en una ventana emergente.
+    * 
+    * @param mensaje El mensaje de éxito a mostrar.
+    */
+   private void mostrarMensajeExito(String mensaje) {
+       JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+   }
+
+   /**
+    * Limpia los campos del formulario.
+    */
+   private void limpiarCamposFormulario() {
+       tfPlaca.setText("");
+       cbEstado.setSelectedIndex(0);
+       cbTipo.setSelectedIndex(0);
+       tfModelo.setText("");
+       taObservaciones.setText("");
+   }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscar;

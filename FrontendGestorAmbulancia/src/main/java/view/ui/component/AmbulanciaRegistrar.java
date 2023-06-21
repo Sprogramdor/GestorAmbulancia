@@ -12,7 +12,8 @@ import javax.swing.JOptionPane;
  * @author Nelson
  */
 public class AmbulanciaRegistrar extends javax.swing.JPanel {
-    private AmbulanciaController ambulanciaController;
+    private final AmbulanciaController ambulanciaController;
+    
     /**
      * Crea un nuevo formulario de registro de ambulancias.
      * Inicializa los componentes y el controlador de ambulancias.
@@ -185,27 +186,43 @@ public class AmbulanciaRegistrar extends javax.swing.JPanel {
         String modelo = tfModelo.getText();
         String tipo = (String) cbTipo.getSelectedItem();
         String estado = (String) cbEstado.getSelectedItem();
-        boolean blestado = estado.equalsIgnoreCase("Disponible");
+        boolean disponible = estado.equalsIgnoreCase("Disponible");
         String observacion = taObservaciones.getText();
 
         // Crear el objeto AmbulanciaDTO con los valores proporcionados
-        AmbulanciaDTO ambulancia = new AmbulanciaDTO(placa, modelo, tipo, blestado, observacion);
+        AmbulanciaDTO ambulancia = new AmbulanciaDTO(placa, modelo, tipo, disponible, observacion);
         // Llamar al controlador para registrar la ambulancia
         ambulanciaController.registrarAmbulancia(ambulancia);
 
         // Limpiar los campos después de agregar la ambulancia
+        limpiarCampos();
+
+        // Mostrar un mensaje de éxito
+        mostrarMensajeExito("Ambulancia agregada correctamente.");
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    /**
+     * Limpia los campos de entrada de texto y selección de la interfaz de usuario.
+     */
+    private void limpiarCampos() {
         tfPlaca.setText("");
         cbEstado.setSelectedIndex(0);
         taObservaciones.setText("");
         tfModelo.setText("");
-        // Mostrar un mensaje de éxito
-        JOptionPane.showMessageDialog(null, "Ambulancia agregada correctamente.");
-    }//GEN-LAST:event_btnAgregarActionPerformed
+    }
 
+    /**
+     * Muestra un mensaje de éxito en una ventana emergente.
+     * 
+     * @param mensaje El mensaje de éxito a mostrar.
+     */
+    private void mostrarMensajeExito(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     private void tfPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPlacaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPlacaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
