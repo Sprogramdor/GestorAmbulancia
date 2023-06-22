@@ -1,4 +1,3 @@
-
 package view.ui.component;
 
 import control.ClienteController;
@@ -12,10 +11,11 @@ import model.dto.UsuarioDTO;
  */
 public class ClienteConsultar extends javax.swing.JPanel {
 
-    ClienteController cc = new ClienteController();
-    String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario"};
-    DefaultTableModel model = new DefaultTableModel(columnasNames, 0) {
-        public boolean isCellEditable(int row, int column) {
+    private ClienteController clienteController = new ClienteController();
+    protected String[] columnasNames = {"Cedula", "Nombres", "Apellidos", "Correo", "Fecha Nacimiento", "Nombre Usuario"};
+    protected DefaultTableModel model = new DefaultTableModel(columnasNames, 0) {
+        @Override
+        public boolean isCellEditable(final int row, final int column) {
             return false;
         }
     };
@@ -24,11 +24,13 @@ public class ClienteConsultar extends javax.swing.JPanel {
      * Creates new form ClienteRegistro
      */
     public ClienteConsultar() {
+        super();
         initComponents();
-        this.TblCliente.setModel(model);
+        this.tblCliente.setModel(model);
         this.btnGrupo.add(rdbCedula);
         this.btnGrupo.add(rdbNombre);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,7 +52,7 @@ public class ClienteConsultar extends javax.swing.JPanel {
         btnConsultaCN = new javax.swing.JButton();
         btnMostrarTodos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TblCliente = new javax.swing.JTable();
+        tblCliente = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
@@ -116,7 +118,7 @@ public class ClienteConsultar extends javax.swing.JPanel {
             }
         });
 
-        TblCliente.setModel(new javax.swing.table.DefaultTableModel(
+        tblCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -124,7 +126,7 @@ public class ClienteConsultar extends javax.swing.JPanel {
 
             }
         ));
-        jScrollPane1.setViewportView(TblCliente);
+        jScrollPane1.setViewportView(tblCliente);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel3.setText("Encontrados:");
@@ -191,46 +193,45 @@ public class ClienteConsultar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMostrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarTodosActionPerformed
-      // Limpiar todas las filas existentes en la tabla
-    model.setRowCount(0);
+        // Limpiar todas las filas existentes en la tabla
+        model.setRowCount(0);
 
-    // Obtener la lista de clientes
-    List<UsuarioDTO> clientes = cc.obtenerClientes();
+        // Obtener la lista de clientes
+        List<UsuarioDTO> clientes = clienteController.obtenerClientes();
 
-    // Agregar cada cliente como una fila en la tabla
-    for (UsuarioDTO u : clientes) {
-        Object[] rowData = {u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario(), u.getId()};
-        model.addRow(rowData);
-    }
+        // Agregar cada cliente como una fila en la tabla
+        for (UsuarioDTO u : clientes) {
+            Object[] rowData = {u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario(), u.getId()};
+            model.addRow(rowData);
+        }
 
-    // Establecer el modelo de datos en la tabla
-    this.TblCliente.setModel(model);
+        // Establecer el modelo de datos en la tabla
+        this.tblCliente.setModel(model);
     }//GEN-LAST:event_btnMostrarTodosActionPerformed
 
     private void btnConsultaCNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaCNActionPerformed
-       // Limpiar todas las filas existentes en la tabla
-    model.setRowCount(0);
+        // Limpiar todas las filas existentes en la tabla
+        model.setRowCount(0);
 
-    // Obtener los valores de los radio buttons de búsqueda
-    boolean cedula = this.rdbCedula.isSelected();
-    boolean nombre = this.rdbNombre.isSelected();
+        // Obtener los valores de los radio buttons de búsqueda
+        boolean cedula = this.rdbCedula.isSelected();
+        boolean nombre = this.rdbNombre.isSelected();
 
-    // Obtener el dato de búsqueda ingresado
-    String dato = this.txtDato.getText();
+        // Obtener el dato de búsqueda ingresado
+        String dato = this.txtDato.getText();
 
-    // Realizar la consulta utilizando el controlador de clientes
-    UsuarioDTO u = cc.ConsultarCN(cedula, nombre, dato);
+        // Realizar la consulta utilizando el controlador de clientes
+        UsuarioDTO usuarioDTO = clienteController.consultarCN(cedula, nombre, dato);
 
-    // Agregar el resultado de la consulta como una fila en la tabla
-    model.addRow(new Object[]{u.getCedula(), u.getNombres(), u.getApellidos(), u.getCorreo(), u.getFechaNacimiento(), u.getNombreUsuario()});
+        // Agregar el resultado de la consulta como una fila en la tabla
+        model.addRow(new Object[]{usuarioDTO.getCedula(), usuarioDTO.getNombres(), usuarioDTO.getApellidos(), usuarioDTO.getCorreo(), usuarioDTO.getFechaNacimiento(), usuarioDTO.getNombreUsuario()});
 
-    // Establecer el modelo de datos en la tabla
-    this.TblCliente.setModel(model);
+        // Establecer el modelo de datos en la tabla
+        this.tblCliente.setModel(model);
     }//GEN-LAST:event_btnConsultaCNActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TblCliente;
     private javax.swing.JButton btnConsultaCN;
     private javax.swing.ButtonGroup btnGrupo;
     private javax.swing.JButton btnMostrarTodos;
@@ -244,6 +245,7 @@ public class ClienteConsultar extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JRadioButton rdbCedula;
     private javax.swing.JRadioButton rdbNombre;
+    private javax.swing.JTable tblCliente;
     private javax.swing.JTextField txtDato;
     // End of variables declaration//GEN-END:variables
 }

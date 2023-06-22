@@ -1,4 +1,3 @@
-
 package view.ui.component;
 
 import control.ClienteController;
@@ -11,12 +10,13 @@ import model.dto.UsuarioDTO;
  */
 public class ClienteActualizar extends javax.swing.JPanel {
 
-    ClienteController cc = new ClienteController();
+    private ClienteController clienteController = new ClienteController();
 
     /**
      * Creates new form ClienteRegistro
      */
     public ClienteActualizar() {
+        super();
         initComponents();
         btnGrupo.add(rdbMasculino);
         btnGrupo.add(rdbFemenino);
@@ -113,6 +113,7 @@ public class ClienteActualizar extends javax.swing.JPanel {
         btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
@@ -128,6 +129,7 @@ public class ClienteActualizar extends javax.swing.JPanel {
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
@@ -138,6 +140,7 @@ public class ClienteActualizar extends javax.swing.JPanel {
         btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
@@ -241,27 +244,26 @@ public class ClienteActualizar extends javax.swing.JPanel {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // Obtener el valor de la cédula ingresada en el campo de texto
-    String cedula = this.txtCedula.getText();
+        String cedula = this.txtCedula.getText();
 
-    // Consultar los datos del usuario correspondiente a la cédula ingresada
-    UsuarioDTO u = cc.ConsultarCN(true, false, cedula);
+        // Consultar los datos del usuario correspondiente a la cédula ingresada
+        UsuarioDTO usuarioDTO = clienteController.consultarCN(true, false, cedula);
 
-    // Mostrar los datos del usuario en los campos correspondientes
-        this.lblId.setText(u.getId() + "");
-        this.txtCorreo.setText(u.getCorreo());
-        this.txtNombres.setText(u.getNombres());
-        this.txtApellido.setText(u.getApellidos());
+        // Mostrar los datos del usuario en los campos correspondientes
+        this.lblId.setText(usuarioDTO.getId() + "");
+        this.txtCorreo.setText(usuarioDTO.getCorreo());
+        this.txtNombres.setText(usuarioDTO.getNombres());
+        this.txtApellido.setText(usuarioDTO.getApellidos());
         // Establecer la opción de género según el valor del campo "sexo" del usuario
-        if (u.getSexo().equals("Masculino")) {
+        if (usuarioDTO.getSexo().equals("Masculino")) {
             this.rdbMasculino.setSelected(true);
         } else {
             this.rdbFemenino.setSelected(true);
         }
-        this.txtUsuario.setText(u.getNombreUsuario());
+        this.txtUsuario.setText(usuarioDTO.getNombreUsuario());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
         String nombres = this.txtNombres.getText();
         String apellidos = this.txtApellido.getText();
         String sexo = "";
@@ -272,14 +274,13 @@ public class ClienteActualizar extends javax.swing.JPanel {
         }
         String correo = this.txtCorreo.getText();
         String nombreUsuario = this.txtUsuario.getText();
-        String id = this.lblId.getText();
-         // Llamar al método "Actualizar" en una instancia de la clase "cc" (se asume que está definida en otro lugar)
-    // Pasar los valores obtenidos como argumentos
-        if (cc.Actualizar(nombres, apellidos, sexo, correo, nombreUsuario, id)) {
+        String identificador = this.lblId.getText();
+        // Llamar al método "Actualizar" en una instancia de la clase "cc" (se asume que está definida en otro lugar)
+        // Pasar los valores obtenidos como argumentos
+        if (clienteController.actualizar(nombres, apellidos, sexo, correo, nombreUsuario, identificador)) {
             // Si la actualización es exitosa, se ejecuta el siguiente bloque de código
 
-        // Limpiar los campos de texto y otros componentes de la GUI
-            
+            // Limpiar los campos de texto y otros componentes de la GUI
             this.txtCedula.setText("");
             this.txtCorreo.setText("");
             this.txtNombres.setText("");
@@ -291,9 +292,8 @@ public class ClienteActualizar extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        Long id = Long.parseLong(this.lblId.getText());
-        if (cc.eliminar(id)) {
+        Long identificador = Long.parseLong(this.lblId.getText());
+        if (clienteController.eliminar(identificador)) {
             JOptionPane.showMessageDialog(null, "¡Se ha eliminado al usuario!", "Eliminado", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "Acción cancelada. El usuario no ha sido eliminado.", "Eliminación cancelada", JOptionPane.INFORMATION_MESSAGE);

@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author Fabrizio
@@ -240,60 +239,60 @@ public class ClienteRegistrar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       // Obtener los valores ingresados por el usuario
-    String cedula = this.txtCedula.getText();
-    String nombres = this.txtNombres.getText();
-    String apellidos = this.txtApellidos.getText();
-    String sexo = "";
+        // Obtener los valores ingresados por el usuario
+        String cedula = this.txtCedula.getText();
+        String nombres = this.txtNombres.getText();
+        String apellidos = this.txtApellidos.getText();
+        String sexo = "";
 
-    // Determinar el valor del sexo según la selección del radio button
-    if (this.rdbMasculino.isSelected()) {
-        sexo = "Masculino";
-    } else if (this.rdbFemenino.isSelected()) {
-        sexo = "Femenino";
-    } else {
-        sexo = "";
-    }
-
-    String correo = this.txtCorreo.getText();
-
-    // Obtener la fecha de nacimiento seleccionada por el usuario
-    Date selectedDate = dtcFechaNacimiento.getDate();
-    String fechaNacimiento = this.dtcFechaNacimiento.getDateFormatString() + "";
-
-    // Formatear la fecha de nacimiento si se seleccionó una fecha válida
-    if (selectedDate != null) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        fechaNacimiento = sdf.format(selectedDate);
-    }
-
-    String usuario = this.txtUsuario.getText();
-    String contrasena = this.txtContrasena.getText();
-
-    try {
-        // Intentar registrar al usuario utilizando el controlador de clientes
-        if (cc.Registrar(cedula, nombres, apellidos, sexo, correo, fechaNacimiento, usuario, contrasena, "Secretario")) {
-            // Mostrar mensaje de éxito si el registro fue exitoso
-            JOptionPane.showMessageDialog(null, "¡Se ha registrado correctamente!", "Registro correcto", JOptionPane.INFORMATION_MESSAGE);
-
-            // Limpiar los campos de entrada después del registro exitoso
-            this.txtCedula.setText("");
-            this.txtApellidos.setText("");
-            this.txtNombres.setText("");
-            this.rdbMasculino.setSelected(false);
-            this.rdbFemenino.setSelected(false);
-            this.txtCorreo.setText("");
-            this.dtcFechaNacimiento.setDate(null);
-            this.txtUsuario.setText("");
-            this.txtContrasena.setText("");
+        // Determinar el valor del sexo según la selección del radio button
+        if (this.rdbMasculino.isSelected()) {
+            sexo = "Masculino";
+        } else if (this.rdbFemenino.isSelected()) {
+            sexo = "Femenino";
         } else {
-            // Mostrar mensaje de error si faltan datos en el registro
+            sexo = "";
+        }
+
+        String correo = this.txtCorreo.getText();
+
+        // Obtener la fecha de nacimiento seleccionada por el usuario
+        Date selectedDate = dtcFechaNacimiento.getDate();
+        String fechaNacimiento = this.dtcFechaNacimiento.getDateFormatString() + "";
+
+        // Formatear la fecha de nacimiento si se seleccionó una fecha válida
+        if (selectedDate != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            fechaNacimiento = sdf.format(selectedDate);
+        }
+
+        String usuario = this.txtUsuario.getText();
+        String contrasena = this.txtContrasena.getText();
+
+        try {
+            // Intentar registrar al usuario utilizando el controlador de clientes
+            if (cc.registrar(cedula, nombres, apellidos, sexo, correo, fechaNacimiento, usuario, contrasena, "Secretario")) {
+                // Mostrar mensaje de éxito si el registro fue exitoso
+                JOptionPane.showMessageDialog(null, "¡Se ha registrado correctamente!", "Registro correcto", JOptionPane.INFORMATION_MESSAGE);
+
+                // Limpiar los campos de entrada después del registro exitoso
+                this.txtCedula.setText("");
+                this.txtApellidos.setText("");
+                this.txtNombres.setText("");
+                this.rdbMasculino.setSelected(false);
+                this.rdbFemenino.setSelected(false);
+                this.txtCorreo.setText("");
+                this.dtcFechaNacimiento.setDate(null);
+                this.txtUsuario.setText("");
+                this.txtContrasena.setText("");
+            } else {
+                // Mostrar mensaje de error si faltan datos en el registro
+                JOptionPane.showMessageDialog(null, "Error: Datos faltantes", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            // Mostrar mensaje de error en caso de excepción
             JOptionPane.showMessageDialog(null, "Error: Datos faltantes", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (Exception ex) {
-        // Mostrar mensaje de error en caso de excepción
-        JOptionPane.showMessageDialog(null, "Error: Datos faltantes", "Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 

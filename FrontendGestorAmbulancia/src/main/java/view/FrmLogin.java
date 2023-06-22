@@ -1,4 +1,3 @@
-
 package view;
 
 import control.LoginController;
@@ -10,12 +9,13 @@ import javax.swing.JOptionPane;
  */
 public class FrmLogin extends javax.swing.JFrame {
 
-    LoginController admLogin = new LoginController();
+    private LoginController admLogin = new LoginController();
 
     /**
      * Creates new form FrmLogin
      */
     public FrmLogin() {
+        super();
         initComponents();
     }
 
@@ -100,6 +100,7 @@ public class FrmLogin extends javax.swing.JFrame {
         btnRecuperar.setText("¿Ha olvidado su contraseña?");
         btnRecuperar.setContentAreaFilled(false);
         btnRecuperar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecuperarActionPerformed(evt);
             }
@@ -116,6 +117,7 @@ public class FrmLogin extends javax.swing.JFrame {
         btnCancelar.setText("Salir");
         btnCancelar.setContentAreaFilled(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
@@ -279,7 +281,6 @@ public class FrmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -302,7 +303,7 @@ public class FrmLogin extends javax.swing.JFrame {
         FrmRecuperarContrasenia frmRC = new FrmRecuperarContrasenia();
         frmRC.show();
         this.dispose();
-        
+
     }//GEN-LAST:event_btnRecuperarActionPerformed
 
     /**

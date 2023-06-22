@@ -25,7 +25,7 @@ public class ClienteDTO {
     /**
      * Constructor de la clase ClienteDTO.
      *
-     * @param id              El ID del cliente.
+     * @param identificador   El ID del cliente.
      * @param cedula          La cédula del cliente.
      * @param nombres         Los nombres del cliente.
      * @param apellidos       Los apellidos del cliente.
@@ -33,10 +33,10 @@ public class ClienteDTO {
      * @param sexo            El sexo del cliente.
      * @param fechaNacimiento La fecha de nacimiento del cliente.
      */
-    public ClienteDTO(Long id, String cedula, String nombres, String apellidos, String correo, String sexo,
+    public ClienteDTO(Long identificador, String cedula, String nombres, String apellidos, String correo, String sexo,
             String fechaNacimiento) {
         super();
-        this.id = id;
+        this.id = identificador;
         this.cedula = cedula;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -57,10 +57,10 @@ public class ClienteDTO {
     /**
      * Establece el ID del cliente.
      *
-     * @param id El ID del cliente.
+     * @param identificador El ID del cliente.
      */
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long identificador) {
+        this.id = identificador;
     }
 
     /**

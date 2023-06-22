@@ -62,6 +62,7 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
         btnRecuperar.setText("Recuperar");
         btnRecuperar.setContentAreaFilled(false);
         btnRecuperar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRecuperarActionPerformed(evt);
             }
@@ -93,6 +94,7 @@ public class FrmRecuperarContrasenia extends javax.swing.JFrame {
         btnCancelar.setText("Cancelar");
         btnCancelar.setContentAreaFilled(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
