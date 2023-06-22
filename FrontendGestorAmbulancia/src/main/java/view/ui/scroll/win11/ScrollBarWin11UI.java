@@ -37,19 +37,20 @@ public class ScrollBarWin11UI extends BasicScrollBarUI {
     private final int scrollSize = 10;
     private final MouseAdapter mouseEvent;
 
-    public static ComponentUI createUI(JComponent c) {
+    public static ComponentUI createUI(JComponent component) {
         return new ScrollBarWin11UI();
     }
 
     public ScrollBarWin11UI() {
+        super();
         mouseEvent = new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(MouseEvent event) {
                 press = true;
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseReleased(MouseEvent event) {
                 press = false;
                 if (!hover) {
                     start(false);
@@ -57,7 +58,7 @@ public class ScrollBarWin11UI extends BasicScrollBarUI {
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
+            public void mouseEntered(MouseEvent event) {
                 hover = true;
                 if (!show) {
                     start(true);
@@ -65,7 +66,7 @@ public class ScrollBarWin11UI extends BasicScrollBarUI {
             }
 
             @Override
-            public void mouseExited(MouseEvent e) {
+            public void mouseExited(MouseEvent event) {
                 hover = false;
                 if (!press) {
                     start(false);
@@ -75,19 +76,19 @@ public class ScrollBarWin11UI extends BasicScrollBarUI {
     }
 
     @Override
-    public void installUI(JComponent c) {
-        super.installUI(c);
-        c.setPreferredSize(new Dimension(scrollSize, scrollSize));
-        c.addMouseListener(mouseEvent);
-        c.setForeground(new Color(220, 220, 220));
+    public void installUI(JComponent component) {
+        super.installUI(component);
+        component.setPreferredSize(new Dimension(scrollSize, scrollSize));
+        component.addMouseListener(mouseEvent);
+        component.setForeground(new Color(220, 220, 220));
         initAnimator();
     }
 
     private void start(boolean show) {
         if (animator.isRunning()) {
-            float f = animator.getTimingFraction();
+            final float faction = animator.getTimingFraction();
             animator.stop();
-            animator.setStartFraction(1f - f);
+            animator.setStartFraction(1f - faction);
         } else {
             animator.setStartFraction(0f);
         }
@@ -126,8 +127,8 @@ public class ScrollBarWin11UI extends BasicScrollBarUI {
     }
 
     @Override
-    protected void paintTrack(Graphics g, JComponent c, Rectangle trackBounds) {
-        Graphics2D g2 = (Graphics2D) g.create();
+    protected void paintTrack(Graphics graphics, JComponent component, Rectangle trackBounds) {
+        final Graphics2D g2 = (Graphics2D) graphics.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setComposite(AlphaComposite.SrcOver.derive(animate * 0.08f));
         g2.setColor(scrollbar.getForeground().brighter());
@@ -136,24 +137,24 @@ public class ScrollBarWin11UI extends BasicScrollBarUI {
     }
 
     @Override
-    protected void paintThumb(Graphics g, JComponent c, Rectangle thumbBounds) {
-        Graphics2D g2 = (Graphics2D) g.create();
+    protected void paintThumb(Graphics graphics, JComponent component, Rectangle thumbBounds) {
+        final Graphics2D g2 = (Graphics2D) graphics.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(scrollbar.getForeground());
-        double border = scrollSize * 0.3f - (animate * 1);
-        double sp = 10 * animate;
+        final double border = scrollSize * 0.3f - (animate * 1);
+        final double sp = 10 * animate;
         g2.setComposite(AlphaComposite.SrcOver.derive(1f - (1f - animate * 0.1f) * 0.6f));
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
-            double width = thumbBounds.getWidth() - border * 2;
-            double height = thumbBounds.getHeight() - sp * 2;
+            final double width = thumbBounds.getWidth() - border * 2;
+            final double height = thumbBounds.getHeight() - sp * 2;
             g2.fill(new RoundRectangle2D.Double(thumbBounds.x + border, thumbBounds.y + sp, width, height, width, width));
         } else {
-            double width = thumbBounds.getWidth() - sp * 2;
-            double height = thumbBounds.getHeight() - border * 2;
+            final double width = thumbBounds.getWidth() - sp * 2;
+            final double height = thumbBounds.getHeight() - border * 2;
             g2.fill(new RoundRectangle2D.Double(thumbBounds.x + sp, thumbBounds.y + border, width, height, height, height));
         }
         g2.dispose();
-        g.dispose();
+        graphics.dispose();
     }
 
     private class ScrollButton extends JButton {
@@ -165,11 +166,12 @@ public class ScrollBarWin11UI extends BasicScrollBarUI {
         private boolean mousePress;
 
         public ScrollButton(int orientation, boolean isIncrease) {
+            super();
             this.orientation = orientation;
             this.isIncrease = isIncrease;
             setContentAreaFilled(false);
             setPreferredSize(new Dimension(scrollSize, scrollSize));
-            List<Point2D> points = new ArrayList<>();
+            final List<Point2D> points = new ArrayList<>();
             double width = scrollSize * 0.8f;
             double height = scrollSize * 0.7f;
             if (orientation == JScrollBar.VERTICAL) {

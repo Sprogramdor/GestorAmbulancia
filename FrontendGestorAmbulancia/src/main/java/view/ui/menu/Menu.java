@@ -16,6 +16,17 @@ import net.miginfocom.swing.MigLayout;
 
 public class Menu extends JComponent {
 
+    private MenuEvent event;
+    private MigLayout layout;
+
+    private String[][] menuItems = {
+        {"Inicio"},
+        {"Cliente", "Registrar", "Consultar", "Modificar"},
+        {"Ambulancia", "Registrar", "Consultar", "Modificar"},
+        {"Conductor", "Registrar", "Consultar", "Modificar"},
+        {"Peticiones", "Asignar", "Consultar"}
+    };
+
     public MenuEvent getEvent() {
         return event;
     }
@@ -24,17 +35,8 @@ public class Menu extends JComponent {
         this.event = event;
     }
 
-    private MenuEvent event;
-    private MigLayout layout;
-    private String[][] menuItems = new String[][]{
-        {"Inicio"},
-        {"Cliente","Registrar", "Consultar", "Modificar"},
-        {"Ambulancia", "Registrar", "Consultar", "Modificar"},
-        {"Conductor", "Registrar", "Consultar", "Modificar"},
-        {"Peticiones", "Asignar", "Consultar"}
-    };
-
     public Menu() {
+        super();
         init();
     }
 
@@ -50,12 +52,8 @@ public class Menu extends JComponent {
     }
 
     private Icon getIcon(int index) {
-        URL url = getClass().getResource("/view/ui/menu"+index +".png");
-        if (url != null) {
-            return new ImageIcon(url);
-        } else {
-            return null;
-        }
+        URL url = getClass().getResource("/view/ui/menu" + index + ".png");
+        return url != null ? new ImageIcon(url) : null;
     }
 
     private void addMenu(String menuName, int index) {
@@ -67,7 +65,7 @@ public class Menu extends JComponent {
         }
         item.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent actionEvent) {
                 if (length > 1) {
                     if (!item.isSelected()) {
                         item.setSelected(true);

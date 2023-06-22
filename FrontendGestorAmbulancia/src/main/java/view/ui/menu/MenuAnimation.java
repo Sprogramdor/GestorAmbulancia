@@ -7,14 +7,14 @@ import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class MenuAnimation {
 
-    public static void showMenu(Component component, MenuItem item, MigLayout layout, boolean show) {
-        int height = component.getPreferredSize().height;
-        Animator animator = new Animator(300, new TimingTargetAdapter() {
+    public static void showMenu(final Component component, final MenuItem item, final MigLayout layout, final boolean show) {
+        final int height = component.getPreferredSize().height;
+        final Animator animator = new Animator(300, new TimingTargetAdapter() {
             @Override
-            public void timingEvent(float fraction) {
-                float f = show ? fraction : 1f - fraction;
-                layout.setComponentConstraints(component, "h " + height * f + "!");
-                item.setAnimate(f);
+            public void timingEvent(final float fraction) {
+                final float interpolated = show ? fraction : 1f - fraction;
+                layout.setComponentConstraints(component, "h " + height * interpolated + "!");
+                item.setAnimate(interpolated);
                 component.revalidate();
                 item.repaint();
             }
