@@ -75,23 +75,30 @@ public class PeticionController {
     * @return la lista de peticiones obtenida desde la API
     * @throws Exception si ocurre un error al obtener las peticiones
     */
+    //1
     public List<PeticionDTO> obtenerPeticiones() throws Exception {
     OkHttpClient client = new OkHttpClient();
 
     Request request = new Request.Builder()
+            //2
             .url(API_URL)
+            //3
             .build();
-
+//4
     try (Response response = client.newCall(request).execute()) {
+        //5
+
+        //6
         if (!response.isSuccessful()) {
+            //7
             throw new Exception("Error al obtener las peticiones: " + response.code());
         }
-
+        //8
         String responseBody = response.body().string();
         JSONArray jsonPeticiones = new JSONArray(responseBody);
 
         List<PeticionDTO> peticiones = new ArrayList<>();
-
+        //9
         for (int i = 0; i < jsonPeticiones.length(); i++) {
             JSONObject jsonPeticion = jsonPeticiones.getJSONObject(i);
 
@@ -118,11 +125,13 @@ public class PeticionController {
 
             JSONArray jsonNumeroTelefonico = jsonCliente.optJSONArray("numeroTelefonico");  // Use optJSONArray to handle possible null value
             List<String> numeroTelefonico = new ArrayList<>();
+            //10
             if (jsonNumeroTelefonico != null) {
+                //11
                 for (int j = 0; j < jsonNumeroTelefonico.length(); j++) {
-                    numeroTelefonico.add(jsonNumeroTelefonico.getString(j));
-                }
-            }
+                    numeroTelefonico.add(jsonNumeroTelefonico.getString(j));//12
+                }//13
+            }//14
             cliente.setNumeroTelefonico(numeroTelefonico);
 
             JSONObject jsonAmbulancia = jsonPeticion.getJSONObject("ambulancia");
@@ -136,7 +145,8 @@ public class PeticionController {
 
             JSONObject jsonConductor = jsonPeticion.optJSONObject("conductor");  // Use optJSONObject to handle possible null value
             ConductorDTO conductor = null;
-            if (jsonConductor != null) {
+            if (jsonConductor != null) {//14
+                //15
                 conductor = new ConductorDTO(
                         jsonConductor.getLong("id"),
                         jsonConductor.getString("cedula"),
@@ -152,7 +162,7 @@ public class PeticionController {
 
             PeticionDTO peticion = new PeticionDTO(puntoOrigen, puntoDestino, hospital, cliente, ambulancia, conductor, estado);
             peticiones.add(peticion);
-        }
+        }//16
 
         return peticiones;
     }

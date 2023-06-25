@@ -412,9 +412,9 @@ public class FrmCPeticion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarMouseClicked
 
     private void btnLimpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLimpiarMouseClicked
-      this.txtDestino.setText("");    // Limpiar el texto en el campo de destino
-    this.txtOrigen.setText("");     // Limpiar el texto en el campo de origen
-    this.spNumero.setValue(0);      // Establecer el valor del spinner en 0
+        this.txtDestino.setText("");    // Limpiar el texto en el campo de destino
+        this.txtOrigen.setText("");     // Limpiar el texto en el campo de origen
+        this.spNumero.setValue(0);      // Establecer el valor del spinner en 0
 
     }//GEN-LAST:event_btnLimpiarMouseClicked
 

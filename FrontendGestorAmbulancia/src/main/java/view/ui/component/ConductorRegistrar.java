@@ -1,4 +1,3 @@
-
 package view.ui.component;
 
 import control.ConductorController;
@@ -17,88 +16,84 @@ public class ConductorRegistrar extends javax.swing.JPanel {
     /**
      * Creates new form ConductorRegistrar
      */
-    
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-     // Agrupar los botones de opción en un ButtonGroup
-        ButtonGroup buttonGroup = new ButtonGroup();
-    
+    // Agrupar los botones de opción en un ButtonGroup
+    ButtonGroup buttonGroup = new ButtonGroup();
+
     public ConductorRegistrar() {
         initComponents();
-       
+
         buttonGroup.add(this.rbMasculino);
         buttonGroup.add(this.rbFemenino);
         // Definir el formato de fecha deseado
-         
 
     }
 
- /**
- * Registra un nuevo conductor en la base de datos utilizando los valores ingresados en los campos del formulario.
- * Obtiene los valores ingresados en los campos de texto y selecciones, y crea un nuevo objeto ConductorDTO.
- * Luego, llama al método de registro en el ConductorController para almacenar los datos en la base de datos.
- * Si el registro se realiza con éxito, se muestra un mensaje de éxito y se limpian los campos del formulario.
- * Si ocurre algún error durante el registro, se muestra un mensaje de error.
- */
-    public void Registrar(){
+    /**
+     * Registra un nuevo conductor en la base de datos utilizando los valores
+     * ingresados en los campos del formulario. Obtiene los valores ingresados
+     * en los campos de texto y selecciones, y crea un nuevo objeto
+     * ConductorDTO. Luego, llama al método de registro en el
+     * ConductorController para almacenar los datos en la base de datos. Si el
+     * registro se realiza con éxito, se muestra un mensaje de éxito y se
+     * limpian los campos del formulario. Si ocurre algún error durante el
+     * registro, se muestra un mensaje de error.
+     */
+    public void Registrar() {
         String sexo;
-        
-        ConductorDTO cd=new ConductorDTO();
+
+        ConductorDTO cd = new ConductorDTO();
         cd.setCedula(this.tfCedula.getText());
         cd.setNombre(this.tfNombres.getText());
         cd.setApellidos(this.tfApellidos.getText());
         cd.setCorreo(this.tfCorreo.getText());
-        
+
         // Obtener la fecha seleccionada
         Date fechascontrato = this.dcContrato.getDate();
 
         // Verificar si se ha seleccionado una fecha
         if (fechascontrato != null) {
             // Convertir la fecha a un objeto Timestamp
-          
-        cd.setFechaNacimiento(dateFormat.format(this.dcNacimiento.getDate()));
-        cd.setFechaContrato(dateFormat.format(this.dcContrato.getDate()));
+
+            cd.setFechaNacimiento(dateFormat.format(this.dcNacimiento.getDate()));
+            cd.setFechaContrato(dateFormat.format(this.dcContrato.getDate()));
         }
-        if(this.rbMasculino.isSelected()){
-            sexo="Masculino";
-        }else{
-            sexo="Femenino";
+        if (this.rbMasculino.isSelected()) {
+            sexo = "Masculino";
+        } else {
+            sexo = "Femenino";
         }
         cd.setSexo(sexo);
-        if(this.cbEstado.getSelectedItem().toString().equals("Disponible")){
-              cd.setEstado(true);
-        }else{
+        if (this.cbEstado.getSelectedItem().toString().equals("Disponible")) {
+            cd.setEstado(true);
+        } else {
             cd.setEstado(false);
         }
-      
-        ConductorController cc= new ConductorController();
-        
-        if( cd.PropiedadesVacias()){
+
+        ConductorController cc = new ConductorController();
+
+        if (cd.PropiedadesVacias()) {
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
-        }else{
-            
-             if(cc.registrarConductor(cd)){
-                         JOptionPane.showMessageDialog(this, "Registro realizado con Exito");
-                                     this.tfCedula.setText(" "); 
-                                     this.tfNombres.setText(" "); 
-                                     this.tfApellidos.setText(" "); 
-                                     this.tfCorreo.setText(" "); 
-                                     this.dcContrato.setDate(null);
-                                     this.dcNacimiento.setDate(null);
-                                     this.cbEstado.setSelectedIndex(0);
-                                     this.buttonGroup.clearSelection();
-         }else{
-             JOptionPane.showMessageDialog(this, "El registro Fallo, intente de nuevo");
-         }
-            
-            
+        } else {
+
+            if (cc.registrarConductor(cd)) {
+                JOptionPane.showMessageDialog(this, "Registro realizado con Exito");
+                this.tfCedula.setText(" ");
+                this.tfNombres.setText(" ");
+                this.tfApellidos.setText(" ");
+                this.tfCorreo.setText(" ");
+                this.dcContrato.setDate(null);
+                this.dcNacimiento.setDate(null);
+                this.cbEstado.setSelectedIndex(0);
+                this.buttonGroup.clearSelection();
+            } else {
+                JOptionPane.showMessageDialog(this, "El registro Fallo, intente de nuevo");
+            }
+
         }
-        
-        
-        
-        
+
     }
-    
-  
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -318,10 +313,10 @@ public class ConductorRegistrar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
-        
+
         this.Registrar();
-       
-        
+
+
     }//GEN-LAST:event_btnAgregarMouseClicked
 
 

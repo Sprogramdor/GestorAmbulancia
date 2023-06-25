@@ -1,4 +1,3 @@
-
 package view.ui.component;
 
 import control.ConductorController;
@@ -29,154 +28,162 @@ public class ConductorModificar extends javax.swing.JPanel {
     public ConductorModificar() {
         initComponents();
 
-       buttonGroup.add(this.rbMasculino);
+        buttonGroup.add(this.rbMasculino);
         buttonGroup.add(this.rbFemenino);
         // Definir el formato de fecha deseado
 
     }
-/**
- * Modifica los datos de un conductor existente en base a los valores ingresados en los campos del formulario.
- * Obtiene los valores ingresados en los campos de texto y selecciones, y actualiza el objeto ConductorDTO correspondiente.
- * Luego, llama al método de actualización en el ConductorController para aplicar los cambios en la base de datos.
- * Si se realizan cambios exitosamente, se muestra un mensaje de éxito y se limpian los campos del formulario.
- * Si ocurre algún error durante la actualización, se muestra un mensaje de error.
- */
+
+    /**
+     * Modifica los datos de un conductor existente en base a los valores
+     * ingresados en los campos del formulario. Obtiene los valores ingresados
+     * en los campos de texto y selecciones, y actualiza el objeto ConductorDTO
+     * correspondiente. Luego, llama al método de actualización en el
+     * ConductorController para aplicar los cambios en la base de datos. Si se
+     * realizan cambios exitosamente, se muestra un mensaje de éxito y se
+     * limpian los campos del formulario. Si ocurre algún error durante la
+     * actualización, se muestra un mensaje de error.
+     */
     public void Modificar() {
-    String sexo;
-    ConductorController cc = new ConductorController();
-    ConductorDTO cd = new ConductorDTO();
+        String sexo;
+        ConductorController cc = new ConductorController();
+        ConductorDTO cd = new ConductorDTO();
 
-    // Obtener los datos del formulario
-    cd.setCedula(this.tfCedula.getText());
-    cd.setNombre(this.tfNombres.getText());
-    cd.setApellidos(this.tfApellidos.getText());
-    cd.setCorreo(this.tfCorreo.getText());
+        // Obtener los datos del formulario
+        cd.setCedula(this.tfCedula.getText());
+        cd.setNombre(this.tfNombres.getText());
+        cd.setApellidos(this.tfApellidos.getText());
+        cd.setCorreo(this.tfCorreo.getText());
 
-    // Obtener la fecha de contrato seleccionada
-    Date fechaContrato = this.dcContrato.getDate();
+        // Obtener la fecha de contrato seleccionada
+        Date fechaContrato = this.dcContrato.getDate();
 
-    // Verificar si se ha seleccionado una fecha de contrato
-    if (fechaContrato != null) {
-        // Convertir la fecha a un formato deseado y establecerla en el objeto ConductorDTO
-        cd.setFechaContrato(dateFormat.format(fechaContrato));
-    }
+        // Verificar si se ha seleccionado una fecha de contrato
+        if (fechaContrato != null) {
+            // Convertir la fecha a un formato deseado y establecerla en el objeto ConductorDTO
+            cd.setFechaContrato(dateFormat.format(fechaContrato));
+        }
 
-    // Obtener la fecha de nacimiento seleccionada
-    Date fechaNacimiento = this.dcNacimiento.getDate();
+        // Obtener la fecha de nacimiento seleccionada
+        Date fechaNacimiento = this.dcNacimiento.getDate();
 
-    // Verificar si se ha seleccionado una fecha de nacimiento
-    if (fechaNacimiento != null) {
-        // Convertir la fecha a un formato deseado y establecerla en el objeto ConductorDTO
-        cd.setFechaNacimiento(dateFormat.format(fechaNacimiento));
-    }
+        // Verificar si se ha seleccionado una fecha de nacimiento
+        if (fechaNacimiento != null) {
+            // Convertir la fecha a un formato deseado y establecerla en el objeto ConductorDTO
+            cd.setFechaNacimiento(dateFormat.format(fechaNacimiento));
+        }
 
-    // Obtener el sexo seleccionado
-    if (this.rbMasculino.isSelected()) {
-        sexo = "Masculino";
-    } else {
-        sexo = "Femenino";
-    }
-    cd.setSexo(sexo);
-
-    // Obtener el estado seleccionado
-    if (this.cbEstado.getSelectedItem().toString().equals("Disponible")) {
-        cd.setEstado(true);
-    } else {
-        cd.setEstado(false);
-    }
-
-    // Establecer el ID del conductor a modificar
-    cd.setId(id);
-
-    // Verificar si hay propiedades vacías en el objeto ConductorDTO
-    if (cd.PropiedadesVacias()) {
-        JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
-        System.out.println(cd.toString());
-    } else {
-        // Actualizar los datos del conductor
-        if (cc.actualizarDatos(cd)) {
-            JOptionPane.showMessageDialog(this, "Actualización realizada con éxito");
-            this.Limpiar();
+        // Obtener el sexo seleccionado
+        if (this.rbMasculino.isSelected()) {
+            sexo = "Masculino";
         } else {
-            JOptionPane.showMessageDialog(this, "Problemas para actualizar datos");
+            sexo = "Femenino";
+        }
+        cd.setSexo(sexo);
+
+        // Obtener el estado seleccionado
+        if (this.cbEstado.getSelectedItem().toString().equals("Disponible")) {
+            cd.setEstado(true);
+        } else {
+            cd.setEstado(false);
+        }
+
+        // Establecer el ID del conductor a modificar
+        cd.setId(id);
+
+        // Verificar si hay propiedades vacías en el objeto ConductorDTO
+        if (cd.PropiedadesVacias()) {
+            JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
+            System.out.println(cd.toString());
+        } else {
+            // Actualizar los datos del conductor
+            if (cc.actualizarDatos(cd)) {
+                JOptionPane.showMessageDialog(this, "Actualización realizada con éxito");
+                this.Limpiar();
+            } else {
+                JOptionPane.showMessageDialog(this, "Problemas para actualizar datos");
+            }
         }
     }
-}
 
-/**
- * Realiza la búsqueda de un conductor utilizando el identificador de cédula.
- * Obtiene los datos del conductor correspondiente a la cédula ingresada y los muestra en los campos del formulario.
- * Si no se ingresa ninguna cédula o no se encuentra un conductor con esa cédula, se muestra un mensaje de error.
- * 
- * Nota: Antes de llamar a este método, asegúrate de que el campo de texto 'txtbuscar' contenga la cédula del conductor a buscar.
- * 
- * @throws NullPointerException Si no se ingresa ninguna cédula
- */
-   public void Buscar() {
-    Date dateContrato = null;
-    Date dateNacimiento = null;
-    String idCedula = "";
+    /**
+     * Realiza la búsqueda de un conductor utilizando el identificador de
+     * cédula. Obtiene los datos del conductor correspondiente a la cédula
+     * ingresada y los muestra en los campos del formulario. Si no se ingresa
+     * ninguna cédula o no se encuentra un conductor con esa cédula, se muestra
+     * un mensaje de error.
+     *
+     * Nota: Antes de llamar a este método, asegúrate de que el campo de texto
+     * 'txtbuscar' contenga la cédula del conductor a buscar.
+     *
+     * @throws NullPointerException Si no se ingresa ninguna cédula
+     */
+    public void Buscar() {
+        Date dateContrato = null;
+        Date dateNacimiento = null;
+        String idCedula = "";
 
-    try {
-        if (this.txtbuscar.getText() != null) {
-            idCedula = this.txtbuscar.getText();
-
-            try {
-                // Consultar el conductor por su cédula
-                ConductorDTO dt = cc.consultabyCedula(idCedula);
-
-                // Mostrar los datos del conductor en los campos correspondientes
-                this.tfCedula.setText(dt.getCedula());
-                this.tfNombres.setText(dt.getNombre());
-                this.tfApellidos.setText(dt.getApellidos());
-                this.tfCorreo.setText(dt.getCorreo());
+        try {
+            if (this.txtbuscar.getText() != null) {
+                idCedula = this.txtbuscar.getText();
 
                 try {
-                    // Convertir las fechas de contrato y nacimiento al formato deseado
-                    dateContrato = dateFormat.parse(dt.getFechaContrato());
-                    dateNacimiento = dateFormat.parse(dt.getFechaNacimiento());
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    // Consultar el conductor por su cédula
+                    ConductorDTO dt = cc.consultabyCedula(idCedula);
+
+                    // Mostrar los datos del conductor en los campos correspondientes
+                    this.tfCedula.setText(dt.getCedula());
+                    this.tfNombres.setText(dt.getNombre());
+                    this.tfApellidos.setText(dt.getApellidos());
+                    this.tfCorreo.setText(dt.getCorreo());
+
+                    try {
+                        // Convertir las fechas de contrato y nacimiento al formato deseado
+                        dateContrato = dateFormat.parse(dt.getFechaContrato());
+                        dateNacimiento = dateFormat.parse(dt.getFechaNacimiento());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Establecer el estado del conductor en el campo correspondiente
+                    if (dt.isEstado()) {
+                        this.cbEstado.setSelectedIndex(1);
+                    } else {
+                        this.cbEstado.setSelectedIndex(2);
+                    }
+
+                    // Establecer el sexo del conductor en el campo correspondiente
+                    if (dt.getSexo().equals("Masculino")) {
+                        this.rbMasculino.setSelected(true);
+                    } else {
+                        this.rbFemenino.setSelected(true);
+                    }
+
+                    // Establecer las fechas de contrato y nacimiento en los campos correspondientes
+                    this.dcContrato.setLocale(new Locale("es"));
+                    this.dcContrato.setDate(dateContrato);
+                    this.dcNacimiento.setDate(dateNacimiento);
+
+                    // Establecer el ID del conductor encontrado
+                    id = dt.getId();
+
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(this, "Ingrese la cédula antes");
                 }
-
-                // Establecer el estado del conductor en el campo correspondiente
-                if (dt.isEstado()) {
-                    this.cbEstado.setSelectedIndex(1);
-                } else {
-                    this.cbEstado.setSelectedIndex(2);
-                }
-
-                // Establecer el sexo del conductor en el campo correspondiente
-                if (dt.getSexo().equals("Masculino")) {
-                    this.rbMasculino.setSelected(true);
-                } else {
-                    this.rbFemenino.setSelected(true);
-                }
-
-                // Establecer las fechas de contrato y nacimiento en los campos correspondientes
-                this.dcContrato.setLocale(new Locale("es"));
-                this.dcContrato.setDate(dateContrato);
-                this.dcNacimiento.setDate(dateNacimiento);
-
-                // Establecer el ID del conductor encontrado
-                id = dt.getId();
-
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "Ingrese la cédula antes");
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese la cédula de un conductor");
             }
-        } else {
+        } catch (NullPointerException b) {
             JOptionPane.showMessageDialog(this, "Ingrese la cédula de un conductor");
         }
-    } catch (NullPointerException b) {
-        JOptionPane.showMessageDialog(this, "Ingrese la cédula de un conductor");
     }
-}
 
-/**
- * Elimina el conductor actualmente seleccionado.
- * Si se elimina correctamente, se muestra un mensaje de confirmación y se realiza la limpieza de campos.
- * Si no se puede eliminar el conductor, se muestra un mensaje de error.
- */
+    /**
+     * Elimina el conductor actualmente seleccionado. Si se elimina
+     * correctamente, se muestra un mensaje de confirmación y se realiza la
+     * limpieza de campos. Si no se puede eliminar el conductor, se muestra un
+     * mensaje de error.
+     */
     public void Eliminar() {
 
         if (cc.eliminarConductor(id)) {
@@ -187,12 +194,13 @@ public class ConductorModificar extends javax.swing.JPanel {
         }
 
     }
-    
-/**
- * Limpia los campos del formulario, restableciéndolos a sus valores predeterminados.
- * Esto incluye borrar el texto en los campos de texto, deseleccionar los botones de opción,
- * establecer las fechas en los componentes de fecha a nulo y restablecer la selección del estado.
- */
+
+    /**
+     * Limpia los campos del formulario, restableciéndolos a sus valores
+     * predeterminados. Esto incluye borrar el texto en los campos de texto,
+     * deseleccionar los botones de opción, establecer las fechas en los
+     * componentes de fecha a nulo y restablecer la selección del estado.
+     */
     public void Limpiar() {
         this.tfCedula.setText(" ");
         this.tfNombres.setText(" ");

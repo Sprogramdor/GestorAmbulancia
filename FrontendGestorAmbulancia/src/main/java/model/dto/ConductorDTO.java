@@ -25,15 +25,15 @@ public class ConductorDTO {
     /**
      * Constructor de la clase ConductorDTO.
      *
-     * @param id              El ID del conductor.
-     * @param cedula          La cédula del conductor.
-     * @param nombre          El nombre del conductor.
-     * @param apellidos       Los apellidos del conductor.
-     * @param correo          El correo electrónico del conductor.
+     * @param id El ID del conductor.
+     * @param cedula La cédula del conductor.
+     * @param nombre El nombre del conductor.
+     * @param apellidos Los apellidos del conductor.
+     * @param correo El correo electrónico del conductor.
      * @param fechaNacimiento La fecha de nacimiento del conductor.
-     * @param fechaContrato   La fecha de contrato del conductor.
-     * @param sexo            El sexo del conductor.
-     * @param estado          El estado del conductor.
+     * @param fechaContrato La fecha de contrato del conductor.
+     * @param sexo El sexo del conductor.
+     * @param estado El estado del conductor.
      */
     public ConductorDTO(Long id, String cedula, String nombre, String apellidos, String correo, String fechaNacimiento,
             String fechaContrato, String sexo, boolean estado) {
@@ -50,9 +50,11 @@ public class ConductorDTO {
     }
 
     /**
-     * Verifica si alguna de las propiedades en el objeto ConductorDTO tiene valores nulos o valores por defecto.
+     * Verifica si alguna de las propiedades en el objeto ConductorDTO tiene
+     * valores nulos o valores por defecto.
      *
-     * @return true si alguna propiedad está vacía o con valor por defecto, false de lo contrario.
+     * @return true si alguna propiedad está vacía o con valor por defecto,
+     * false de lo contrario.
      */
     public boolean PropiedadesVacias() {
         return cedula == null || cedula.isEmpty()
