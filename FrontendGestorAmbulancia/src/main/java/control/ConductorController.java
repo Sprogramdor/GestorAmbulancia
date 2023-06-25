@@ -18,6 +18,9 @@ import model.dto.ConductorDTO;
  */
 public class ConductorController {
 
+    public  ConductorController(){  // agrego constructor
+
+    }
     /**
      * Consulta la API de conductores y devuelve una lista de objetos Conductor.
      *
@@ -78,14 +81,15 @@ public class ConductorController {
      * null si no se encuentra ningún conductor.
      * @throws IOException Si ocurre un error durante la consulta.
      */
-    public ConductorDTO consultabyCedula(String cedula) throws IOException {
-        for (ConductorDTO c : this.obtenerConductores()) {
-            if (c.getCedula().equals(cedula)) {
-                return c;
+    public ConductorDTO consultaByCedula(final String cedula) throws IOException {
+        ConductorDTO conductorVariable=null;
+        for ( ConductorDTO cdt: this.obtenerConductores()) {
+            if (cdt.getCedula().equals(cedula)) {
+                conductorVariable=cdt;
             }
         }
 
-        return null;
+        return conductorVariable;
     }
 
     /**
@@ -95,7 +99,8 @@ public class ConductorController {
      * registrar
      * @return true si el registro fue exitoso, false en caso contrario
      */
-    public boolean registrarConductor(ConductorDTO conductor) {
+    public boolean registrarConductor(final ConductorDTO conductor) {
+        boolean returnValue=false;
         // Crear un objeto Gson para convertir el objeto Model a JSON
         Gson gson = new Gson();
 
@@ -120,13 +125,13 @@ public class ConductorController {
         try ( Response response = client.newCall(request).execute()) {
             // Manejar la respuesta de la API, como obtener el código de estado, el cuerpo de la respuesta, etc.
             // Devolver true si el registro fue exitoso, false en caso contrario
-            return response.isSuccessful();
+            returnValue= response.isSuccessful();
         } catch (IOException e) {
             // Manejar errores de conexión o solicitud HTTP
             //e.printStackTrace();
         }
 
-        return false;
+        return returnValue;
     }
 
     /**
@@ -134,10 +139,10 @@ public class ConductorController {
      *
      * @param cdt El objeto ConductorDTO que contiene los datos actualizados del
      * conductor.
-     * @return true si la actualización fue exitosa, false si ocurrió un error.
+     * @return  "r" true si la actualización fue exitosa, false si ocurrió un error.
      */
-    public boolean actualizarDatos(ConductorDTO cdt) {
-
+    public boolean actualizarDatos(final ConductorDTO cdt) {
+        boolean returnValue; // Variable que se retorna
         JSONObject json = new JSONObject();
         json.put("cedula", cdt.getCedula());
         json.put("nombre", cdt.getNombre());
@@ -167,20 +172,22 @@ public class ConductorController {
 
                 // Manejar la respuesta según sea necesario
                 // Retorna true para indicar que la respuesta fue exitosa
-                return true;
+                returnValue= true;
             } else {
                 // La solicitud no fue exitosa
                 // Manejar el error
 
-                // Retorna false para indicar que la respuesta no fue exitosa
-                return false;
+                // Asigna false para indicar que la respuesta no fue exitosa
+                returnValue= false;
             }
         } catch (IOException e) {
             // Ocurrió un error de red u otra excepción
 
-            // Retorna false para indicar que ocurrió un error
-            return false;
+            // Asigna false para indicar que ocurrió un error
+            returnValue= false;
         }
+
+        return returnValue;
     }
 
     /**
@@ -189,7 +196,8 @@ public class ConductorController {
      * @param idConductor El ID del conductor a eliminar.
      * @return true si la eliminación fue exitosa, false si ocurrió un error.
      */
-    public boolean eliminarConductor(long idConductor) {
+    public boolean eliminarConductor(final long idConductor) {
+        boolean returnValue; // variable de retorno
         OkHttpClient client = new OkHttpClient();
 
         // Construye la URL con el ID del conductor
@@ -207,20 +215,21 @@ public class ConductorController {
                 // Manejar la respuesta según sea necesario
 
                 // Retorna true para indicar que la eliminación fue exitosa
-                return true;
+                returnValue= true;
             } else {
                 // La solicitud no fue exitosa
                 // Manejar el error
 
                 // Retorna false para indicar que la eliminación no fue exitosa
-                return false;
+                returnValue= false;
             }
         } catch (IOException e) {
             // Ocurrió un error de red u otra excepción
 
             // Retorna false para indicar que ocurrió un error
-            return false;
+            returnValue= false;
         }
+        return returnValue;
     }
 
 }

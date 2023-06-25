@@ -21,6 +21,7 @@ public class ConductorRegistrar extends javax.swing.JPanel {
     ButtonGroup buttonGroup = new ButtonGroup();
 
     public ConductorRegistrar() {
+        super();
         initComponents();
 
         buttonGroup.add(this.rbMasculino);
@@ -39,44 +40,44 @@ public class ConductorRegistrar extends javax.swing.JPanel {
      * limpian los campos del formulario. Si ocurre algún error durante el
      * registro, se muestra un mensaje de error.
      */
-    public void Registrar() {
+    public void registrar() {
         String sexo;
 
-        ConductorDTO cd = new ConductorDTO();
-        cd.setCedula(this.tfCedula.getText());
-        cd.setNombre(this.tfNombres.getText());
-        cd.setApellidos(this.tfApellidos.getText());
-        cd.setCorreo(this.tfCorreo.getText());
+        ConductorDTO conductorDTO = new ConductorDTO();
+        conductorDTO.setCedula(this.tfCedula.getText());
+        conductorDTO.setNombre(this.tfNombres.getText());
+        conductorDTO.setApellidos(this.tfApellidos.getText());
+        conductorDTO.setCorreo(this.tfCorreo.getText());
 
         // Obtener la fecha seleccionada
-        Date fechascontrato = this.dcContrato.getDate();
+        final Date fechascontrato = this.dcContrato.getDate();
 
         // Verificar si se ha seleccionado una fecha
         if (fechascontrato != null) {
             // Convertir la fecha a un objeto Timestamp
 
-            cd.setFechaNacimiento(dateFormat.format(this.dcNacimiento.getDate()));
-            cd.setFechaContrato(dateFormat.format(this.dcContrato.getDate()));
+            conductorDTO.setFechaNacimiento(dateFormat.format(this.dcNacimiento.getDate()));
+            conductorDTO.setFechaContrato(dateFormat.format(this.dcContrato.getDate()));
         }
         if (this.rbMasculino.isSelected()) {
             sexo = "Masculino";
         } else {
             sexo = "Femenino";
         }
-        cd.setSexo(sexo);
+        conductorDTO.setSexo(sexo);
         if (this.cbEstado.getSelectedItem().toString().equals("Disponible")) {
-            cd.setEstado(true);
+            conductorDTO.setEstado(true);
         } else {
-            cd.setEstado(false);
+            conductorDTO.setEstado(false);
         }
 
-        ConductorController cc = new ConductorController();
+        final  ConductorController conductorController = new ConductorController();
 
-        if (cd.PropiedadesVacias()) {
+        if (conductorDTO.propiedadesVacias()) {
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
         } else {
 
-            if (cc.registrarConductor(cd)) {
+            if (conductorController.registrarConductor(conductorDTO)) {
                 JOptionPane.showMessageDialog(this, "Registro realizado con Exito");
                 this.tfCedula.setText(" ");
                 this.tfNombres.setText(" ");
@@ -314,7 +315,7 @@ public class ConductorRegistrar extends javax.swing.JPanel {
 
     private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
 
-        this.Registrar();
+        this.registrar();
 
 
     }//GEN-LAST:event_btnAgregarMouseClicked

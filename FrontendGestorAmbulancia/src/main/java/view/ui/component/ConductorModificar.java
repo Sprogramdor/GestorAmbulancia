@@ -1,6 +1,7 @@
 package view.ui.component;
 
 import control.ConductorController;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,10 +9,10 @@ import java.util.Date;
 import java.util.Locale;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+
 import model.dto.ConductorDTO;
 
 /**
- *
  * @author Jesus
  */
 public class ConductorModificar extends javax.swing.JPanel {
@@ -22,12 +23,12 @@ public class ConductorModificar extends javax.swing.JPanel {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     // Agrupar los botones de opción en un ButtonGroup
     ButtonGroup buttonGroup = new ButtonGroup();
-    ConductorController cc = new ConductorController();
+    ConductorController conductorController = new ConductorController();
     long id;
 
     public ConductorModificar() {
+        super();
         initComponents();
-
         buttonGroup.add(this.rbMasculino);
         buttonGroup.add(this.rbFemenino);
         // Definir el formato de fecha deseado
@@ -44,33 +45,33 @@ public class ConductorModificar extends javax.swing.JPanel {
      * limpian los campos del formulario. Si ocurre algún error durante la
      * actualización, se muestra un mensaje de error.
      */
-    public void Modificar() {
+    public void modificar() {
         String sexo;
-        ConductorController cc = new ConductorController();
-        ConductorDTO cd = new ConductorDTO();
+        final ConductorController conductorController = new ConductorController();
+        final ConductorDTO conductorDTO = new ConductorDTO();
 
         // Obtener los datos del formulario
-        cd.setCedula(this.tfCedula.getText());
-        cd.setNombre(this.tfNombres.getText());
-        cd.setApellidos(this.tfApellidos.getText());
-        cd.setCorreo(this.tfCorreo.getText());
+        conductorDTO.setCedula(this.tfCedula.getText());
+        conductorDTO.setNombre(this.tfNombres.getText());
+        conductorDTO.setApellidos(this.tfApellidos.getText());
+        conductorDTO.setCorreo(this.tfCorreo.getText());
 
         // Obtener la fecha de contrato seleccionada
-        Date fechaContrato = this.dcContrato.getDate();
+        final Date fechaContrato = this.dcContrato.getDate();
 
         // Verificar si se ha seleccionado una fecha de contrato
         if (fechaContrato != null) {
             // Convertir la fecha a un formato deseado y establecerla en el objeto ConductorDTO
-            cd.setFechaContrato(dateFormat.format(fechaContrato));
+            conductorDTO.setFechaContrato(dateFormat.format(fechaContrato));
         }
 
         // Obtener la fecha de nacimiento seleccionada
-        Date fechaNacimiento = this.dcNacimiento.getDate();
+        final Date fechaNacimiento = this.dcNacimiento.getDate();
 
         // Verificar si se ha seleccionado una fecha de nacimiento
         if (fechaNacimiento != null) {
             // Convertir la fecha a un formato deseado y establecerla en el objeto ConductorDTO
-            cd.setFechaNacimiento(dateFormat.format(fechaNacimiento));
+            conductorDTO.setFechaNacimiento(dateFormat.format(fechaNacimiento));
         }
 
         // Obtener el sexo seleccionado
@@ -79,27 +80,27 @@ public class ConductorModificar extends javax.swing.JPanel {
         } else {
             sexo = "Femenino";
         }
-        cd.setSexo(sexo);
+        conductorDTO.setSexo(sexo);
 
         // Obtener el estado seleccionado
         if (this.cbEstado.getSelectedItem().toString().equals("Disponible")) {
-            cd.setEstado(true);
+            conductorDTO.setEstado(true);
         } else {
-            cd.setEstado(false);
+            conductorDTO.setEstado(false);
         }
 
         // Establecer el ID del conductor a modificar
-        cd.setId(id);
+        conductorDTO.setId(id);
 
         // Verificar si hay propiedades vacías en el objeto ConductorDTO
-        if (cd.PropiedadesVacias()) {
+        if (conductorDTO.propiedadesVacias()) {
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los datos");
-            System.out.println(cd.toString());
+            System.out.println(conductorDTO.toString());
         } else {
             // Actualizar los datos del conductor
-            if (cc.actualizarDatos(cd)) {
+            if (conductorController.actualizarDatos(conductorDTO)) {
                 JOptionPane.showMessageDialog(this, "Actualización realizada con éxito");
-                this.Limpiar();
+                this.limpiar();
             } else {
                 JOptionPane.showMessageDialog(this, "Problemas para actualizar datos");
             }
@@ -112,13 +113,13 @@ public class ConductorModificar extends javax.swing.JPanel {
      * ingresada y los muestra en los campos del formulario. Si no se ingresa
      * ninguna cédula o no se encuentra un conductor con esa cédula, se muestra
      * un mensaje de error.
-     *
+     * <p>
      * Nota: Antes de llamar a este método, asegúrate de que el campo de texto
      * 'txtbuscar' contenga la cédula del conductor a buscar.
      *
      * @throws NullPointerException Si no se ingresa ninguna cédula
      */
-    public void Buscar() {
+    public void buscar() {
         Date dateContrato = null;
         Date dateNacimiento = null;
         String idCedula = "";
@@ -129,31 +130,31 @@ public class ConductorModificar extends javax.swing.JPanel {
 
                 try {
                     // Consultar el conductor por su cédula
-                    ConductorDTO dt = cc.consultabyCedula(idCedula);
+                    final ConductorDTO conductorDTO = conductorController.consultaByCedula(idCedula);
 
                     // Mostrar los datos del conductor en los campos correspondientes
-                    this.tfCedula.setText(dt.getCedula());
-                    this.tfNombres.setText(dt.getNombre());
-                    this.tfApellidos.setText(dt.getApellidos());
-                    this.tfCorreo.setText(dt.getCorreo());
+                    this.tfCedula.setText(conductorDTO.getCedula());
+                    this.tfNombres.setText(conductorDTO.getNombre());
+                    this.tfApellidos.setText(conductorDTO.getApellidos());
+                    this.tfCorreo.setText(conductorDTO.getCorreo());
 
                     try {
                         // Convertir las fechas de contrato y nacimiento al formato deseado
-                        dateContrato = dateFormat.parse(dt.getFechaContrato());
-                        dateNacimiento = dateFormat.parse(dt.getFechaNacimiento());
+                        dateContrato = dateFormat.parse(conductorDTO.getFechaContrato());
+                        dateNacimiento = dateFormat.parse(conductorDTO.getFechaNacimiento());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
 
                     // Establecer el estado del conductor en el campo correspondiente
-                    if (dt.isEstado()) {
+                    if (conductorDTO.isEstado()) {
                         this.cbEstado.setSelectedIndex(1);
                     } else {
                         this.cbEstado.setSelectedIndex(2);
                     }
 
                     // Establecer el sexo del conductor en el campo correspondiente
-                    if (dt.getSexo().equals("Masculino")) {
+                    if (conductorDTO.getSexo().equals("Masculino")) {
                         this.rbMasculino.setSelected(true);
                     } else {
                         this.rbFemenino.setSelected(true);
@@ -165,7 +166,7 @@ public class ConductorModificar extends javax.swing.JPanel {
                     this.dcNacimiento.setDate(dateNacimiento);
 
                     // Establecer el ID del conductor encontrado
-                    id = dt.getId();
+                    id = conductorDTO.getId();
 
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Ingrese la cédula antes");
@@ -184,11 +185,11 @@ public class ConductorModificar extends javax.swing.JPanel {
      * limpieza de campos. Si no se puede eliminar el conductor, se muestra un
      * mensaje de error.
      */
-    public void Eliminar() {
+    public void eliminar() {
 
-        if (cc.eliminarConductor(id)) {
+        if (conductorController.eliminarConductor(id)) {
             JOptionPane.showMessageDialog(this, "Conducto Eliminado");
-            this.Limpiar();
+            this.limpiar();
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo Eliminar conductor");
         }
@@ -201,7 +202,7 @@ public class ConductorModificar extends javax.swing.JPanel {
      * deseleccionar los botones de opción, establecer las fechas en los
      * componentes de fecha a nulo y restablecer la selección del estado.
      */
-    public void Limpiar() {
+    public void limpiar() {
         this.tfCedula.setText(" ");
         this.tfNombres.setText(" ");
         this.tfApellidos.setText(" ");
@@ -260,18 +261,18 @@ public class ConductorModificar extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(323, 323, 323)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(323, 323, 323)
+                                .addComponent(jLabel1)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addContainerGap())
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, -1));
@@ -303,7 +304,7 @@ public class ConductorModificar extends javax.swing.JPanel {
         add(tfApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 263, 190, -1));
 
         cbEstado.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccionar-", "Disponible", "No disponible" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"-Seleccionar-", "Disponible", "No disponible"}));
         add(cbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 314, 190, -1));
 
         tfCedula.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -377,15 +378,15 @@ public class ConductorModificar extends javax.swing.JPanel {
 
     private void btnActualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarMouseClicked
 
-        this.Modificar();
+        this.modificar();
     }//GEN-LAST:event_btnActualizarMouseClicked
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
-        this.Eliminar();
+        this.eliminar();
     }//GEN-LAST:event_btnEliminarMouseClicked
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
-        this.Buscar();
+        this.buscar();
     }//GEN-LAST:event_btnBuscarMouseClicked
 
 

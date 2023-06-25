@@ -56,7 +56,7 @@ public class ConductorDTO {
      * @return true si alguna propiedad está vacía o con valor por defecto,
      * false de lo contrario.
      */
-    public boolean PropiedadesVacias() {
+    public  boolean propiedadesVacias() {
         return cedula == null || cedula.isEmpty()
                 || nombre == null || nombre.isEmpty()
                 || apellidos == null || apellidos.isEmpty()
