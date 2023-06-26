@@ -129,7 +129,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        btnCerrarSesión = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lblHora = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
@@ -182,14 +182,14 @@ public class FrmMenu extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(31, 30, 68));
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnCerrarSesión.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        btnCerrarSesión.setForeground(new java.awt.Color(255, 255, 255));
-        btnCerrarSesión.setText("Cerrar Sesión");
-        btnCerrarSesión.setContentAreaFilled(false);
-        btnCerrarSesión.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnCerrarSesión.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setContentAreaFilled(false);
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesiónActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -197,11 +197,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnCerrarSesión, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnCerrarSesión, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 485, 172, 50));
@@ -258,7 +258,7 @@ public class FrmMenu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarSesiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesiónActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesiónActionPerformed
         // TODO add your handling code here:
         FrmLogin frmLogin = new FrmLogin();
         frmLogin.setVisible(true);
@@ -267,7 +267,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
-    private javax.swing.JButton btnCerrarSesión;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;

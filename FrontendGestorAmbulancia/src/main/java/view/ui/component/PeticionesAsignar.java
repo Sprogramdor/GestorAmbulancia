@@ -17,6 +17,7 @@ public class PeticionesAsignar extends javax.swing.JPanel {
     private PeticionController peticionController;
     /**
      * Creates new form ClienteRegistro
+     * @throws  java.lang.Exception
      */
     public PeticionesAsignar() throws Exception {
         initComponents();

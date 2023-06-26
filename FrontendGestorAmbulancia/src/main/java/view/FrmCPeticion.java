@@ -20,7 +20,7 @@ public class FrmCPeticion extends javax.swing.JFrame {
 
     /**
      * Creates new form FrmCPeticion
-     *
+     * @param  nombre de tipo string
      */
     public FrmCPeticion(String nombre) {
         initComponents();
@@ -71,7 +71,7 @@ public class FrmCPeticion extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnCerrarSesión = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         lblHora = new javax.swing.JLabel();
         lblFecha = new javax.swing.JLabel();
@@ -196,14 +196,14 @@ public class FrmCPeticion extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(31, 30, 68));
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        btnCerrarSesión.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        btnCerrarSesión.setForeground(new java.awt.Color(255, 255, 255));
-        btnCerrarSesión.setText("Cerrar Sesión");
-        btnCerrarSesión.setContentAreaFilled(false);
-        btnCerrarSesión.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnCerrarSesión.addActionListener(new java.awt.event.ActionListener() {
+        btnCerrarSesion.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setText("Cerrar Sesión");
+        btnCerrarSesion.setContentAreaFilled(false);
+        btnCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCerrarSesiónActionPerformed(evt);
+                btnCerrarSesionActionPerformed(evt);
             }
         });
 
@@ -211,11 +211,11 @@ public class FrmCPeticion extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnCerrarSesión, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnCerrarSesión, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+            .addComponent(btnCerrarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 493, 170, 47));
@@ -380,7 +380,7 @@ public class FrmCPeticion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCerrarSesiónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesiónActionPerformed
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesiónActionPerformed
         // TODO add your handling code here:
         FrmLogin frmLogin = new FrmLogin();
         frmLogin.setVisible(true);
@@ -419,7 +419,7 @@ public class FrmCPeticion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCerrarSesión;
+    private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;
