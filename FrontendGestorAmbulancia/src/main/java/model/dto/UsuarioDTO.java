@@ -3,7 +3,7 @@ package model.dto;
 import java.util.Date;
 
 /**
- * Clase que representa los datos de un usuario.
+ * Clase que representa los datos de un usuario estructura de datos .
  */
 public class UsuarioDTO {
 
